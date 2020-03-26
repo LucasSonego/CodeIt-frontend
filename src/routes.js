@@ -9,8 +9,8 @@ import Home from "./components/Home";
 const Routes = () => (
   <BrowserRouter>
     <Switch>
-      <PrivateRoute exact path="/" component={() => <h2>Home</h2>} />
-      <Route path="/login" component={() => <h2>Login</h2>} />
+      <PrivateRoute exact path="/" component={Home} />
+      <Route path="/login" component={Loign} />
       <Route path="/cadastro" component={() => <h2>Cadastro</h2>} />
     </Switch>
   </BrowserRouter>
