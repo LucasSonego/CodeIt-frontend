@@ -5,6 +5,7 @@ import logo from "../../assets/logocodeit.svg";
 
 import { Container } from "./styles";
 import { useHistory } from "react-router-dom";
+import TextField from "../UI/TextField";
 
 export default function Login() {
   const history = useHistory();
@@ -46,20 +47,19 @@ export default function Login() {
     <Container>
       <form onSubmit={handleLogin}>
         <img src={logo} alt="CodeIt!" />
-        <h1>Login</h1>
+        <h1>Cadastro</h1>
 
-        <span>email</span>
-        <input
+        <TextField
+          label="email"
           type="email"
-          spellCheck="false"
           value={email}
-          onChange={e => setEmail(e.target.value)}
+          onChange={setEmail}
         />
-        <span>senha</span>
-        <input
+        <TextField
+          label="senha"
           type="password"
           value={password}
-          onChange={e => setPassword(e.target.value)}
+          onChange={setPassword}
         />
         <p className="error">{error}</p>
         <div>

@@ -27,30 +27,11 @@ export const Container = styled.div`
     margin-bottom: 0;
   }
 
-  span {
-    color: #999;
-    margin: 30px 0 5px 5px;
-  }
-
   p {
     min-height: 40px;
     color: #e74c3c;
     font-size: 16px;
     margin: 5px 0 0 0;
-  }
-
-  input {
-    font-family: inherit;
-    font-size: 16px;
-    color: #999;
-    padding: 0 10px;
-    outline: none;
-    height: 40px;
-    border-radius: 0;
-    border: 1px solid #999;
-    &:focus {
-      border: 1px solid #00adb5;
-    }
   }
 
   div {
