@@ -49,7 +49,7 @@ export default function Login() {
     <Container>
       <form onSubmit={handleLogin}>
         <img src={logo} alt="CodeIt!" />
-        <h1>Cadastro</h1>
+        <h1>Login</h1>
 
         <TextField
           label="email"

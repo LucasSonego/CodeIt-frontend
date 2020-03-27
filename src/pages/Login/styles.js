@@ -13,10 +13,21 @@ export const Container = styled.div`
     padding: 50px;
     border: 1px solid #999;
     border-radius: 8px;
+
+    @media (max-width: 600px) {
+      border: none;
+      height: 100%;
+      width: 100vw;
+      justify-content: center;
+    }
   }
 
   img {
     height: 100px;
+
+    @media (max-width: 400px) {
+      height: 70px;
+    }
   }
 
   h1 {
@@ -25,6 +36,10 @@ export const Container = styled.div`
     font-size: 40px;
     font-weight: normal;
     margin-bottom: 0;
+
+    @media (max-width: 600px) {
+      font-size: 26px;
+    }
   }
 
   p {
@@ -53,6 +68,15 @@ export const Container = styled.div`
 
       &:hover {
         opacity: 0.8;
+      }
+    }
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+
+      button {
+        width: 100%;
+        margin-bottom: 10px;
       }
     }
   }

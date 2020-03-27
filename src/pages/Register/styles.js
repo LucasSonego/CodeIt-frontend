@@ -14,10 +14,22 @@ export const Container = styled.div`
     border: 1px solid #999;
     border-radius: 8px;
     margin: 40px 0 40px 0;
+
+    @media (max-width: 600px) {
+      border: none;
+      height: 100%;
+      width: 100vw;
+      justify-content: center;
+      margin: 0;
+    }
   }
 
   img {
     height: 100px;
+
+    @media (max-width: 400px) {
+      height: 70px;
+    }
   }
 
   h1 {
@@ -26,6 +38,10 @@ export const Container = styled.div`
     font-size: 40px;
     font-weight: normal;
     margin-bottom: 0;
+
+    @media (max-width: 600px) {
+      font-size: 26px;
+    }
   }
 
   p {
