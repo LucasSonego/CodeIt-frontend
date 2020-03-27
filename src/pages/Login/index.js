@@ -5,7 +5,7 @@ import logo from "../../assets/logocodeit.svg";
 
 import { Container } from "./styles";
 import { useHistory } from "react-router-dom";
-import TextField from "../UI/TextField";
+import TextField from "../../components/UI/TextField";
 
 export default function Login() {
   const history = useHistory();
@@ -32,7 +32,9 @@ export default function Login() {
       });
 
       if (response.data.token) {
+        localStorage.clear();
         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
 
         history.push("/");
       } else {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import TextField from "../UI/TextField";
+import TextField from "../../components/UI/TextField";
 
 import api from "../../services/api";
 import logo from "../../assets/logocodeit.svg";
