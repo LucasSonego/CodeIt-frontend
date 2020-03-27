@@ -1,16 +1,22 @@
 import React from "react";
 
-import { Container } from "./styles";
+import { Container, StyledInput } from "./styles";
 
-export default function TextField(props) {
+export default function TextField(
+  { label, type, value, onChange, error, onFocus },
+  { ...rest }
+) {
   return (
     <Container>
-      <span>{props.label}</span>
-      <input
-        type={props.type}
-        value={props.value}
-        onChange={e => props.onChange(e.target.value)}
+      <span>{label}</span>
+      <StyledInput
+        type={type}
+        value={value}
+        onChange={e => onChange(e.target.value)}
+        error={error}
+        onFocus={onFocus}
         spellCheck="false"
+        {...rest}
       />
     </Container>
   );
