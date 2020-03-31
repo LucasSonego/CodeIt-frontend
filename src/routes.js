@@ -10,6 +10,7 @@ import Loign from "./pages/Login";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import NavBar from "./components/UI/NavBar";
+import ErrorPage from "./pages/404";
 
 const Routes = () => (
   <Provider store={store}>
@@ -29,6 +30,7 @@ const Routes = () => (
         />
         <PrivateRoute path="/tarefas" component={() => <h2>Tarefas</h2>} />
         <PrivateRoute path="/feedbacks" component={() => <h2>Feedbacks</h2>} />
+        <Route component={ErrorPage} />
       </Switch>
     </BrowserRouter>
   </Provider>

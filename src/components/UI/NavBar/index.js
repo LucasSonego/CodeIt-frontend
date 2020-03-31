@@ -39,7 +39,11 @@ export default function NavBar() {
   return (
     <Container
       className="navBar"
-      visible={currentPage !== "cadastro" && currentPage !== "login"}
+      visible={
+        currentPage !== "cadastro" &&
+        currentPage !== "login" &&
+        currentPage !== "404"
+      }
     >
       <ul>
         <NavItem key="home" currentPage={currentPage === ""}>
