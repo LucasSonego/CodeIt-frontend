@@ -25,7 +25,7 @@ export const Container = styled.div`
   }
 
   img {
-    height: 100px;
+    height: 70px;
 
     @media (max-width: 400px) {
       height: 70px;

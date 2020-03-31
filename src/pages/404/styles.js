@@ -8,7 +8,7 @@ export const Container = styled.div`
   justify-content: center;
 
   img {
-    height: 100px;
+    height: 70px;
   }
 
   h1 {
