@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import api from "../../services/api";
 import logo from "../../assets/logocodeit.svg";
@@ -14,6 +15,18 @@ export default function Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const currentPage = useSelector(state => state.currentPage);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (currentPage !== "login") {
+      dispatch({
+        type: "SET_CURRENT_PAGE",
+        page: "login"
+      });
+    }
+  }, [currentPage, dispatch]);
 
   async function handleLogin(e) {
     e.preventDefault();
@@ -36,6 +49,10 @@ export default function Login() {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data.user));
 
+        dispatch({
+          type: "SET_CURRENT_PAGE",
+          page: ""
+        });
         history.push("/");
       } else {
         console.log(response.data);

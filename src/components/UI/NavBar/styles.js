@@ -6,6 +6,12 @@ export const Container = styled.nav`
   font-family: inherit;
   font-size: 18px;
 
+  ${props =>
+    !props.visible &&
+    css`
+      display: none;
+    `}
+
   ul {
     margin: 0;
     padding: 0;
@@ -18,7 +24,16 @@ export const Container = styled.nav`
     height: 80px;
   }
 
-  .navLink {
+  button {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    background: none;
+    border: none;
+    outline: none;
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -78,6 +93,10 @@ export const Container = styled.nav`
     height: 60px;
     bottom: 0;
 
+    button {
+      justify-content: center;
+    }
+
     ul {
       flex-direction: row;
     }
@@ -104,6 +123,7 @@ export const NavItem = styled.li`
   height: 80px;
   display: flex;
   align-items: center;
+  box-sizing: border-box;
 
   &:last-child {
     margin-top: auto;
@@ -117,19 +137,21 @@ export const NavItem = styled.li`
     props.currentPage &&
     css`
       @media (min-width: 600px) {
-        box-sizing: border-box;
         border-left: 4px solid #eee;
         background-color: #444;
 
         svg {
-          margin: 20px 24px 20px 16px;
+          margin: 20px 20px 20px 16px;
           color: #eee;
+        }
+
+        img {
+          margin: auto 17px auto 13px;
         }
       }
 
       @media (max-width: 600px) {
         background-color: #555;
-        box-sizing: border-box;
         border-bottom: 4px solid #eee;
         svg {
           color: #fff;

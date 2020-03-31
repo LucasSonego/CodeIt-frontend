@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 import TextField from "../../components/UI/TextField";
 
@@ -10,6 +11,18 @@ import { Container } from "./styles";
 import AccountType from "./AccountType";
 
 export default function Register() {
+  const currentPage = useSelector(state => state.currentPage);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (currentPage !== "cadastro") {
+      dispatch({
+        type: "SET_CURRENT_PAGE",
+        page: "cadastro"
+      });
+    }
+  }, [currentPage, dispatch]);
+
   const history = useHistory();
 
   const [formError, setFormError] = useState("");
