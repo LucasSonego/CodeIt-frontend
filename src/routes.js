@@ -10,6 +10,7 @@ import Loign from "./pages/Login";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
 import NavBar from "./components/UI/NavBar";
+import User from "./pages/User";
 import ErrorPage from "./pages/404";
 
 const Routes = () => (
@@ -20,10 +21,7 @@ const Routes = () => (
         <Route path="/login" component={Loign} />
         <Route path="/cadastro" component={Register} />
         <PrivateRoute exact path="/" component={Home} />
-        <PrivateRoute
-          path="/dados"
-          component={() => <h2>Dados de usuario</h2>}
-        />
+        <PrivateRoute path="/dados" component={User} />
         <PrivateRoute
           path="/disciplinas"
           component={() => <h2>Disciplinas</h2>}

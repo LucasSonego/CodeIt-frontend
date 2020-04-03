@@ -2,15 +2,29 @@ import React from "react";
 
 import { Container } from "./styles";
 
-export default function EditableContentBox(props) {
+export default function EditableContentBox({
+  error,
+  label,
+  inputType,
+  value,
+  onChange,
+  onFocus
+}) {
   return (
-    <Container error={props.error}>
-      {props.label && <span>{props.label}</span>}
+    <Container error={error}>
+      {label && <span>{label}</span>}
       <input
-        type={props.inputType || "text"}
-        value={props.value || ""}
-        onChange={props.onChange}
+        type={inputType || "text"}
+        value={value || ""}
+        onChange={onChange}
         spellCheck="false"
+        onFocus={onFocus}
+        required=""
+        onInvalid={e =>
+          inputType === "email" &&
+          e.target.setCustomValidity("Este não é um email válido")
+        }
+        onInput={e => inputType === "email" && e.target.setCustomValidity("")}
       />
     </Container>
   );
