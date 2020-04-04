@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { store } from "react-notifications-component";
 
 import api from "../../services/api";
 
 import { Container, UserData } from "./styles";
 import EditableContentBox from "../../components/UI/EditableContentBox";
 import TextField from "../../components/UI/TextField";
+import NotificationBody from "../../components/Notification";
 
 export default function User() {
   const dispatch = useDispatch();
@@ -28,10 +30,10 @@ export default function User() {
         await api
           .get("/user", {
             headers: {
-              Authorization: `Bearer ${token}`
-            }
+              Authorization: `Bearer ${token}`,
+            },
           })
-          .then(response => {
+          .then((response) => {
             localStorage.setItem("user", JSON.stringify(response.data));
             setUserData(response.data);
             setNewUserData(response.data);
@@ -41,7 +43,7 @@ export default function User() {
           if (error.response.status === 401) {
             dispatch({
               type: "SET_CURRENT_PAGE",
-              page: "login"
+              page: "login",
             });
             history.push("/login");
           }
@@ -51,7 +53,7 @@ export default function User() {
 
     dispatch({
       type: "SET_CURRENT_PAGE",
-      page: "dados"
+      page: "dados",
     });
 
     getUserData();
@@ -70,8 +72,8 @@ export default function User() {
         const token = localStorage.getItem("token");
         const authentication = {
           headers: {
-            authorization: `Bearer ${token}`
-          }
+            authorization: `Bearer ${token}`,
+          },
         };
 
         await api
@@ -79,12 +81,31 @@ export default function User() {
             "users",
             {
               name: newUserData.name,
-              email: newUserData.email
+              email: newUserData.email,
             },
             authentication
           )
-          .then(response => {
+          .then((response) => {
             localStorage.setItem("user", JSON.stringify(response.data));
+            setUserData(response.data);
+            setNewUserData(response.data);
+            const content = (
+              <NotificationBody
+                type="success"
+                message="Seus dados foram atualizados"
+              />
+            );
+            store.addNotification({
+              content,
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animated", "fadeIn"],
+              animationOut: ["animated", "fadeOut"],
+              dismiss: {
+                duration: 4000,
+                onScreen: false,
+              },
+            });
           });
       } catch (error) {
         if (error.response) {
@@ -114,15 +135,15 @@ export default function User() {
 
         const authentication = {
           headers: {
-            authorization: `Bearer ${token}`
-          }
+            authorization: `Bearer ${token}`,
+          },
         };
         await api
           .put(
             "users",
             {
               oldPassword,
-              password: newPassword
+              password: newPassword,
             },
             authentication
           )
@@ -130,6 +151,23 @@ export default function User() {
             setOldPassword("");
             setNewPassword("");
             setConfirmPassword("");
+            const content = (
+              <NotificationBody
+                type="success"
+                message="Sua senha foi atualizada"
+              />
+            );
+            store.addNotification({
+              content,
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animated", "fadeIn"],
+              animationOut: ["animated", "fadeOut"],
+              dismiss: {
+                duration: 4000,
+                onScreen: false,
+              },
+            });
           });
       } catch (error) {
         if (error.response) {
@@ -153,7 +191,7 @@ export default function User() {
           <EditableContentBox
             label="Nome"
             value={newUserData.name}
-            onChange={event =>
+            onChange={(event) =>
               setNewUserData({ ...newUserData, name: event.target.value })
             }
           />
@@ -162,7 +200,7 @@ export default function User() {
             label="email"
             inputType="email"
             value={newUserData.email}
-            onChange={event =>
+            onChange={(event) =>
               setNewUserData({ ...newUserData, email: event.target.value })
             }
             error={emailError}
@@ -175,7 +213,6 @@ export default function User() {
         <form className="changePassword" onSubmit={updatePassword}>
           <h3>Alterar senha</h3>
           <TextField
-            className="inputdocaraio"
             label="Sua senha"
             type="password"
             value={oldPassword}
