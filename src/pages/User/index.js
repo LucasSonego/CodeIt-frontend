@@ -41,10 +41,29 @@ export default function User() {
       } catch (error) {
         if (error.response) {
           if (error.response.status === 401) {
+            const content = (
+              <NotificationBody
+                type="error"
+                message="Sua sessão expirou"
+                description="Faça Login novamente"
+              />
+            );
+            store.addNotification({
+              content,
+              insert: "top",
+              container: "top-right",
+              animationIn: ["animated", "fadeIn"],
+              animationOut: ["animated", "fadeOut"],
+              dismiss: {
+                duration: 4000,
+                onScreen: false,
+              },
+            });
             dispatch({
               type: "SET_CURRENT_PAGE",
               page: "login",
             });
+            localStorage.clear();
             history.push("/login");
           }
         }

@@ -1,10 +1,15 @@
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   border-radius: 4px;
-  height: 40px;
+  min-height: 20px;
+  height: max-content;
   width: 100%;
-  padding: 10px;
+  padding: 20px;
   ${(props) =>
     props.type === "success" &&
     css`
