@@ -16,14 +16,14 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const currentPage = useSelector(state => state.currentPage);
+  const currentPage = useSelector((state) => state.currentPage);
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (currentPage !== "login") {
       dispatch({
         type: "SET_CURRENT_PAGE",
-        page: "login"
+        page: "login",
       });
     }
   }, [currentPage, dispatch]);
@@ -41,7 +41,7 @@ export default function Login() {
     try {
       response = await api.post("/sessions", {
         email,
-        password
+        password,
       });
 
       if (response.data.token) {
@@ -51,7 +51,7 @@ export default function Login() {
 
         dispatch({
           type: "SET_CURRENT_PAGE",
-          page: ""
+          page: "",
         });
         history.push("/");
       } else {
@@ -82,8 +82,10 @@ export default function Login() {
         />
         <p className="error">{error}</p>
         <div>
+          <button type="button" onClick={() => history.push("/cadastro")}>
+            Cadastre-se
+          </button>
           <button type="submit">Entrar</button>
-          <button onClick={() => history.push("/cadastro")}>Cadastre-se</button>
         </div>
       </form>
     </Container>
