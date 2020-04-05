@@ -61,6 +61,7 @@ export const Container = styled.div`
     color: #eee;
     background: #00adb5;
     outline: none;
+    margin-top: 10px;
 
     transition: opacity 0.3s;
 
