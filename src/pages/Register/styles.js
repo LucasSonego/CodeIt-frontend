@@ -25,7 +25,7 @@ export const Container = styled.div`
   }
 
   img {
-    height: 100px;
+    height: 70px;
 
     @media (max-width: 400px) {
       height: 70px;
@@ -61,6 +61,7 @@ export const Container = styled.div`
     color: #eee;
     background: #00adb5;
     outline: none;
+    margin-top: 10px;
 
     transition: opacity 0.3s;
 

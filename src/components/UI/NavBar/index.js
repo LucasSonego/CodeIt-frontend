@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import { FiUser, FiBook, FiCode, FiLogOut } from "react-icons/fi";
 import { MdFeedback } from "react-icons/md";
@@ -19,53 +20,106 @@ function getUserName() {
   }
 }
 
-export default function NavBar(props) {
+export default function NavBar() {
+  const currentPage = useSelector(state => state.currentPage);
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  function setCurrentPage(page) {
+    dispatch({
+      type: "SET_CURRENT_PAGE",
+      page
+    });
+
+    history.push(`/${page}`);
+  }
+
   const username = getUserName();
 
   return (
-    <Container>
+    <Container
+      className="navBar"
+      visible={
+        currentPage !== "cadastro" &&
+        currentPage !== "login" &&
+        currentPage !== "404"
+      }
+    >
       <ul>
-        <NavItem key="homepage">
-          <Link to="/" className="navLink">
+        <NavItem key="home" currentPage={currentPage === ""}>
+          <button
+            onClick={() => {
+              if (currentPage !== "") {
+                setCurrentPage("");
+              }
+            }}
+          >
             <img src={logo} alt="codeit" />
             <span>Code It</span>
-          </Link>
+          </button>
         </NavItem>
-        <NavItem key="user" currentPage={props.currentPage === "user"}>
-          <Link to="/dados" className="navLink">
+        <NavItem key="dados" currentPage={currentPage === "dados"}>
+          <button
+            onClick={() => {
+              if (currentPage !== "dados") {
+                setCurrentPage("dados");
+              }
+            }}
+          >
             <FiUser />
             <span>{username}</span>
-          </Link>
+          </button>
         </NavItem>
-        <NavItem
-          key="disciplines"
-          currentPage={props.currentPage === "disciplines"}
-        >
-          <Link to="/disciplinas" className="navLink">
+        <NavItem key="disciplinas" currentPage={currentPage === "disciplinas"}>
+          <button
+            onClick={() => {
+              if (currentPage !== "disciplinas") {
+                setCurrentPage("disciplinas");
+              }
+            }}
+          >
             <FiBook />
             <span>Disciplinas</span>
-          </Link>
+          </button>
         </NavItem>
-        <NavItem key="tasks" currentPage={props.currentPage === "tasks"}>
-          <Link to="/tarefas" className="navLink">
+        <NavItem key="tarefas" currentPage={currentPage === "tarefas"}>
+          <button
+            onClick={() => {
+              if (currentPage !== "tarefas") {
+                setCurrentPage("tarefas");
+              }
+            }}
+          >
             <FiCode />
             <span>Tarefas</span>
-          </Link>
+          </button>
         </NavItem>
-        <NavItem
-          key="feedbacks"
-          currentPage={props.currentPage === "feedbacks"}
-        >
-          <Link to="/feedbacks" className="navLink">
+        <NavItem key="feedbacks" currentPage={currentPage === "feedbacks"}>
+          <button
+            onClick={() => {
+              if (currentPage !== "feedbacks") {
+                setCurrentPage("feedbacks");
+              }
+            }}
+          >
             <MdFeedback />
             <span>Feedbacks</span>
-          </Link>
+          </button>
         </NavItem>
         <NavItem key="logout">
-          <Link to="/login" className="navLink">
+          <button
+            onClick={() => {
+              localStorage.clear();
+              history.push("/login");
+              dispatch({
+                type: "SET_CURRENT_PAGE",
+                page: "login"
+              });
+            }}
+          >
             <FiLogOut />
             <span>Sair</span>
-          </Link>
+          </button>
         </NavItem>
       </ul>
     </Container>

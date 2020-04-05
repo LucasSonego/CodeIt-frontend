@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { store } from "react-notifications-component";
 
+import NotificationBody from "../../components/Notification";
 import TextField from "../../components/UI/TextField";
 
 import api from "../../services/api";
@@ -10,6 +13,18 @@ import { Container } from "./styles";
 import AccountType from "./AccountType";
 
 export default function Register() {
+  const currentPage = useSelector((state) => state.currentPage);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (currentPage !== "cadastro") {
+      dispatch({
+        type: "SET_CURRENT_PAGE",
+        page: "cadastro",
+      });
+    }
+  }, [currentPage, dispatch]);
+
   const history = useHistory();
 
   const [formError, setFormError] = useState("");
@@ -87,15 +102,34 @@ export default function Register() {
       const passwordIsValid = passwordVerification();
       if (passwordIsValid) {
         try {
-          await api.post("/users", {
-            id: identifier,
-            name,
-            email,
-            password,
-            is_teacher: accountType === "teacher"
-          });
-
-          history.push("/login");
+          await api
+            .post("/users", {
+              id: identifier,
+              name,
+              email,
+              password,
+              is_teacher: accountType === "professor",
+            })
+            .then(() => {
+              const content = (
+                <NotificationBody
+                  type="success"
+                  message="Cadastro efetuado com sucesso"
+                />
+              );
+              store.addNotification({
+                content,
+                insert: "top",
+                container: "top-right",
+                animationIn: ["animated", "fadeIn"],
+                animationOut: ["animated", "fadeOut"],
+                dismiss: {
+                  duration: 6000,
+                  onScreen: false,
+                },
+              });
+              history.push("/login");
+            });
         } catch (error) {
           if (error.response.status === 409) {
             if (
@@ -172,6 +206,9 @@ export default function Register() {
         <p className="error">{formError}</p>
 
         <button type="submit">Criar Conta</button>
+        <button type="button" onClick={() => history.push("/login")}>
+          Voltar à página de Login
+        </button>
       </form>
     </Container>
   );
