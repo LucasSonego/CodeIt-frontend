@@ -12,7 +12,7 @@ export default function ErrorPage() {
   useEffect(() => {
     dispatch({
       type: "SET_CURRENT_PAGE",
-      page: "404"
+      page: "404",
     });
   });
 
@@ -25,7 +25,7 @@ export default function ErrorPage() {
         onClick={() => {
           dispatch({
             type: "SET_CURRENT_PAGE",
-            page: ""
+            page: "",
           });
 
           history.push("/");

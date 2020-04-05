@@ -3,7 +3,7 @@ import { combineReducers } from "redux";
 import currentPage from "./currentPage/reducer";
 
 const reducers = combineReducers({
-  currentPage
+  currentPage,
 });
 
 export default reducers;

@@ -13,7 +13,7 @@ import { Container } from "./styles";
 import AccountType from "./AccountType";
 
 export default function Register() {
-  const currentPage = useSelector((state) => state.currentPage);
+  const currentPage = useSelector(state => state.currentPage);
   const dispatch = useDispatch();
 
   useEffect(() => {

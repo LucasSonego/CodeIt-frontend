@@ -5,7 +5,7 @@ import {
   Radio,
   FormControl,
   FormControlLabel,
-  withStyles
+  withStyles,
 } from "@material-ui/core/";
 import { Container } from "./styles";
 
@@ -14,10 +14,10 @@ export default function AccountType(props) {
     root: {
       color: "#00adb5",
       "&$checked": {
-        color: "#00adb5"
-      }
+        color: "#00adb5",
+      },
     },
-    checked: {}
+    checked: {},
   })(props => <Radio color="default" {...props} />);
 
   return (
