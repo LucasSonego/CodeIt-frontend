@@ -8,7 +8,7 @@ export default function EditableContentBox({
   inputType,
   value,
   onChange,
-  onFocus
+  onFocus,
 }) {
   return (
     <Container error={error}>

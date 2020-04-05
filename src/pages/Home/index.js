@@ -12,7 +12,7 @@ export default function Home() {
   useEffect(() => {
     dispatch({
       type: "SET_CURRENT_PAGE",
-      page: ""
+      page: "",
     });
     const token = localStorage.getItem("token");
     if (token) {
@@ -24,8 +24,8 @@ export default function Home() {
         async function getUserData() {
           const response = await api.get("/user", {
             headers: {
-              Authorization: `Bearer ${token}`
-            }
+              Authorization: `Bearer ${token}`,
+            },
           });
           localStorage.setItem("user", JSON.stringify(response.data));
           setUser(response.data);

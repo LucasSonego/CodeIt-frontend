@@ -28,7 +28,7 @@ export default function NavBar() {
   function setCurrentPage(page) {
     dispatch({
       type: "SET_CURRENT_PAGE",
-      page
+      page,
     });
 
     history.push(`/${page}`);
@@ -113,7 +113,7 @@ export default function NavBar() {
               history.push("/login");
               dispatch({
                 type: "SET_CURRENT_PAGE",
-                page: "login"
+                page: "login",
               });
             }}
           >

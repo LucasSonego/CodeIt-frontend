@@ -33,7 +33,7 @@ export default function User() {
               Authorization: `Bearer ${token}`,
             },
           })
-          .then((response) => {
+          .then(response => {
             localStorage.setItem("user", JSON.stringify(response.data));
             setUserData(response.data);
             setNewUserData(response.data);
@@ -104,7 +104,7 @@ export default function User() {
             },
             authentication
           )
-          .then((response) => {
+          .then(response => {
             localStorage.setItem("user", JSON.stringify(response.data));
             setUserData(response.data);
             setNewUserData(response.data);
@@ -210,7 +210,7 @@ export default function User() {
           <EditableContentBox
             label="Nome"
             value={newUserData.name}
-            onChange={(event) =>
+            onChange={event =>
               setNewUserData({ ...newUserData, name: event.target.value })
             }
           />
@@ -219,7 +219,7 @@ export default function User() {
             label="email"
             inputType="email"
             value={newUserData.email}
-            onChange={(event) =>
+            onChange={event =>
               setNewUserData({ ...newUserData, email: event.target.value })
             }
             error={emailError}
