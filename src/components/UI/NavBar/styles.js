@@ -5,6 +5,7 @@ export const Container = styled.nav`
   background: #333;
   font-family: inherit;
   font-size: 18px;
+  overflow: hidden;
 
   ${props =>
     !props.visible &&
@@ -68,7 +69,7 @@ export const Container = styled.nav`
       color: #bbb;
     }
 
-    transition: 0.2s width ease-out;
+    transition: 0.3s width ease-out;
 
     &:hover {
       width: 300px;
