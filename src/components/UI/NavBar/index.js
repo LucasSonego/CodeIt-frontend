@@ -8,6 +8,7 @@ import { MdFeedback } from "react-icons/md";
 import logo from "../../../assets/logo.svg";
 
 import { Container, NavItem } from "./styles";
+import pushToPage from "../../../util/pushToPage";
 
 function getUserName() {
   const userLocalStorage = localStorage.getItem("user");
@@ -25,15 +26,6 @@ export default function NavBar() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  function setCurrentPage(page) {
-    dispatch({
-      type: "SET_CURRENT_PAGE",
-      page,
-    });
-
-    history.push(`/${page}`);
-  }
-
   const username = getUserName();
 
   return (
@@ -50,7 +42,7 @@ export default function NavBar() {
           <button
             onClick={() => {
               if (currentPage !== "") {
-                setCurrentPage("");
+                pushToPage({ page: "", dispatch, history });
               }
             }}
           >
@@ -62,7 +54,7 @@ export default function NavBar() {
           <button
             onClick={() => {
               if (currentPage !== "dados") {
-                setCurrentPage("dados");
+                pushToPage({ page: "dados", dispatch, history });
               }
             }}
           >
@@ -74,7 +66,7 @@ export default function NavBar() {
           <button
             onClick={() => {
               if (currentPage !== "disciplinas") {
-                setCurrentPage("disciplinas");
+                pushToPage({ page: "disciplinas", dispatch, history });
               }
             }}
           >
@@ -86,7 +78,7 @@ export default function NavBar() {
           <button
             onClick={() => {
               if (currentPage !== "tarefas") {
-                setCurrentPage("tarefas");
+                pushToPage({ page: "tarefas", dispatch, history });
               }
             }}
           >
@@ -98,7 +90,7 @@ export default function NavBar() {
           <button
             onClick={() => {
               if (currentPage !== "feedbacks") {
-                setCurrentPage("feedbacks");
+                pushToPage({ page: "feedbacks", dispatch, history });
               }
             }}
           >
@@ -110,11 +102,7 @@ export default function NavBar() {
           <button
             onClick={() => {
               localStorage.clear();
-              history.push("/login");
-              dispatch({
-                type: "SET_CURRENT_PAGE",
-                page: "login",
-              });
+              pushToPage({ page: "login", dispatch, history });
             }}
           >
             <FiLogOut />

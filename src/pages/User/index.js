@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { store } from "react-notifications-component";
 
 import api from "../../services/api";
+import pushToPage from "../../util/pushToPage";
 
 import { Container, UserData } from "./styles";
 import EditableContentBox from "../../components/UI/EditableContentBox";
@@ -63,12 +64,8 @@ export default function User() {
                 onScreen: false,
               },
             });
-            dispatch({
-              type: "SET_CURRENT_PAGE",
-              page: "login",
-            });
             localStorage.clear();
-            history.push("/login");
+            pushToPage({ page: "login", dispatch, history });
           }
         }
       }
