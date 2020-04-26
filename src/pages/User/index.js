@@ -28,15 +28,19 @@ export default function User() {
       const token = localStorage.getItem("token");
       try {
         await api
-          .get("/user", {
+          .get("/sessions", {
             headers: {
               Authorization: `Bearer ${token}`,
             },
+            params: {
+              newtoken: true,
+            },
           })
           .then(response => {
-            localStorage.setItem("user", JSON.stringify(response.data));
-            setUserData(response.data);
-            setNewUserData(response.data);
+            localStorage.setItem("user", JSON.stringify(response.data.user));
+            localStorage.setItem("token", response.data.token);
+            setUserData(response.data.user);
+            setNewUserData(response.data.user);
           });
       } catch (error) {
         if (error.response) {
