@@ -78,7 +78,7 @@ export default function Login() {
           onChange={setPassword}
         />
         <p className="error">{error}</p>
-        <div>
+        <div className="buttons">
           <button type="submit">Entrar</button>
           <button type="button" onClick={() => history.push("/cadastro")}>
             Cadastre-se
