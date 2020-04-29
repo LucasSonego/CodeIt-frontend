@@ -65,18 +65,20 @@ export default function Login() {
         <img src={logo} alt="CodeIt!" />
         <h1>Login</h1>
 
-        <TextField
-          label="email"
-          type="email"
-          value={email}
-          onChange={setEmail}
-        />
-        <TextField
-          label="senha"
-          type="password"
-          value={password}
-          onChange={setPassword}
-        />
+        <div className="inputs">
+          <TextField
+            label="email"
+            type="email"
+            value={email}
+            onChange={setEmail}
+          />
+          <TextField
+            label="senha"
+            type="password"
+            value={password}
+            onChange={setPassword}
+          />
+        </div>
         <p className="error">{error}</p>
         <div className="buttons">
           <button type="submit">Entrar</button>

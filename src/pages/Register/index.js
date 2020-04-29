@@ -161,48 +161,50 @@ export default function Register() {
         <img src={logo} alt="CodeIt!" />
         <h1>Cadastro</h1>
 
-        <AccountType value={accountType} onChange={setAccountType} />
+        <div className="inputs">
+          <AccountType value={accountType} onChange={setAccountType} />
 
-        <TextField
-          label={accountType === "professor" ? "Matrícula" : "GRR"}
-          type="number"
-          value={identifier}
-          onChange={setIdentifier}
-          error={identifierError}
-          onFocus={() => setIdentifierError(false)}
-        />
-        <TextField
-          label="Nome"
-          type="text"
-          value={name}
-          onChange={setName}
-          error={nameError}
-          onFocus={() => setNameError(false)}
-        />
-        <TextField
-          label="email"
-          type="email"
-          value={email}
-          onChange={setEmail}
-          error={emailError}
-          onFocus={() => setEmailError(false)}
-        />
-        <TextField
-          label="senha"
-          type="password"
-          value={password}
-          onChange={setPassword}
-          error={passwordError}
-          onFocus={() => setPasswordError(false)}
-        />
-        <TextField
-          label="Confirmar senha"
-          type="password"
-          value={confirmPassword}
-          onChange={setConfirmPassword}
-          error={passwordError}
-          onFocus={() => setPasswordError(false)}
-        />
+          <TextField
+            label={accountType === "professor" ? "Matrícula" : "GRR"}
+            type="number"
+            value={identifier}
+            onChange={setIdentifier}
+            error={identifierError}
+            onFocus={() => setIdentifierError(false)}
+          />
+          <TextField
+            label="Nome"
+            type="text"
+            value={name}
+            onChange={setName}
+            error={nameError}
+            onFocus={() => setNameError(false)}
+          />
+          <TextField
+            label="email"
+            type="email"
+            value={email}
+            onChange={setEmail}
+            error={emailError}
+            onFocus={() => setEmailError(false)}
+          />
+          <TextField
+            label="senha"
+            type="password"
+            value={password}
+            onChange={setPassword}
+            error={passwordError}
+            onFocus={() => setPasswordError(false)}
+          />
+          <TextField
+            label="Confirmar senha"
+            type="password"
+            value={confirmPassword}
+            onChange={setConfirmPassword}
+            error={passwordError}
+            onFocus={() => setPasswordError(false)}
+          />
+        </div>
         <p className="error">{formError}</p>
         <div className="buttons">
           <button type="submit">Criar Conta</button>

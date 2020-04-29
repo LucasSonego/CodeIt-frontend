@@ -232,30 +232,32 @@ export default function User() {
         </form>
         <form className="changePassword" onSubmit={updatePassword}>
           <h3>Alterar senha</h3>
-          <TextField
-            label="Sua senha"
-            type="password"
-            value={oldPassword}
-            onChange={setOldPassword}
-            error={oldPasswordError}
-            onFocus={() => setOldPasswordError("")}
-          />
-          <TextField
-            label="Nova senha"
-            type="password"
-            value={newPassword}
-            onChange={setNewPassword}
-            error={newPasswordError}
-            onFocus={() => setNewPasswordError("")}
-          />
-          <TextField
-            label="Confirmar senha"
-            type="password"
-            value={confirmPassword}
-            onChange={setConfirmPassword}
-            error={newPasswordError}
-            onFocus={() => setNewPasswordError("")}
-          />
+          <div className="passwordFields">
+            <TextField
+              label="Sua senha"
+              type="password"
+              value={oldPassword}
+              onChange={setOldPassword}
+              error={oldPasswordError}
+              onFocus={() => setOldPasswordError("")}
+            />
+            <TextField
+              label="Nova senha"
+              type="password"
+              value={newPassword}
+              onChange={setNewPassword}
+              error={newPasswordError}
+              onFocus={() => setNewPasswordError("")}
+            />
+            <TextField
+              label="Confirmar senha"
+              type="password"
+              value={confirmPassword}
+              onChange={setConfirmPassword}
+              error={newPasswordError}
+              onFocus={() => setNewPasswordError("")}
+            />
+          </div>
           <p className="error">{oldPasswordError || newPasswordError}</p>
           <button type="submit">Atualizar Senha</button>
         </form>

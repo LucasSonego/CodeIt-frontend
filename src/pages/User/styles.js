@@ -113,6 +113,12 @@ export const UserData = styled.div`
       }
     }
 
+    .passwordFields {
+      margin-top: 20px;
+      display: grid;
+      grid-gap: 30px;
+    }
+
     display: flex;
     flex-direction: column;
     float: right;

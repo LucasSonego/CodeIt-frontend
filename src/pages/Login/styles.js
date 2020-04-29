@@ -34,12 +34,19 @@ export const Container = styled.div`
       font-family: inherit;
     }
 
+    .inputs {
+      margin-top: 30px;
+      display: grid;
+      grid-gap: 30px;
+    }
+
     p {
       min-height: 40px;
       color: #e74c3c;
       font-size: 16px;
       margin: 5px 0 0 0;
     }
+
     .buttons {
       display: grid;
       grid-gap: 10px;

@@ -33,6 +33,11 @@ export const Container = styled.div`
     margin: 40px 0 0 0;
   }
 
+  .inputs {
+    display: grid;
+    grid-gap: 20px;
+  }
+
   p {
     min-height: 40px;
     color: #e74c3c;
