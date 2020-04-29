@@ -56,10 +56,10 @@ export const Container = styled.div`
     font-size: 16px;
     width: 100%;
     height: 40px;
-    border-radius: 0;
+    border-radius: 2px;
     border: none;
-    color: #eee;
-    background: #00adb5;
+    color: #fff;
+    background: linear-gradient(120deg, #00adb5, #009ca3);
     outline: none;
     margin-top: 10px;
 

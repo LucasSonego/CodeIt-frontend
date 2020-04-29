@@ -7,4 +7,8 @@ export const Container = styled.div`
     margin: 0;
     font-family: inherit;
   }
+
+  .label {
+    color: #888;
+  }
 `;

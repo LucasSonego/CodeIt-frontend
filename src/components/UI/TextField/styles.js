@@ -17,8 +17,11 @@ export const StyledInput = styled.input`
   padding: 0 10px;
   outline: none;
   height: 40px;
-  border-radius: 0;
+  border-radius: 2px;
   border: 1px solid #999;
+
+  transition: 0.5s;
+
   &:focus {
     border: 1px solid #00adb5;
   }

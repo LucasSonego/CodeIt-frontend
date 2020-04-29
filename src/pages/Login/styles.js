@@ -9,7 +9,7 @@ export const Container = styled.div`
 
   img {
     width: 250px;
-    margin: 0 auto 0 auto;
+    margin: 0 auto;
   }
 
   form {
@@ -18,7 +18,7 @@ export const Container = styled.div`
 
     padding: 30px;
     width: 100%;
-    max-width: 440px;
+    max-width: 400px;
 
     @media (min-width: 550px) {
       border: 1px solid #999;
@@ -30,6 +30,8 @@ export const Container = styled.div`
       margin: 40px 0 0 0;
       text-align: center;
       color: #999;
+      font-size: 32px;
+      font-family: inherit;
     }
 
     p {
@@ -49,7 +51,7 @@ export const Container = styled.div`
         outline: none;
         border-radius: 2px;
         padding: 10px;
-        background: #00adb5;
+        background: linear-gradient(120deg, #00adb5, #009ca3);
         color: #fff;
       }
 
@@ -61,7 +63,7 @@ export const Container = styled.div`
           width: 100%;
           margin-bottom: 0;
 
-          transition: 0.2s opacity;
+          transition: 0.3s opacity;
           &:hover {
             opacity: 0.8;
           }
