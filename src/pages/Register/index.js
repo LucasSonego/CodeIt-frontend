@@ -204,11 +204,12 @@ export default function Register() {
           onFocus={() => setPasswordError(false)}
         />
         <p className="error">{formError}</p>
-
-        <button type="submit">Criar Conta</button>
-        <button type="button" onClick={() => history.push("/login")}>
-          Voltar à página de Login
-        </button>
+        <div className="buttons">
+          <button type="submit">Criar Conta</button>
+          <button type="button" onClick={() => history.push("/login")}>
+            Voltar à página de Login
+          </button>
+        </div>
       </form>
     </Container>
   );
