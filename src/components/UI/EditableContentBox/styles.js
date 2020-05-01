@@ -3,7 +3,6 @@ import styled, { css } from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
 
   @media (min-width: 600px) {
     &:hover {
@@ -15,20 +14,18 @@ export const Container = styled.div`
   }
 
   input {
-    padding: 10px 5px;
+    padding: 10px;
     color: #555;
     font-family: inherit;
     font-size: 18px;
     outline: none;
+    border: 1px solid #eee;
 
     @media (min-width: 600px) {
       border: 1px solid transparent;
     }
 
-    @media (max-width: 600px) {
-      border: 1px solid #eee;
-    }
-
+    transition: 0.5s;
     &:focus {
       border: 1px solid #00adb5;
     }
@@ -44,5 +41,6 @@ export const Container = styled.div`
 
   span {
     color: #999;
+    margin: 0 0 5px 5px;
   }
 `;
