@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { store } from "react-notifications-component";
 
 import api from "../../services/api";
-import pushToPage from "../../util/pushToPage";
+import getUserData from "../../util/getUserData";
 
 import { Container, UserData } from "./styles";
 import EditableContentBox from "../../components/UI/EditableContentBox";
@@ -25,58 +25,25 @@ export default function User() {
   const [newPasswordError, setNewPasswordError] = useState("");
 
   useEffect(() => {
-    async function getUserData() {
-      const token = localStorage.getItem("token");
-      try {
-        await api
-          .get("/sessions", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-            params: {
-              newtoken: true,
-            },
-          })
-          .then(response => {
-            localStorage.setItem("user", JSON.stringify(response.data.user));
-            localStorage.setItem("token", response.data.token);
-            setUserData(response.data.user);
-            setNewUserData(response.data.user);
-          });
-      } catch (error) {
-        if (error.response) {
-          if (error.response.status === 401) {
-            const content = (
-              <NotificationBody
-                type="error"
-                message="Sua sessão expirou"
-                description="Faça Login novamente"
-              />
-            );
-            store.addNotification({
-              content,
-              insert: "top",
-              container: "top-right",
-              animationIn: ["animated", "fadeIn"],
-              animationOut: ["animated", "fadeOut"],
-              dismiss: {
-                duration: 4000,
-                onScreen: false,
-              },
-            });
-            localStorage.clear();
-            pushToPage({ page: "login", dispatch, history });
-          }
-        }
+    async function awaitUserData() {
+      const data = await getUserData({
+        dispatch,
+        history,
+        newtoken: true,
+      });
+
+      if (data) {
+        setUserData(data.user);
+        setNewUserData(data.user);
       }
     }
+
+    awaitUserData();
 
     dispatch({
       type: "SET_CURRENT_PAGE",
       page: "dados",
     });
-
-    getUserData();
   }, [dispatch, history]);
 
   async function updateUserData(e) {
