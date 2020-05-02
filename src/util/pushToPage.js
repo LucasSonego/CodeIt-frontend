@@ -5,4 +5,6 @@ export default function pushToPage({ page, dispatch, history }) {
   });
 
   history.push(`/${page}`);
+
+  window.scrollTo(0, 0);
 }
