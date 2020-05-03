@@ -38,7 +38,7 @@ export default function User() {
   return (
     <Container>
       <UserData>
-        <UserDataContainer userData={userData} />
+        <UserDataContainer userData={userData} setUserData={setUserData} />
         <ChangePassword />
       </UserData>
     </Container>

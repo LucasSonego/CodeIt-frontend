@@ -7,7 +7,7 @@ import EditableContentBox from "../../../components/UI/EditableContentBox";
 
 import { Container } from "./styles";
 
-export default function UserDataContainer({ userData }) {
+export default function UserDataContainer({ userData, setUserData }) {
   const [newUserData, setNewUserData] = useState({});
   const [emailError, setEmailError] = useState("");
 
@@ -44,6 +44,7 @@ export default function UserDataContainer({ userData }) {
           .then(response => {
             localStorage.setItem("user", JSON.stringify(response.data));
             setNewUserData(response.data);
+            setUserData(response.data);
             const content = (
               <NotificationBody
                 type="success"
