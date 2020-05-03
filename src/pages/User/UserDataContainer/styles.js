@@ -34,6 +34,8 @@ export const Container = styled.div`
     color: #999;
   }
   .grr {
+    min-height: 65px;
+
     p {
       color: #555;
       font-size: 18px;

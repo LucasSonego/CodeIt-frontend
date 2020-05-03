@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media (min-width: 600px) {
+  @media (min-width: 601px) {
     &:hover {
       cursor: text;
       input {
@@ -20,8 +20,9 @@ export const Container = styled.div`
     font-size: 18px;
     outline: none;
     border: 1px solid #eee;
+    border-radius: 2px;
 
-    @media (min-width: 600px) {
+    @media (min-width: 601px) {
       border: 1px solid transparent;
     }
 
