@@ -11,6 +11,7 @@ import logo from "../../assets/logocodeit.svg";
 
 import { Container } from "./styles";
 import AccountType from "./AccountType";
+import * as formValidations from "./formValidations";
 
 export default function Register() {
   const currentPage = useSelector(state => state.currentPage);
@@ -31,8 +32,8 @@ export default function Register() {
 
   const [accountType, setAccountType] = useState("estudante");
 
-  const [identifier, setIdentifier] = useState("");
-  const [identifierError, setIdentifierError] = useState(false);
+  const [id, setId] = useState("");
+  const [idError, setIdError] = useState(false);
 
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState(false);
@@ -44,112 +45,79 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState(false);
 
-  function validateFilledField(field, setError) {
-    if (field !== "") {
-      return true;
-    } else {
-      setError(true);
-      setFormError("Preencha todos os campos corretamente");
-      return;
-    }
-  }
-
-  function passwordVerification() {
-    if (password !== confirmPassword) {
-      setPasswordError(true);
-      setFormError("As senhas não sao iguas");
-      return false;
-    } else if (password.length < 6) {
-      setPasswordError(true);
-      setFormError("A senha deve conter ao menos 6 caracteres");
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  function allFieldsAreValid() {
-    const identifierIsFilled = validateFilledField(
-      identifier,
-      setIdentifierError
+  function showSuccessNotification() {
+    const content = (
+      <NotificationBody
+        type="success"
+        message="Cadastro efetuado com sucesso"
+      />
     );
-    const nameIsFilled = validateFilledField(name, setNameError);
-    const emailIsFilled = validateFilledField(email, setEmailError);
-    const passwordIsFilled = validateFilledField(password, setPasswordError);
-    const confirmPasswordIsFilled = validateFilledField(
-      confirmPassword,
-      setPasswordError
-    );
-
-    if (
-      !identifierIsFilled ||
-      !nameIsFilled ||
-      !emailIsFilled ||
-      !passwordIsFilled ||
-      !confirmPasswordIsFilled
-    ) {
-      return false;
-    } else return true;
+    store.addNotification({
+      content,
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 6000,
+        onScreen: false,
+      },
+    });
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if (!allFieldsAreValid()) {
-      console.log("nao é valido");
-      return;
-    } else {
-      const passwordIsValid = passwordVerification();
-      if (passwordIsValid) {
-        try {
-          await api
-            .post("/users", {
-              id: identifier,
-              name,
-              email,
-              password,
-              is_teacher: accountType === "professor",
-            })
-            .then(() => {
-              const content = (
-                <NotificationBody
-                  type="success"
-                  message="Cadastro efetuado com sucesso"
-                />
-              );
-              store.addNotification({
-                content,
-                insert: "top",
-                container: "top-right",
-                animationIn: ["animated", "fadeIn"],
-                animationOut: ["animated", "fadeOut"],
-                dismiss: {
-                  duration: 6000,
-                  onScreen: false,
-                },
-              });
-              history.push("/login");
-            });
-        } catch (error) {
-          if (error.response.status === 409) {
-            if (
-              error.response.data.error ===
-              "Este ID já esta cadastrado para outro usuario"
-            ) {
-              setFormError(
-                `Este ${
-                  accountType === "professor" ? "número de Matrícula" : "GRR"
-                } já esta cadastrado para outro usuario`
-              );
-              setIdentifierError(true);
-            } else {
-              setFormError(error.response.data.error);
-              setEmailError(true);
-            }
-          } else if (error.response.status === 400) {
-            setFormError("Este não é um email válido");
+    if (
+      formValidations.noEmptyFields({
+        fields: [
+          { value: id, setError: setIdError },
+          { value: name, setError: setNameError },
+          { value: email, setError: setEmailError },
+          { value: password, setError: setPasswordError },
+          { value: confirmPassword, setError: setPasswordError },
+        ],
+        setFormError,
+      }) &&
+      formValidations.validatePasswords({
+        password,
+        confirmPassword,
+        setPasswordError,
+        setFormError,
+      })
+    ) {
+      try {
+        await api
+          .post("/users", {
+            id,
+            name,
+            email,
+            password,
+            is_teacher: accountType === "professor",
+          })
+          .then(() => {
+            showSuccessNotification();
+            history.push("/login");
+          });
+      } catch (error) {
+        if (error.response.status === 409) {
+          if (
+            error.response.data.error ===
+            "Este ID já esta cadastrado para outro usuario"
+          ) {
+            setFormError(
+              `Este ${
+                accountType === "professor" ? "número de Matrícula" : "GRR"
+              } já esta cadastrado para outro usuario`
+            );
+            setIdError(true);
+          } else {
+            setFormError(error.response.data.error);
             setEmailError(true);
           }
+        } else if (error.response.status === 400) {
+          setFormError("Este não é um email válido");
+          setEmailError(true);
         }
       }
     }
@@ -167,10 +135,10 @@ export default function Register() {
           <TextField
             label={accountType === "professor" ? "Matrícula" : "GRR"}
             type="number"
-            value={identifier}
-            onChange={setIdentifier}
-            error={identifierError}
-            onFocus={() => setIdentifierError(false)}
+            value={id}
+            onChange={setId}
+            error={idError}
+            onFocus={() => setIdError(false)}
           />
           <TextField
             label="Nome"
