@@ -21,18 +21,7 @@ export default function ErrorPage() {
       <img src={logo} alt="CodeIt!" />
       <h1>404</h1>
       <h2>Página inexistente</h2>
-      <button
-        onClick={() => {
-          dispatch({
-            type: "SET_CURRENT_PAGE",
-            page: "",
-          });
-
-          history.push("/");
-        }}
-      >
-        Voltar à página inicial
-      </button>
+      <button onClick={() => history.push("/")}>Voltar à página inicial</button>
     </Container>
   );
 }

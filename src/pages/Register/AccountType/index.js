@@ -23,7 +23,7 @@ export default function AccountType(props) {
   return (
     <Container>
       <FormControl component="fieldset">
-        <span>Tipo de Conta</span>
+        <span className="label">Tipo de Conta:</span>
         <RadioGroup
           aria-label="tipo de conta"
           name="tipodeconta"
@@ -33,12 +33,12 @@ export default function AccountType(props) {
           <FormControlLabel
             value="estudante"
             control={<BlueRadio />}
-            label="Estudante"
+            label={<span className="label">Estudante</span>}
           />
           <FormControlLabel
             value="professor"
             control={<BlueRadio />}
-            label="Professor"
+            label={<span className="label">Professor</span>}
           />
         </RadioGroup>
       </FormControl>

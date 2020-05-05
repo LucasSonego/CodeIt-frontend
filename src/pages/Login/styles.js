@@ -1,82 +1,80 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
+  height: 100vh;
+  width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+
+  img {
+    width: 250px;
+    margin: 0 auto;
+  }
 
   form {
     display: flex;
     flex-direction: column;
-    width: 400px;
-    padding: 50px;
-    border: 1px solid #999;
-    border-radius: 8px;
 
-    @media (max-width: 600px) {
-      border: none;
-      height: 100%;
-      width: 100vw;
-      justify-content: center;
+    padding: 30px;
+    width: 100%;
+    max-width: 400px;
+
+    @media (min-width: 550px) {
+      border: 1px solid #999;
+      border-radius: 5px;
+      padding: 50px;
     }
-  }
 
-  img {
-    height: 70px;
-
-    @media (max-width: 400px) {
-      height: 70px;
-    }
-  }
-
-  h1 {
-    color: #999;
-    text-align: center;
-    font-size: 40px;
-    font-weight: normal;
-    margin-bottom: 0;
-
-    @media (max-width: 600px) {
-      font-size: 26px;
-    }
-  }
-
-  p {
-    min-height: 40px;
-    color: #e74c3c;
-    font-size: 16px;
-    margin: 5px 0 0 0;
-  }
-
-  div {
-    display: flex;
-    justify-content: space-between;
-
-    button {
+    h1 {
+      margin: 40px 0 0 0;
+      text-align: center;
+      color: #999;
+      font-size: 32px;
       font-family: inherit;
-      font-size: 16px;
-      width: 180px;
-      height: 40px;
-      border-radius: 0;
-      border: none;
-      color: #eee;
-      background: #00adb5;
-      outline: none;
-
-      transition: opacity 0.3s;
-
-      &:hover {
-        opacity: 0.8;
-      }
     }
 
-    @media (max-width: 600px) {
-      flex-direction: column;
+    .inputs {
+      margin-top: 30px;
+      display: grid;
+      grid-gap: 30px;
+    }
+
+    p {
+      min-height: 40px;
+      color: #e74c3c;
+      font-size: 16px;
+      margin: 5px 0 0 0;
+    }
+
+    .buttons {
+      display: grid;
+      grid-gap: 10px;
 
       button {
-        width: 100%;
-        margin-bottom: 10px;
+        font-family: inherit;
+        font-size: 16px;
+        border: none;
+        outline: none;
+        border-radius: 2px;
+        padding: 10px;
+        background: linear-gradient(120deg, #00adb5, #009ca3);
+        color: #fff;
+      }
+
+      @media (min-width: 550px) {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: ". .";
+
+        button {
+          width: 100%;
+          margin-bottom: 0;
+
+          transition: 0.3s opacity;
+          &:hover {
+            opacity: 0.8;
+          }
+        }
       }
     }
   }

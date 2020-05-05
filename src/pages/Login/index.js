@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import api from "../../services/api";
 import logo from "../../assets/logocodeit.svg";
+import pushToPage from "../../util/pushToPage";
 
 import { Container } from "./styles";
-import { useHistory } from "react-router-dom";
 import TextField from "../../components/UI/TextField";
 
 export default function Login() {
@@ -49,11 +50,7 @@ export default function Login() {
         localStorage.setItem("token", response.data.token);
         localStorage.setItem("user", JSON.stringify(response.data.user));
 
-        dispatch({
-          type: "SET_CURRENT_PAGE",
-          page: "",
-        });
-        history.push("/");
+        pushToPage({ page: "", dispatch, history });
       } else {
         console.log(response.data);
       }
@@ -68,24 +65,26 @@ export default function Login() {
         <img src={logo} alt="CodeIt!" />
         <h1>Login</h1>
 
-        <TextField
-          label="email"
-          type="email"
-          value={email}
-          onChange={setEmail}
-        />
-        <TextField
-          label="senha"
-          type="password"
-          value={password}
-          onChange={setPassword}
-        />
+        <div className="inputs">
+          <TextField
+            label="email"
+            type="email"
+            value={email}
+            onChange={setEmail}
+          />
+          <TextField
+            label="senha"
+            type="password"
+            value={password}
+            onChange={setPassword}
+          />
+        </div>
         <p className="error">{error}</p>
-        <div>
+        <div className="buttons">
+          <button type="submit">Entrar</button>
           <button type="button" onClick={() => history.push("/cadastro")}>
             Cadastre-se
           </button>
-          <button type="submit">Entrar</button>
         </div>
       </form>
     </Container>

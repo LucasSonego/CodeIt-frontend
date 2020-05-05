@@ -5,6 +5,7 @@ export const Container = styled.nav`
   background: #333;
   font-family: inherit;
   font-size: 18px;
+  overflow: hidden;
 
   ${props =>
     !props.visible &&
@@ -41,15 +42,16 @@ export const Container = styled.nav`
 
   img {
     width: 46px;
+    min-width: 46px;
     margin: 0 17px;
   }
 
   span {
-    display: none;
+    color: #999;
     white-space: nowrap;
   }
 
-  @media (min-width: 600px) {
+  @media (min-width: 601px) {
     width: 80px;
     height: 100vh;
     top: 0px !important;
@@ -65,25 +67,20 @@ export const Container = styled.nav`
       margin: 20px;
       min-height: 40px;
       min-width: 40px;
-      color: #bbb;
+      color: #999;
     }
 
-    transition: 0.2s width ease-out;
+    transition: 0.25s width ease-out;
 
     &:hover {
-      width: 300px;
-
-      span {
-        display: block;
-        color: #eee;
-      }
+      width: 250px;
     }
 
     li:hover {
       background-color: #444;
       span,
       svg {
-        color: #fefefe;
+        color: #eee;
       }
     }
   }
@@ -107,7 +104,7 @@ export const Container = styled.nav`
       float: left;
       min-height: 40px;
       min-width: 40px;
-      color: #bbb;
+      color: #888;
     }
 
     a {
@@ -131,14 +128,22 @@ export const NavItem = styled.li`
 
   @media (max-width: 600px) {
     height: 60px;
+
+    span {
+      display: none;
+    }
   }
 
   ${props =>
     props.currentPage &&
     css`
-      @media (min-width: 600px) {
+      @media (min-width: 601px) {
         border-left: 4px solid #eee;
         background-color: #444;
+
+        span {
+          color: #eee;
+        }
 
         svg {
           margin: 20px 20px 20px 16px;
@@ -152,7 +157,7 @@ export const NavItem = styled.li`
 
       @media (max-width: 600px) {
         background-color: #555;
-        border-bottom: 4px solid #eee;
+        border-bottom: 4px solid #fff;
         svg {
           color: #fff;
         }
