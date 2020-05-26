@@ -1,42 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import api from "../../services/api";
 
 import { Container } from "./styles";
+import getUserData from "../../util/getUserData";
 import Discipline from "./Discipline";
 
 function Disciplines() {
-  const [user, setUser] = useState({});
   const [disciplines, setDisciplines] = useState();
   const [enrolledDisciplines, setEnrolledDisciplines] = useState();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch({
       type: "SET_CURRENT_PAGE",
-      page: "disciplinas",
+      page: "disciplinas  ",
     });
-    const token = localStorage.getItem("token");
-    if (token) {
-      const storageUser = localStorage.getItem("user");
-      if (storageUser) {
-        const parsedUser = JSON.parse(storageUser);
-        setUser(parsedUser);
-      } else {
-        async function getUserData() {
-          const response = await api.get("/users", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          localStorage.setItem("user", JSON.stringify(response.data));
-          setUser(response.data);
-        }
-
-        getUserData();
-      }
+    async function awaitUserData() {
+      await getUserData({
+        dispatch,
+        history,
+        newtoken: true,
+      });
     }
+
+    awaitUserData();
+    const token = localStorage.getItem("token");
     async function getDisciplines() {
       const response = await api.get("/disciplines", {
         headers: {
@@ -47,7 +39,43 @@ function Disciplines() {
       setEnrolledDisciplines(response.data.enrolled_disciplines);
     }
     getDisciplines();
-  }, [dispatch]);
+  }, [dispatch, history]);
+
+  async function getDisciplines() {
+    const token = localStorage.getItem("token");
+    const response = await api.get("/disciplines", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setDisciplines(response.data.disciplines);
+    setEnrolledDisciplines(response.data.enrolled_disciplines);
+  }
+
+  async function createEnrollment(discipline) {
+    const token = localStorage.getItem("token");
+
+    await api.post(
+      `/enrollments/${discipline}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    getDisciplines();
+  }
+
+  async function cancellEnrollment(discipline) {
+    const token = localStorage.getItem("token");
+    await api.delete(`/enrollments/${discipline}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    getDisciplines();
+  }
 
   return (
     <Container>
@@ -55,14 +83,25 @@ function Disciplines() {
       <ul>
         {enrolledDisciplines &&
           enrolledDisciplines.map(discipline => (
-            <Discipline data={discipline} enrolled="true" />
+            <Discipline
+              key={discipline.id}
+              data={discipline}
+              enrolled="true"
+              buttonAction={() => cancellEnrollment(discipline.id)}
+            />
           ))}
       </ul>
 
       <h3>Outras disciplinas</h3>
       <ul>
         {disciplines &&
-          disciplines.map(discipline => <Discipline data={discipline} />)}
+          disciplines.map(discipline => (
+            <Discipline
+              key={discipline.id}
+              data={discipline}
+              buttonAction={() => createEnrollment(discipline.id)}
+            />
+          ))}
       </ul>
     </Container>
   );
