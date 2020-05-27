@@ -1,10 +1,26 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const rotate = keyframes`
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+`;
 
 export const Container = styled.li`
-  padding: 10px;
+  padding: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border: 1px solid #999;
+  border-radius: 4px;
+
+  .loading {
+    animation: ${rotate} 0.5s infinite;
+  }
+
   .discipline {
     display: flex;
     align-items: baseline;
