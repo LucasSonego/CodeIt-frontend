@@ -17,6 +17,25 @@ export const Container = styled.li`
   border: 1px solid #999;
   border-radius: 4px;
 
+  button {
+    background: none;
+    border: none;
+    outline: none;
+  }
+
+  .button,
+  button:disabled {
+    color: #555;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.2s;
+    &:hover {
+      color: #777;
+    }
+  }
+
   .loading {
     animation: ${rotate} 0.5s infinite;
   }
@@ -37,7 +56,7 @@ export const Container = styled.li`
   }
 
   svg {
-    height: 26px;
-    width: 26px;
+    height: 36px;
+    width: 36px;
   }
 `;

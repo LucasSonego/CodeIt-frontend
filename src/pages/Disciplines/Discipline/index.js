@@ -30,12 +30,12 @@ function Discipline(props) {
           loadingState ? (
             <AiOutlineLoading3Quarters className="loading" />
           ) : (
-            <FiMinusCircle />
+            <FiMinusCircle className="button" />
           )
         ) : loadingState ? (
           <AiOutlineLoading3Quarters className="loading" />
         ) : (
-          <FiPlusCircle />
+          <FiPlusCircle className="button" />
         )}
       </button>
     </Container>
