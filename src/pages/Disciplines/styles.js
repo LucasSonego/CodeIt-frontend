@@ -20,4 +20,17 @@ export const Container = styled.div`
     display: grid;
     grid-gap: 15px;
   }
+
+  .noenrolleddisciplines {
+    color: #999;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+
+    svg {
+      margin-left: 6px;
+      height: 26px;
+      width: 26px;
+    }
+  }
 `;

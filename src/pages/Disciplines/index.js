@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { store } from "react-notifications-component";
 import NotificationBody from "../../components/Notification";
+import { FiPlusCircle } from "react-icons/fi";
 
 import api from "../../services/api";
 
@@ -11,8 +12,8 @@ import getUserData from "../../util/getUserData";
 import Discipline from "./Discipline";
 
 function Disciplines() {
-  const [disciplines, setDisciplines] = useState();
-  const [enrolledDisciplines, setEnrolledDisciplines] = useState();
+  const [disciplines, setDisciplines] = useState([]);
+  const [enrolledDisciplines, setEnrolledDisciplines] = useState([]);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -111,6 +112,7 @@ function Disciplines() {
     setLoadingState(false);
     setDisciplines(response.data.disciplines);
     setEnrolledDisciplines(response.data.enrolled_disciplines);
+    console.log(enrolledDisciplines.length);
   }
 
   return (
@@ -128,6 +130,16 @@ function Disciplines() {
                   buttonAction={manageEnrollment}
                 />
               ))}
+            {enrolledDisciplines.length === 0 && (
+              <div className="noenrolleddisciplines">
+                <span>
+                  Você ainda não está matriculado em nenhuma disciplina
+                  <br />
+                  Para efetuar sua matricula em uma disciplina clique no
+                </span>
+                <FiPlusCircle />
+              </div>
+            )}
           </ul>
         </div>
         <div className="otherdisciplines">
