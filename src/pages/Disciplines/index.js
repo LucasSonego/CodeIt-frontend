@@ -43,17 +43,6 @@ function Disciplines() {
     getDisciplines();
   }, [dispatch, history]);
 
-  async function getDisciplines() {
-    const token = localStorage.getItem("token");
-    const response = await api.get("/disciplines", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    setDisciplines(response.data.disciplines);
-    setEnrolledDisciplines(response.data.enrolled_disciplines);
-  }
-
   function sendNotification(content) {
     store.addNotification({
       content,
@@ -68,26 +57,37 @@ function Disciplines() {
     });
   }
 
-  async function createEnrollment(discipline, setLoadingState) {
+  async function manageEnrollment(action, discipline, setLoadingState) {
     setLoadingState(true);
     const token = localStorage.getItem("token");
 
-    const response = await api.post(
-      `/enrollments/${discipline}`,
-      {},
-      {
+    let response;
+
+    if (action === "create") {
+      response = await api.post(
+        `/enrollments/${discipline}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } else if (action === "remove") {
+      response = await api.delete(`/enrollments/${discipline}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }
-    );
-    await getDisciplines();
-    setLoadingState(false);
+      });
+    }
+
     if (response.status === 200) {
       const content = (
         <NotificationBody
           type="success"
-          description="Matrícula efetuada com sucesso"
+          description={`Matrícula ${
+            action === "create" ? "efetuada" : "removida"
+          } com sucesso`}
         />
       );
       sendNotification(content);
@@ -95,41 +95,22 @@ function Disciplines() {
       const content = (
         <NotificationBody
           type="error"
-          description="Não foi possivel efetuar sua matrícula"
+          description={`Não foi possivel ${
+            action === "create" ? "efetuada" : "removida"
+          } sua matrícula`}
         />
       );
       sendNotification(content);
     }
-  }
 
-  async function cancellEnrollment(discipline, setLoadingState) {
-    setLoadingState(true);
-    const token = localStorage.getItem("token");
-    const response = await api.delete(`/enrollments/${discipline}`, {
+    response = await api.get("/disciplines", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    await getDisciplines();
     setLoadingState(false);
-
-    if (response.status === 200) {
-      const content = (
-        <NotificationBody
-          type="success"
-          description="Matrícula removida com sucesso"
-        />
-      );
-      sendNotification(content);
-    } else {
-      const content = (
-        <NotificationBody
-          type="error"
-          description="Não foi possivel remover sua matrícula"
-        />
-      );
-      sendNotification(content);
-    }
+    setDisciplines(response.data.disciplines);
+    setEnrolledDisciplines(response.data.enrolled_disciplines);
   }
 
   return (
@@ -144,7 +125,7 @@ function Disciplines() {
                   key={discipline.id}
                   data={discipline}
                   enrolled="true"
-                  buttonAction={cancellEnrollment}
+                  buttonAction={manageEnrollment}
                 />
               ))}
           </ul>
@@ -157,7 +138,7 @@ function Disciplines() {
                 <Discipline
                   key={discipline.id}
                   data={discipline}
-                  buttonAction={createEnrollment}
+                  buttonAction={manageEnrollment}
                 />
               ))}
           </ul>

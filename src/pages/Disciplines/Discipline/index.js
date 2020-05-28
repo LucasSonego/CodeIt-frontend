@@ -17,7 +17,14 @@ function Discipline(props) {
         <span>{props.data.teacher.name}</span>
       </div>
       <button
-        onClick={() => props.buttonAction(props.data.id, setLoadingState)}
+        onClick={() =>
+          props.buttonAction(
+            props.enrolled ? "remove" : "create",
+            props.data.id,
+            setLoadingState
+          )
+        }
+        disabled={loadingState}
       >
         {props.enrolled ? (
           loadingState ? (
