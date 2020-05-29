@@ -11,6 +11,11 @@ const rotate = keyframes`
 
 export const Container = styled.li`
   padding: 20px;
+
+  @media (max-width: 600px) {
+    padding: 10px;
+  }
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -30,9 +35,12 @@ export const Container = styled.li`
     align-items: center;
     justify-content: center;
 
-    transition: 0.2s;
-    &:hover {
-      color: #777;
+    @media (min-width: 601px) {
+      transition: 0.2s;
+
+      &:hover {
+        color: #777;
+      }
     }
   }
 
