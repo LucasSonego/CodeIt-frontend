@@ -108,7 +108,6 @@ function DisciplinesList() {
     setLoadingState(false);
     setDisciplines(response.data.disciplines);
     setEnrolledDisciplines(response.data.enrolled_disciplines);
-    console.log(enrolledDisciplines.length);
   }
 
   return (

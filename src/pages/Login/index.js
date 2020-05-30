@@ -51,8 +51,6 @@ export default function Login() {
         localStorage.setItem("user", JSON.stringify(response.data.user));
 
         pushToPage({ page: "", dispatch, history });
-      } else {
-        console.log(response.data);
       }
     } catch (error) {
       setError("Usuário ou senha inválidos");

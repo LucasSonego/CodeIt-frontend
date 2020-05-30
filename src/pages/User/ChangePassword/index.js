@@ -69,7 +69,6 @@ export default function ChangePassword() {
           });
       } catch (error) {
         if (error.response) {
-          console.log(error.response);
           if (error.response.status === 401) {
             setOldPasswordError(error.response.data.error);
           }
