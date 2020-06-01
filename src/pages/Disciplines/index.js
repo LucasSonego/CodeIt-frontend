@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
+import { Container } from "./styles";
 import getUserData from "../../util/getUserData";
-import DisciplinesList from "./StudentPage";
-
-// import { Container } from './styles';
+import StudentPage from "./StudentPage";
+import TeacherPage from "./TeacherPage";
 
 function Disciplines() {
   const dispatch = useDispatch();
@@ -26,14 +26,10 @@ function Disciplines() {
   }, [dispatch, history]);
 
   return (
-    <>
+    <Container>
       {userData.user &&
-        (userData.user.is_teacher ? (
-          <h3>teacher page</h3>
-        ) : (
-          <DisciplinesList />
-        ))}
-    </>
+        (userData.user.is_teacher ? <TeacherPage /> : <StudentPage />)}
+    </Container>
   );
 }
 

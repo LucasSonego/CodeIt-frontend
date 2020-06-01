@@ -8,25 +8,15 @@ import { FiPlusCircle } from "react-icons/fi";
 import api from "../../../services/api";
 
 import { Container } from "./styles";
-import getUserData from "../../../util/getUserData";
 import Discipline from "./Discipline";
 
-function DisciplinesList() {
+function StudentPage() {
   const [disciplines, setDisciplines] = useState([]);
   const [enrolledDisciplines, setEnrolledDisciplines] = useState([]);
   const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
-    async function awaitUserData() {
-      await getUserData({
-        dispatch,
-        history,
-        newtoken: true,
-      });
-    }
-
-    awaitUserData();
     const token = localStorage.getItem("token");
     async function getDisciplines() {
       const response = await api.get("/disciplines", {
@@ -155,4 +145,4 @@ function DisciplinesList() {
   );
 }
 
-export default DisciplinesList;
+export default StudentPage;
