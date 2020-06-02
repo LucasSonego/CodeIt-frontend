@@ -8,7 +8,7 @@ import CreateDiscipline from "./CreateDiscipline";
 
 function TeacherPage() {
   const [disciplines, setDisciplines] = useState([]);
-  const [showCreateDiscipline, setShowCreateDiscipline] = useState(true);
+  const [showCreateDiscipline, setShowCreateDiscipline] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -35,6 +35,10 @@ function TeacherPage() {
       {showCreateDiscipline && (
         <CreateDiscipline
           hideComponent={() => setShowCreateDiscipline(false)}
+          disciplineList={{
+            disciplines: disciplines,
+            setDisciplines: setDisciplines,
+          }}
         />
       )}
       <ul>

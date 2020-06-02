@@ -75,7 +75,7 @@ export const Container = styled.form`
   }
 
   .error {
-    min-height: 16px;
+    min-height: 20px;
     font-size: 14px;
     margin: 0;
     color: #e74c3c;
