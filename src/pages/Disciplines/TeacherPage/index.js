@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { FiPlusCircle } from "react-icons/fi";
 
 import { Container } from "./styles";
 import api from "../../../services/api";
 import Discipline from "./Discipline";
+import CreateDiscipline from "./CreateDiscipline";
 
 function TeacherPage() {
   const [disciplines, setDisciplines] = useState([]);
+  const [showCreateDiscipline, setShowCreateDiscipline] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -23,7 +26,17 @@ function TeacherPage() {
 
   return (
     <Container>
-      <h3>Suas disciplinas</h3>
+      <div className="header">
+        <h3>Suas disciplinas</h3>
+        <button onClick={() => setShowCreateDiscipline(true)}>
+          <FiPlusCircle />
+        </button>
+      </div>
+      {showCreateDiscipline && (
+        <CreateDiscipline
+          hideComponent={() => setShowCreateDiscipline(false)}
+        />
+      )}
       <ul>
         {disciplines.map(discipline => (
           <Discipline data={discipline} key={discipline.id} />
