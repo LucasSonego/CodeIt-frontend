@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.form`
   padding: 20px;
@@ -61,16 +61,32 @@ export const Container = styled.form`
       margin: 0 0 5px 5px;
     }
 
-    select {
-      height: 42px;
-      padding: 10px;
-      font-family: inherit;
-      font-weight: bold;
-      border: 1px solid #999;
-      border-radius: 3px;
-      outline: none;
-      background: none;
-      display: flex;
+    div {
+      width: 90px;
+      button {
+        margin: 0;
+        outline: none;
+        font-family: inherit;
+        width: 45px;
+        height: 42px;
+        text-align: center;
+        font-weight: bold;
+        &:first-child {
+          border-radius: 3px 0 0 3px;
+          border-top: 1px solid #999;
+          border-right: none;
+          border-bottom: 1px solid #999;
+          border-left: 1px solid #999;
+        }
+
+        &:last-child {
+          border-radius: 0 3px 3px 0;
+          border-top: 1px solid #999;
+          border-right: 1px solid #999;
+          border-bottom: 1px solid #999;
+          border-left: none;
+        }
+      }
     }
   }
 
@@ -123,5 +139,22 @@ export const Container = styled.form`
 
   .cancellbutton {
     background: linear-gradient(120deg, #e7673c, #e74c3c);
+  }
+`;
+
+export const HalfSelection = styled.button`
+  background: ${props => (props.selected ? "#00adb5" : "#fff")};
+  color: ${props => (props.selected ? "#fff" : "#888")};
+  transition: 0.4s;
+
+  &:hover {
+    ${props =>
+      props.selected
+        ? css`
+            opacity: 0.8;
+          `
+        : css`
+            background: #eeeeee55;
+          `};
   }
 `;

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { MdExpandMore } from "react-icons/md";
 
-import { Container } from "./styles";
+import { Container, HalfSelection } from "./styles";
 import TextField from "../../../../components/UI/TextField";
 import api from "../../../../services/api";
 import { store } from "react-notifications-component";
@@ -125,13 +126,22 @@ function CreateDiscipline(props) {
 
             <div className="half">
               <span>Semestre</span>
-              <select
-                value={half}
-                onChange={event => setHalf(event.target.value)}
-              >
-                <option value="1">1°</option>
-                <option value="2">2°</option>
-              </select>
+              <div>
+                <HalfSelection
+                  type="button"
+                  onClick={() => setHalf("1")}
+                  selected={half === "1"}
+                >
+                  ‎‎ 1°
+                </HalfSelection>
+                <HalfSelection
+                  type="button"
+                  onClick={() => setHalf("2")}
+                  selected={half === "2"}
+                >
+                   2° 
+                </HalfSelection>
+              </div>
             </div>
           </div>
         </div>
