@@ -70,7 +70,6 @@ export const Container = styled.li`
     grid-gap: 10px;
   }
 
-  display: grid;
   .enrollmentlist {
     grid-gap: 5px;
     padding-left: 10px;
@@ -88,16 +87,76 @@ export const Container = styled.li`
       width: min-content;
     }
   }
+
+  .options {
+    display: grid;
+    grid-gap: 10px;
+
+    .buttons {
+      @media (min-width: 671px) {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      @media (max-width: 670px) {
+        display: grid;
+        grid-gap: 20px;
+      }
+    }
+
+    input {
+      height: 36px;
+      color: #555;
+    }
+
+    button.rename {
+      font-family: inherit;
+      background: linear-gradient(120deg, #00adb5, #0097b5);
+      height: 38px;
+      color: #fff;
+      border-radius: 3px;
+      padding: 0 20px;
+
+      @media (min-width: 671px) {
+        width: 240px;
+
+        transition: 0.3s;
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+
+      @media (max-width: 670px) {
+        width: 100%;
+      }
+
+      span {
+        font-family: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+
+        svg {
+          height: 16px;
+          width: 16px;
+          padding: 0 5px 3px 0;
+        }
+      }
+    }
+  }
 `;
 
 export const DeleteButton = styled.button`
   font-family: inherit;
 
-  @media (min-width: 601px) {
+  @media (min-width: 671px) {
     width: 240px;
+    margin-left: 10px;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 670px) {
     width: 100%;
   }
 
@@ -105,10 +164,11 @@ export const DeleteButton = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 15px;
+    padding: 0px 20px;
     border-radius: 3px;
     font-size: 14px;
     color: #fff;
+    height: 38px;
 
     transition: 0.3s;
     @media (min-width: 601px) {
