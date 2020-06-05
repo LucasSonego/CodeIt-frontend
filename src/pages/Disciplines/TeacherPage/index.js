@@ -24,6 +24,17 @@ function TeacherPage() {
     awaitDisciplines();
   }, []);
 
+  async function reloadDisciplines() {
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user"));
+    const response = await api.get(`/disciplines?teacher=${user.id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setDisciplines(response.data);
+  }
+
   return (
     <Container>
       <div className="header">
@@ -43,7 +54,11 @@ function TeacherPage() {
       )}
       <ul>
         {disciplines.map(discipline => (
-          <Discipline data={discipline} key={discipline.id} />
+          <Discipline
+            data={discipline}
+            key={discipline.id}
+            reloadDisciplines={reloadDisciplines}
+          />
         ))}
       </ul>
     </Container>

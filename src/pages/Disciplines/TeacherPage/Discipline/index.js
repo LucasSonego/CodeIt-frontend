@@ -1,15 +1,20 @@
 import React, { useState } from "react";
 import { MdExpandMore, MdExpandLess } from "react-icons/md";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { AiOutlineLoading3Quarters, AiOutlineWarning } from "react-icons/ai";
+import { FiTrash2 } from "react-icons/fi";
+import { store } from "react-notifications-component";
 
-import { Container } from "./styles";
+import { Container, DeleteButton } from "./styles";
 import api from "../../../../services/api";
+import NotificationBody from "../../../../components/Notification";
 
 function Discipline(props) {
   const [disciplineDetails, setDisciplineDetails] = useState({});
   const [showDetails, setShowDetails] = useState(false);
   const [showEnrollments, setShowEnrollments] = useState(false);
   const [loadingState, setLoadingState] = useState(false);
+  const [showOptions, setShowOptions] = useState(false);
+  const [deleteCilcked, setDeleteCilcked] = useState(false);
 
   async function getDetails() {
     const token = localStorage.getItem("token");
@@ -33,6 +38,48 @@ function Discipline(props) {
     }
   }
 
+  function handleDeleteClick() {
+    deleteCilcked ? deleteDiscipline() : setDeleteCilcked(true);
+  }
+
+  function sendSuccessNotification() {
+    const content = (
+      <NotificationBody
+        type="success"
+        message="Disciplina removida com sucesso"
+      />
+    );
+    store.addNotification({
+      content,
+      insert: "top",
+      container: "top-right",
+      animationIn: ["animated", "fadeIn"],
+      animationOut: ["animated", "fadeOut"],
+      dismiss: {
+        duration: 4000,
+        onScreen: false,
+      },
+    });
+  }
+
+  async function deleteDiscipline() {
+    const token = localStorage.getItem("token");
+    let response;
+    try {
+      response = await api.delete(`/disciplines/${props.data.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.status === 200) {
+        sendSuccessNotification();
+        props.reloadDisciplines();
+      }
+    } catch (error) {
+      props.reloadDisciplines();
+    }
+  }
   return (
     <Container>
       <div className="basicinfo">
@@ -64,13 +111,7 @@ function Discipline(props) {
                       : setShowEnrollments(true);
                   }}
                 >
-                  {showEnrollments ? (
-                    <MdExpandLess />
-                  ) : loadingState ? (
-                    <AiOutlineLoading3Quarters className="loading" />
-                  ) : (
-                    <MdExpandMore />
-                  )}
+                  {showEnrollments ? <MdExpandLess /> : <MdExpandMore />}
                 </button>
               )}
             </span>
@@ -90,6 +131,34 @@ function Discipline(props) {
             )}
           </div>
           <span>Tarefas: {disciplineDetails.tasks.length}</span>
+          <button
+            className="toggleoptions"
+            onClick={() =>
+              showOptions ? setShowOptions(false) : setShowOptions(true)
+            }
+          >
+            Opções {showOptions ? <MdExpandLess /> : <MdExpandMore />}
+          </button>
+          {showOptions && (
+            <div className="options">
+              <DeleteButton
+                onClick={() => handleDeleteClick()}
+                confirmation={deleteCilcked}
+              >
+                {deleteCilcked ? (
+                  <span>
+                    <AiOutlineWarning />
+                    Clique para confirmar
+                  </span>
+                ) : (
+                  <span>
+                    <FiTrash2 />
+                    Remover disciplina
+                  </span>
+                )}
+              </DeleteButton>
+            </div>
+          )}
         </div>
       )}
     </Container>

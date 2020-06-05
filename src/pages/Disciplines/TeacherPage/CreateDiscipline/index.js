@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { MdExpandMore } from "react-icons/md";
 
 import { Container, HalfSelection } from "./styles";
 import TextField from "../../../../components/UI/TextField";
