@@ -10,6 +10,7 @@ export const Container = styled.div`
   height: max-content;
   width: 100%;
   padding: 20px;
+
   ${props =>
     props.type === "success" &&
     css`
@@ -20,12 +21,10 @@ export const Container = styled.div`
     css`
       background: linear-gradient(120deg, #e7673c, #e74c3c);
     `}
-  display: flex;
-  align-items: center;
-  justify-content: center;
 
   span {
     font-family: inherit;
     color: #fff;
+    text-align: center;
   }
 `;

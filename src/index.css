@@ -13,7 +13,8 @@ body {
 }
 
 input::-webkit-inner-spin-button,
-input::-webkit-outer-spin-button {
+input::-webkit-outer-spin-button,
+input[type="number"] {
   -webkit-appearance: none;
   margin: 0;
   -moz-appearance: textfield;
@@ -21,4 +22,12 @@ input::-webkit-outer-spin-button {
 
 button {
   cursor: pointer;
+}
+
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }

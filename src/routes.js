@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import NavBar from "./components/UI/NavBar";
 import User from "./pages/User";
+import Disciplines from "./pages/Disciplines";
 import ErrorPage from "./pages/404";
 
 const Routes = () => (
@@ -22,10 +23,7 @@ const Routes = () => (
         <Route path="/cadastro" component={Register} />
         <PrivateRoute exact path="/" component={Home} />
         <PrivateRoute path="/dados" component={User} />
-        <PrivateRoute
-          path="/disciplinas"
-          component={() => <h2>Disciplinas</h2>}
-        />
+        <PrivateRoute path="/disciplinas" component={Disciplines} />
         <PrivateRoute path="/tarefas" component={() => <h2>Tarefas</h2>} />
         <PrivateRoute path="/feedbacks" component={() => <h2>Feedbacks</h2>} />
         <Route component={ErrorPage} />
