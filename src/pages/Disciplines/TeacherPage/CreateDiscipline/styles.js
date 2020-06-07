@@ -35,15 +35,15 @@ export const Container = styled.form`
     grid-gap: 10px;
   }
 
-  input[type="number"] {
-    width: 100%;
-    min-width: 50px;
-  }
-
   .yearinfo {
     display: grid;
     grid-template-areas: ". .";
     grid-gap: 20px;
+
+    div input {
+      width: 100%;
+      min-width: 50px;
+    }
   }
 
   h4 {
