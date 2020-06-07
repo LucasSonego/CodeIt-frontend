@@ -24,6 +24,11 @@ button {
   cursor: pointer;
 }
 
+button::-moz-focus-inner {
+  outline: 0;
+  border: 0;
+}
+
 input,
 textarea,
 button,
