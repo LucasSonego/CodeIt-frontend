@@ -22,7 +22,7 @@ export default function TextField(
     <Container>
       <span>{label}</span>
       <StyledInput
-        type="text"
+        type={type === "password" ? "password" : "text"}
         value={value}
         onChange={e => updateValue(e.target.value)}
         error={error}
