@@ -13,8 +13,7 @@ body {
 }
 
 input::-webkit-inner-spin-button,
-input::-webkit-outer-spin-button,
-input[type="number"] {
+input::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
   -moz-appearance: textfield;
@@ -22,6 +21,11 @@ input[type="number"] {
 
 button {
   cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  outline: 0;
+  border: 0;
 }
 
 input,
