@@ -6,6 +6,7 @@ export const Container = styled.nav`
   font-family: inherit;
   font-size: 18px;
   overflow: hidden;
+  z-index: 999;
 
   ${props =>
     !props.visible &&
