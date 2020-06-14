@@ -5,6 +5,7 @@ import { store } from "react-notifications-component";
 
 import api from "../../services/api";
 import pushToPage from "../../util/pushToPage";
+import CodeEditor from "../../components/UI/CodeEditor";
 
 import { Container } from "./styles";
 import NofiticationBody from "../../components/Notification";
@@ -15,6 +16,7 @@ function Task() {
   const { id } = useParams();
 
   const [taskData, setTaskData] = useState({});
+  const [code, setCode] = useState("");
 
   useEffect(() => {
     dispatch({
@@ -35,6 +37,7 @@ function Task() {
         });
 
         setTaskData(response.data);
+        setCode(response.data.code);
       } catch (error) {
         if (error.response.status === 401) {
           localStorage.clear();
@@ -88,6 +91,8 @@ function Task() {
           {taskData.title} <br /> {taskData.description}
         </span>
       )}
+
+      <CodeEditor code={code} onChange={setCode} />
     </Container>
   );
 }

@@ -1,5 +1,11 @@
 import React from "react";
 import { ControlledEditor as MonacoEditor } from "@monaco-editor/react";
+import AceEditor from "react-ace";
+
+import "ace-builds/src-noconflict/theme-tomorrow";
+import "ace-builds/src-noconflict/mode-javascript";
+import "ace-builds/src-noconflict/ext-language_tools";
+import "ace-builds/webpack-resolver";
 
 import isMobile from "../../../util/isMobile";
 
@@ -20,11 +26,11 @@ function CodeEditor({ code, onChange, language, theme }) {
   return (
     <Container>
       {!isMobile() ? (
-        <div className="editorcontainer">
+        <div className="monacoeditor">
           <MonacoEditor
             value={code}
-            language={language}
-            theme={theme}
+            language="javascript"
+            theme="dark"
             onChange={(_, value) => onChange(value)}
             height="500px"
             width={
@@ -36,7 +42,24 @@ function CodeEditor({ code, onChange, language, theme }) {
           />
         </div>
       ) : (
-        <h3>Mobile support comming soon!</h3>
+        <div className="ace">
+          <AceEditor
+            theme="tomorrow"
+            name="aceeditor"
+            value={code}
+            onChange={value => onChange(value)}
+            width={`${window.screen.availWidth}px`}
+            height="400px"
+            fontSize="16px"
+            tabSize={2}
+            mode={language}
+            setOptions={{
+              enableBasicAutocompletion: true,
+              enableLiveAutocompletion: true,
+              enableSnippets: true,
+            }}
+          />
+        </div>
       )}
     </Container>
   );
