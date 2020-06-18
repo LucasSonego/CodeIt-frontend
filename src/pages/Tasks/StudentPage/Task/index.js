@@ -1,9 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-// import { FaCheck, FaRegCalendarTimes } from "react-icons/fa";
-// import { MdFeedback } from "react-icons/md";
-// import { AiOutlineFileExclamation } from "react-icons/ai";
-// import { BsFileEarmarkCheck } from "react-icons/bs";
+import { FaCheck, FaRegCalendarTimes } from "react-icons/fa";
+import { MdFeedback } from "react-icons/md";
+import { AiOutlineFileExclamation, AiOutlineFileDone } from "react-icons/ai";
 
 import { Container } from "./styles";
 
@@ -17,7 +16,28 @@ function Task({ data }) {
   return (
     <Container onClick={handleRedirect}>
       <div className="title">{data.title}</div>
-      <div className="info"></div>
+      <div className="info">
+        {data.answer ? (
+          data.answer.accepted_at ? (
+            data.answer.feedback || data.answer.feedback_code ? (
+              <>
+                <FaCheck className="green" /> <MdFeedback className="green" />
+              </>
+            ) : (
+              <FaCheck className="green" />
+            )
+          ) : data.answer.feedback || data.answer.feedback_code ? (
+            <>
+              <AiOutlineFileExclamation className="yellow" />
+              <MdFeedback className="yellow" />
+            </>
+          ) : (
+            !data.answer.accepted_at && <AiOutlineFileDone className="grey" />
+          )
+        ) : (
+          data.closed_at && <FaRegCalendarTimes className="red" />
+        )}
+      </div>
     </Container>
   );
 }
