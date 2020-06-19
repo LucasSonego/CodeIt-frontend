@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { store } from "react-notifications-component";
@@ -19,9 +19,8 @@ function Task() {
   const [error, setError] = useState("");
 
   const [taskData, setTaskData] = useState({});
-  const [code, setCode] = useState("");
-
-  const valueGetter = useRef();
+  const [taskCode, setTaskCode] = useState("");
+  const [answerCode, setAnswerCode] = useState("");
 
   useEffect(() => {
     dispatch({
@@ -46,11 +45,11 @@ function Task() {
 
         setTaskData(response.data);
         if (response.data.answer) {
-          setCode(response.data.answer.code);
-          valueGetter.current = response.data.answer.code;
+          setTaskCode(response.data.answer.code);
+          setAnswerCode(response.data.answer.code);
         } else {
-          setCode(response.data.code);
-          valueGetter.current = response.data.code;
+          setTaskCode(response.data.code);
+          setAnswerCode(response.data.code);
         }
       } catch (error) {
         if (error.response.status === 404) {
@@ -83,13 +82,6 @@ function Task() {
   }
 
   async function handleSubmit() {
-    let answerCode;
-    try {
-      answerCode = valueGetter.current();
-    } catch (error) {
-      answerCode = valueGetter.current;
-    }
-
     if (!answerCode || answerCode === taskData.code) {
       setError("Não há nada à ser enviado na resposta");
       return;
@@ -167,7 +159,7 @@ function Task() {
           });
 
           setTaskData(response.data);
-          setCode(response.data.answer.code);
+          setTaskCode(response.data.answer.code);
         } catch (error) {}
       }
     } catch (error) {
@@ -255,7 +247,11 @@ function Task() {
             </div>
           </div>
         )}
-        <CodeEditor code={code} valueGetter={valueGetter} />
+        <CodeEditor
+          initialValue={taskCode}
+          value={answerCode}
+          onChange={setAnswerCode}
+        />
         <div className="submit">
           <p className="error">{error}</p>
           <button

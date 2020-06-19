@@ -11,7 +11,7 @@ import isMobile from "../../../util/isMobile";
 
 import { Container } from "./styles";
 
-function CodeEditor({ code, valueGetter }) {
+function CodeEditor({ initialValue, value, onChange }) {
   const monacoEditorConfig = {
     fontLigatures: true,
     fontFamily: "Fira Code",
@@ -23,17 +23,12 @@ function CodeEditor({ code, valueGetter }) {
     parameterHints: false,
   };
 
-  function handleEditorDidMount(_valueGetter) {
-    _valueGetter.current = code;
-    valueGetter.current = _valueGetter;
-  }
-
   return (
     <Container>
       {!isMobile() ? (
         <div className="monacoeditor">
           <MonacoEditor
-            value={code}
+            value={initialValue}
             language="javascript"
             theme="dark"
             height="500px"
@@ -42,7 +37,7 @@ function CodeEditor({ code, valueGetter }) {
                 ? `${window.screen.availWidth - 140}px`
                 : "1200px"
             }
-            editorDidMount={handleEditorDidMount}
+            onChange={(_, newValue) => onChange(newValue)}
             options={monacoEditorConfig}
           />
         </div>
@@ -51,8 +46,8 @@ function CodeEditor({ code, valueGetter }) {
           <AceEditor
             theme="tomorrow"
             name="aceeditor"
-            value={code}
-            onChange={newValue => (valueGetter.current = newValue)}
+            value={value}
+            onChange={newValue => onChange(newValue)}
             width={`${window.screen.availWidth}px`}
             height="400px"
             fontSize="16px"
