@@ -3,13 +3,13 @@ import React from "react";
 import { Container } from "./styles";
 import Task from "./Task";
 
-function StudentPage({ disciplineTasks }) {
+function StudentPage({ disciplinesAndTasks }) {
   return (
     <Container>
       <h2>Tarefas</h2>
       <ul className="disciplines">
-        {disciplineTasks &&
-          disciplineTasks.map(discipline =>
+        {disciplinesAndTasks &&
+          disciplinesAndTasks.map(discipline =>
             discipline.tasks.length > 0 ? (
               <li key={discipline.id} className="discipline">
                 <h3>{discipline.name}</h3>

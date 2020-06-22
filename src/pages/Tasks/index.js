@@ -7,13 +7,14 @@ import getUserData from "../../util/getUserData";
 
 import { Container } from "./styles";
 import StudentPage from "./StudentPage";
+import TeacherPage from "./TeacherPage";
 
 function Tasks() {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const [userData, setUserData] = useState({});
-  const [disciplineTasks, setDisciplineTasks] = useState([]);
+  const [disciplinesAndTasks, setDisciplinesAndTasks] = useState([]);
 
   useEffect(() => {
     dispatch({
@@ -34,7 +35,7 @@ function Tasks() {
           },
         });
 
-        setDisciplineTasks(response.data);
+        setDisciplinesAndTasks(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -43,12 +44,14 @@ function Tasks() {
     awaitAsyncCalls();
   }, [dispatch, history]);
 
-  return (
+  return !userData.name ? (
+    <></>
+  ) : (
     <Container>
       {userData.is_teacher ? (
-        <h2>Teacher</h2>
+        <TeacherPage disciplinesAndTasks={disciplinesAndTasks} />
       ) : (
-        <StudentPage disciplineTasks={disciplineTasks} />
+        <StudentPage disciplinesAndTasks={disciplinesAndTasks} />
       )}
     </Container>
   );
