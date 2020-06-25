@@ -27,10 +27,18 @@ function Task({ data }) {
               <FaCheck className="green" />
             )
           ) : data.answer.feedback || data.answer.feedback_code ? (
-            <>
-              <AiOutlineFileExclamation className="yellow" />
-              <MdFeedback className="yellow" />
-            </>
+            new Date(data.answer.updated_at).getTime() >
+            new Date(data.answer.feedback_at).getTime() ? (
+              <>
+                <AiOutlineFileDone className="grey" />
+                <MdFeedback className="yellow" />
+              </>
+            ) : (
+              <>
+                <AiOutlineFileExclamation className="yellow" />
+                <MdFeedback className="yellow" />
+              </>
+            )
           ) : (
             !data.answer.accepted_at && <AiOutlineFileDone className="grey" />
           )
