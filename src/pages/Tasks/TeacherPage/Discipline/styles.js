@@ -47,5 +47,7 @@ export const Container = styled.li`
     margin-top: 15px;
     padding: 0;
     list-style: none;
+    display: grid;
+    grid-gap: 6px;
   }
 `;
