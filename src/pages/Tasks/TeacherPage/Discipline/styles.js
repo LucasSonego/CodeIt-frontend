@@ -50,4 +50,32 @@ export const Container = styled.li`
     display: grid;
     grid-gap: 6px;
   }
+
+  .notasks {
+    color: #aaa;
+  }
+
+  .open-close {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+
+    @media (min-width: 601px) {
+      max-width: 300px;
+    }
+  }
+
+  .yellow-background {
+    background: linear-gradient(120deg, #f39c12, #e67e22);
+  }
+
+  .blue-background {
+    background: linear-gradient(120deg, #00adb5, #0097b5);
+  }
 `;

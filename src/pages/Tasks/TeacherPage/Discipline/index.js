@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MdExpandMore, MdExpandLess } from "react-icons/md";
 
 import { Container } from "./styles";
@@ -6,16 +6,16 @@ import Task from "./Task";
 
 function Discipline({ data }) {
   const [showTasks, setShowTasks] = useState(false);
+  const [openTasks, setOpenTasks] = useState();
 
-  function countOpenTasks(discipline) {
-    if (discipline.tasks.length > 0) {
-      let total = 0;
-      discipline.tasks.map(task => !task.closed_at && total++);
-      return total;
-    } else {
-      return 0;
+  useEffect(() => {
+    let total;
+    if (data.tasks.length > 0) {
+      total = 0;
+      data.tasks.map(task => !task.closed_at && total++);
     }
-  }
+    setOpenTasks(total);
+  }, [data.tasks]);
 
   return (
     <Container>
@@ -25,7 +25,7 @@ function Discipline({ data }) {
             <span className="name">{data.name}</span>
             <span className="id">{data.id}</span>
           </div>
-          <span>Tarefas abertas: {countOpenTasks(data)}</span>
+          <span>Tarefas abertas: {openTasks}</span>
         </div>
         <button
           onClick={() => {
@@ -41,10 +41,26 @@ function Discipline({ data }) {
           {data.tasks.length > 0 ? (
             <ul className="tasks">
               {data.tasks.map(
-                task => !task.closed_at && <Task key={task.id} data={task} />
+                task =>
+                  !task.closed_at && (
+                    <Task
+                      key={task.id}
+                      data={task}
+                      openTasks={openTasks}
+                      setOpenTasks={setOpenTasks}
+                    />
+                  )
               )}
               {data.tasks.map(
-                task => task.closed_at && <Task key={task.id} data={task} />
+                task =>
+                  task.closed_at && (
+                    <Task
+                      key={task.id}
+                      data={task}
+                      openTasks={openTasks}
+                      setOpenTasks={setOpenTasks}
+                    />
+                  )
               )}
             </ul>
           ) : (

@@ -3,11 +3,90 @@ import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import { MdFeedback } from "react-icons/md";
 import { FaCheck } from "react-icons/fa";
 import { AiOutlineCloseCircle, AiOutlineFile } from "react-icons/ai";
+import { store } from "react-notifications-component";
 
+import api from "../../../../../services/api";
+import NotificationBody from "../../../../../components/Notification";
 import { Container } from "./styles";
 
-function Task({ data }) {
+function Task({ data, openTasks, setOpenTasks }) {
   const [expanded, setExpanded] = useState(false);
+
+  const [isOpen, setIsOpen] = useState(!data.closed_at);
+
+  async function closeOrOpenTask() {
+    const token = localStorage.getItem("token");
+    try {
+      let response;
+      if (isOpen) {
+        response = await api.delete(`/tasks/${data.id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      } else {
+        response = await api.patch(
+          `/tasks/${data.id}`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      }
+
+      if (response.status === 200) {
+        let content = (
+          <NotificationBody
+            type="success"
+            message={`Tarefa ${!isOpen ? "reaberta" : "fechada"} com sucesso`}
+            description={`Esta tarefa ${
+              !isOpen ? "poderá receber mais" : "não poderá mais receber"
+            } respostas`}
+          />
+        );
+
+        store.addNotification({
+          content,
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animated", "fadeIn"],
+          animationOut: ["animated", "fadeOut"],
+          dismiss: {
+            duration: 4000,
+            onScreen: false,
+          },
+        });
+
+        isOpen ? setOpenTasks(openTasks - 1) : setOpenTasks(openTasks + 1);
+        isOpen ? setIsOpen(false) : setIsOpen(true);
+      }
+    } catch (error) {
+      setIsOpen(false);
+      let content = (
+        <NotificationBody
+          type="error"
+          message="Ocorreu um errro"
+          description={`Não foi possivel ${
+            isOpen ? "fechar" : "reabrir"
+          } esta tarefa`}
+        />
+      );
+
+      store.addNotification({
+        content,
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animated", "fadeIn"],
+        animationOut: ["animated", "fadeOut"],
+        dismiss: {
+          duration: 4000,
+          onScreen: false,
+        },
+      });
+    }
+  }
 
   return (
     <Container>
@@ -15,7 +94,7 @@ function Task({ data }) {
         <div>
           <p>{data.title}</p>
           <div className="info">
-            <span>{!data.closed_at ? "Aberta" : "Fechada"}</span>
+            <span>{isOpen ? "Aberta" : "Fechada"}</span>
             <span>{`Respostas: ${data.answers.length}`}</span>
           </div>
         </div>
@@ -124,6 +203,14 @@ function Task({ data }) {
               </ul>
             </>
           )}
+          <button
+            className={`open-close ${
+              isOpen ? "yellow-background" : "blue-background"
+            }`}
+            onClick={closeOrOpenTask}
+          >
+            {isOpen ? "Fechar Tarefa" : "Reabrir Tarefa"}
+          </button>
         </div>
       )}
     </Container>
