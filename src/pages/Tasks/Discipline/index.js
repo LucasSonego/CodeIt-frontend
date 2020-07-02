@@ -3,8 +3,9 @@ import { MdExpandMore, MdExpandLess } from "react-icons/md";
 
 import { Container } from "./styles";
 import Task from "./Task";
+import CreateTask from "./CreateTask";
 
-function Discipline({ data }) {
+function Discipline({ data, onNewTask }) {
   const [showTasks, setShowTasks] = useState(false);
   const [openTasks, setOpenTasks] = useState();
 
@@ -25,7 +26,7 @@ function Discipline({ data }) {
             <span className="name">{data.name}</span>
             <span className="id">{data.id}</span>
           </div>
-          <span>Tarefas abertas: {openTasks}</span>
+          <span>Tarefas abertas: {openTasks || "0"}</span>
         </div>
         <button
           onClick={() => {
@@ -38,6 +39,7 @@ function Discipline({ data }) {
 
       {showTasks && (
         <>
+          <CreateTask disciplineId={data.id} onNewTask={onNewTask} />
           {data.tasks.length > 0 ? (
             <ul className="tasks">
               {data.tasks.map(

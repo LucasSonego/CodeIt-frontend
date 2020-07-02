@@ -5,8 +5,8 @@ import { FaCheck } from "react-icons/fa";
 import { AiOutlineCloseCircle, AiOutlineFile } from "react-icons/ai";
 import { store } from "react-notifications-component";
 
-import api from "../../../../../services/api";
-import NotificationBody from "../../../../../components/Notification";
+import api from "../../../../services/api";
+import NotificationBody from "../../../../components/Notification";
 import { Container } from "./styles";
 
 function Task({ data, openTasks, setOpenTasks }) {
@@ -95,7 +95,11 @@ function Task({ data, openTasks, setOpenTasks }) {
           <p>{data.title}</p>
           <div className="info">
             <span>{isOpen ? "Aberta" : "Fechada"}</span>
-            <span>{`Respostas: ${data.answers.length}`}</span>
+            {data.answers ? (
+              <span>{`Respostas: ${data.answers.length}`}</span>
+            ) : (
+              <span>Respostas: 0</span>
+            )}
           </div>
         </div>
         <button
@@ -106,7 +110,7 @@ function Task({ data, openTasks, setOpenTasks }) {
       </div>
       {expanded && (
         <div className="expanded">
-          {data.answers.length > 0 && (
+          {data.answers && data.answers.length > 0 && (
             <>
               <span>Respostas:</span>
               <ul className="answers">

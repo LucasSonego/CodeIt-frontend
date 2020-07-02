@@ -52,6 +52,8 @@ export const Container = styled.li`
   }
 
   .notasks {
+    display: block;
+    margin-top: 10px;
     color: #aaa;
   }
 

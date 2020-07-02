@@ -9,3 +9,11 @@ export const Container = styled.div`
     margin: 0 0 60px 0;
   }
 `;
+
+export const TeacherPage = styled.ul`
+  margin: 0 auto;
+  max-width: 1200px;
+  display: grid;
+  grid-gap: 10px;
+  padding: 20px;
+`;

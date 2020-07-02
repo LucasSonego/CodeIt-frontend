@@ -11,7 +11,7 @@ import isMobile from "../../../util/isMobile";
 
 import { Container } from "./styles";
 
-function CodeEditor({ initialValue, value, onChange }) {
+function CodeEditor({ initialValue, value, onChange, height, width }) {
   const monacoEditorConfig = {
     fontLigatures: true,
     fontFamily: "Fira Code",
@@ -31,9 +31,11 @@ function CodeEditor({ initialValue, value, onChange }) {
             value={initialValue}
             language="javascript"
             theme="dark"
-            height="500px"
+            height={height ? height : "500px"}
             width={
-              window.screen.availWidth < 1300
+              width
+                ? width
+                : window.screen.availWidth < 1300
                 ? `${window.screen.availWidth - 140}px`
                 : "1200px"
             }
@@ -48,8 +50,8 @@ function CodeEditor({ initialValue, value, onChange }) {
             name="aceeditor"
             value={value}
             onChange={newValue => onChange(newValue)}
-            width={`${window.screen.availWidth}px`}
-            height="400px"
+            width={width ? width : `${window.screen.availWidth}px`}
+            height={height ? height : "500px"}
             fontSize="16px"
             tabSize={2}
             mode="javascript"
