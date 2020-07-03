@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.li`
   margin: 0;
@@ -38,10 +38,46 @@ export const Container = styled.li`
     }
   }
 
+  .buttons {
+    @media (max-width: 600px) {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+
+    @media (min-width: 601px) {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 10px;
+      padding: 10px;
+      border: none;
+      border-radius: 3px;
+      outline: none;
+      color: #fff;
+      font-family: inherit;
+      font-size: 14px;
+
+      transition: 0.3s;
+      &:hover {
+        opacity: 0.8;
+      }
+
+      @media (min-width: 601px) {
+        max-width: 300px;
+        &::last-child {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+
   .expanded {
     margin-top: 10px;
 
-    span {
+    .label {
       color: #555;
     }
 
@@ -102,5 +138,68 @@ export const Container = styled.li`
         }
       }
     }
+
+    .yellow-background {
+      background: linear-gradient(120deg, #f39c12, #e67e22);
+    }
+
+    .blue-background {
+      background: linear-gradient(120deg, #00adb5, #0097b5);
+    }
+
+    .red-background {
+      background: linear-gradient(120deg, #e7673c, #e74c3c);
+    }
+
+    .edit-task {
+      .row {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+      }
+    }
   }
+`;
+
+export const StyledInput = styled.input`
+  padding: 8px;
+  outline: none;
+  border: 1px solid #999;
+  border-radius: 3px;
+  font-family: inherit;
+  font-size: 16px;
+
+  transition: 0.5s;
+
+  &:focus {
+    border: 1px solid #00adb5;
+  }
+
+  ${props =>
+    props.error &&
+    css`
+      border: 1px solid #e74c3c;
+    `}
+`;
+
+export const StyledTextArea = styled.textarea`
+  padding: 8px;
+  outline: none;
+  border: 1px solid #999;
+  border-radius: 3px;
+  font-family: inherit;
+  font-size: 16px;
+  resize: none;
+
+  transition: 0.5s;
+
+  &:focus {
+    border: 1px solid #00adb5;
+  }
+
+  ${props =>
+    props.error &&
+    css`
+      border: 1px solid #e74c3c;
+    `}
 `;

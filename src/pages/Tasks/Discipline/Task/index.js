@@ -7,10 +7,20 @@ import { store } from "react-notifications-component";
 
 import api from "../../../../services/api";
 import NotificationBody from "../../../../components/Notification";
-import { Container } from "./styles";
+import { Container, StyledInput, StyledTextArea } from "./styles";
+import CodeEditor from "../../../../components/UI/CodeEditor";
 
 function Task({ data, openTasks, setOpenTasks }) {
   const [expanded, setExpanded] = useState(false);
+  const [showEditMenu, setShowEditMenu] = useState(false);
+
+  const [title, setTitle] = useState(data.title);
+
+  const [newTitle, setNewTitle] = useState(data.title);
+  const [titleError, setTitleError] = useState(false);
+  const [newDescription, setNewDescription] = useState(data.description);
+  const [descriptionError, setDescriptionError] = useState(false);
+  const [code, setCode] = useState("" + data.code);
 
   const [isOpen, setIsOpen] = useState(!data.closed_at);
 
@@ -88,17 +98,92 @@ function Task({ data, openTasks, setOpenTasks }) {
     }
   }
 
+  async function editTask() {
+    if (!newTitle) {
+      setTitleError(true);
+    }
+    if (!newDescription) {
+      setDescriptionError(true);
+    }
+
+    if (!newTitle || !newDescription) {
+      return;
+    }
+
+    const token = localStorage.getItem("token");
+
+    let response;
+    try {
+      response = await api.put(
+        `/tasks/${data.id}`,
+        {
+          title: newTitle,
+          description: newDescription,
+          code,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        setTitle(newTitle);
+        setShowEditMenu(false);
+        let content = (
+          <NotificationBody
+            type="success"
+            message="Tarefa editada com sucesso"
+          />
+        );
+
+        store.addNotification({
+          content,
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animated", "fadeIn"],
+          animationOut: ["animated", "fadeOut"],
+          dismiss: {
+            duration: 4000,
+            onScreen: false,
+          },
+        });
+      }
+    } catch (error) {
+      let content = (
+        <NotificationBody
+          type="error"
+          message="Ocorreu um errro"
+          description={"Não foi possivel editar esta tarefa"}
+        />
+      );
+
+      store.addNotification({
+        content,
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animated", "fadeIn"],
+        animationOut: ["animated", "fadeOut"],
+        dismiss: {
+          duration: 4000,
+          onScreen: false,
+        },
+      });
+    }
+  }
+
   return (
     <Container>
       <div className="header">
         <div>
-          <p>{data.title}</p>
+          <p>{title}</p>
           <div className="info">
-            <span>{isOpen ? "Aberta" : "Fechada"}</span>
+            <span className="label">{isOpen ? "Aberta" : "Fechada"}</span>
             {data.answers ? (
-              <span>{`Respostas: ${data.answers.length}`}</span>
+              <span className="label">{`Respostas: ${data.answers.length}`}</span>
             ) : (
-              <span>Respostas: 0</span>
+              <span className="label">Respostas: 0</span>
             )}
           </div>
         </div>
@@ -112,7 +197,7 @@ function Task({ data, openTasks, setOpenTasks }) {
         <div className="expanded">
           {data.answers && data.answers.length > 0 && (
             <>
-              <span>Respostas:</span>
+              <span className="label">Respostas:</span>
               <ul className="answers">
                 {/* sem feedback */}
                 {data.answers.map(
@@ -121,7 +206,7 @@ function Task({ data, openTasks, setOpenTasks }) {
                     !answer.accepted_at && (
                       <button className="answer" key={answer.id}>
                         <div className="data">
-                          <span>{answer.student.name}</span>
+                          <span className="label">{answer.student.name}</span>
                           <p>{`${new Date(
                             answer.updated_at
                           ).toLocaleDateString()}  ${new Date(
@@ -144,7 +229,7 @@ function Task({ data, openTasks, setOpenTasks }) {
                       new Date(answer.feedback_at).getTime() && (
                       <button className="answer" key={answer.id}>
                         <div className="data">
-                          <span>{answer.student.name}</span>
+                          <span className="label">{answer.student.name}</span>
                           <p>{`${new Date(
                             answer.updated_at
                           ).toLocaleDateString()}  ${new Date(
@@ -165,7 +250,7 @@ function Task({ data, openTasks, setOpenTasks }) {
                     answer.accepted_at && (
                       <button className="answer" key={answer.id}>
                         <div className="data">
-                          <span>{answer.student.name}</span>
+                          <span className="label">{answer.student.name}</span>
                           <p>{`${new Date(
                             answer.updated_at
                           ).toLocaleDateString()}  ${new Date(
@@ -187,7 +272,7 @@ function Task({ data, openTasks, setOpenTasks }) {
                       new Date(answer.updated_at).getTime() && (
                       <button className="answer" key={answer.id}>
                         <div className="data">
-                          <span>{answer.student.name}</span>
+                          <span className="label">{answer.student.name}</span>
                           <p>{`${new Date(
                             answer.updated_at
                           ).toLocaleDateString()}  ${new Date(
@@ -207,14 +292,72 @@ function Task({ data, openTasks, setOpenTasks }) {
               </ul>
             </>
           )}
-          <button
-            className={`open-close ${
-              isOpen ? "yellow-background" : "blue-background"
-            }`}
-            onClick={closeOrOpenTask}
-          >
-            {isOpen ? "Fechar Tarefa" : "Reabrir Tarefa"}
-          </button>
+          <div className="buttons">
+            <button
+              className="blue-background"
+              onClick={() => setShowEditMenu(true)}
+            >
+              Editar Tarefa
+            </button>
+            <button
+              className={`open-close ${
+                isOpen ? "yellow-background" : "blue-background"
+              }`}
+              onClick={closeOrOpenTask}
+            >
+              {isOpen ? "Fechar Tarefa" : "Reabrir Tarefa"}
+            </button>
+          </div>
+
+          {showEditMenu && (
+            <div className="edit-task">
+              <div className="row">
+                <span className="label">Título</span>
+                <StyledInput
+                  value={newTitle}
+                  onChange={event => setNewTitle(event.target.value)}
+                  error={titleError}
+                  onFocus={() => setTitleError(false)}
+                />
+              </div>
+              <div className="row">
+                <span className="label">Enunciado</span>
+                <StyledTextArea
+                  value={newDescription}
+                  onChange={event => setNewDescription(event.target.value)}
+                  error={descriptionError}
+                  onFocus={() => setDescriptionError(false)}
+                />
+              </div>
+              <div className="row">
+                <span className="label">Código</span>
+                <CodeEditor
+                  initialValue={data.code}
+                  value={code}
+                  onChange={setCode}
+                  height="200px"
+                  width={
+                    window.screen.availWidth < 1300
+                      ? `${window.screen.availWidth - 90}px`
+                      : "1148px"
+                  }
+                />
+              </div>
+
+              <div className="buttons">
+                <button className="blue-background" onClick={editTask}>
+                  Confirmar
+                </button>
+
+                <button
+                  className="red-background"
+                  onClick={() => setShowEditMenu(false)}
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </Container>
