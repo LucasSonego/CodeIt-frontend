@@ -13,6 +13,8 @@ import NavBar from "./components/UI/NavBar";
 import User from "./pages/User";
 import Disciplines from "./pages/Disciplines";
 import ErrorPage from "./pages/404";
+import Tasks from "./pages/Tasks";
+import Task from "./pages/Task";
 
 const Routes = () => (
   <Provider store={store}>
@@ -24,7 +26,8 @@ const Routes = () => (
         <PrivateRoute exact path="/" component={Home} />
         <PrivateRoute path="/dados" component={User} />
         <PrivateRoute path="/disciplinas" component={Disciplines} />
-        <PrivateRoute path="/tarefas" component={() => <h2>Tarefas</h2>} />
+        <PrivateRoute exact path="/tarefas" component={Tasks} />
+        <PrivateRoute path="/tarefas/:id" component={Task} />
         <PrivateRoute path="/feedbacks" component={() => <h2>Feedbacks</h2>} />
         <Route component={ErrorPage} />
       </Switch>
