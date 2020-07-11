@@ -14,21 +14,45 @@ import "ace-builds/src-noconflict/mode-sql";
 
 import isMobile from "../../../util/isMobile";
 import { Container } from "./styles";
+import avilableLanguages from "./availableLanguages";
+import Dropdown from "../Dropdown";
+import availableLanguages from "./availableLanguages";
 
-function CodeEditor({ initialValue, value, onChange, height, width }) {
-  const monacoEditorConfig = {
-    fontLigatures: true,
-    fontFamily: "Fira Code",
-    fontSize: "16",
-    formatOnType: true,
-    tabSize: 2,
-    wordWrap: true,
-    autoIndent: true,
-    parameterHints: false,
-  };
+function CodeEditor({
+  value,
+  onChange,
+  height,
+  width,
+  language,
+  setLanguage,
+  allowLanguageSelection,
+}) {
+  const [editorLanguage, setEditorLanguage] = useState({
+    label: "selecionar...",
+    language: "",
+  });
+
+  useEffect(() => {
+    if (language) {
+      setEditorLanguage(
+        avilableLanguages.find(element => element.language === language)
+      );
+    }
+  }, [language]);
 
   return (
     <Container>
+      <div className="language-selector">
+        <Dropdown
+          items={availableLanguages}
+          value={editorLanguage}
+          onChange={value => {
+            setLanguage(value.language);
+            setEditorLanguage(value);
+          }}
+          disabled={!allowLanguageSelection}
+        />
+      </div>
 
       <div className="ace">
         <AceEditor
@@ -47,7 +71,7 @@ function CodeEditor({ initialValue, value, onChange, height, width }) {
               : `${window.screen.availWidth}px`
           }
           height={height ? height : "500px"}
-          mode="javascript"
+          mode={`${language}`}
           setOptions={{
             enableBasicAutocompletion: true,
             enableLiveAutocompletion: true,

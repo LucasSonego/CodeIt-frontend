@@ -42,6 +42,11 @@ export const Container = styled.div`
     &:hover {
       border: 1px solid #00adb5;
     }
+
+    span {
+      display: block;
+      min-height: 22px;
+    }
   }
 
   ul {
