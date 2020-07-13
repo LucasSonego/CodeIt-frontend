@@ -31,7 +31,7 @@ export const Container = styled.div`
     padding: 10px;
     border-radius: 3px;
     border: 1px solid #999;
-    background: none;
+    background: #fff;
     outline: none;
     font-size: 16px;
     font-family: inherit;

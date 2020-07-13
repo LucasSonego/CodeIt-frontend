@@ -9,7 +9,7 @@ function Dropdown({ items, value, onChange, disabled }) {
   return (
     <Container disabled={disabled}>
       <button
-        className="selected"
+        className="dropdown"
         onClick={() => {
           if (!disabled) {
             showList ? setShowList(false) : setShowList(true);
