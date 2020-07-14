@@ -203,3 +203,44 @@ export const StyledTextArea = styled.textarea`
       border: 1px solid #e74c3c;
     `}
 `;
+
+export const StyledCheckBox = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+
+  .box {
+    height: 18px;
+    width: 18px;
+    max-width: 18px;
+    max-height: 18px;
+    min-width: 18px;
+    min-height: 18px;
+    border-radius: 2px;
+    border: 1px solid #999;
+    padding: 1px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  span {
+    margin-left: 10px;
+    color: #444;
+  }
+
+  svg {
+    color: #00adb5;
+    height: 16px;
+    width: 16px;
+  }
+
+  ${props =>
+    props.value &&
+    css`
+      .box {
+        border: 1px solid #00adb5;
+      }
+    `}
+`;

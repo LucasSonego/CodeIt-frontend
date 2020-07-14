@@ -14,9 +14,8 @@ import "ace-builds/src-noconflict/mode-sql";
 
 import isMobile from "../../../util/isMobile";
 import { Container } from "./styles";
-import avilableLanguages from "./availableLanguages";
-import Dropdown from "../Dropdown";
 import availableLanguages from "./availableLanguages";
+import Dropdown from "../Dropdown";
 
 function CodeEditor({
   value,
@@ -33,9 +32,14 @@ function CodeEditor({
   });
 
   useEffect(() => {
+    const noLanguage = {
+      label: "selecionar...",
+      language: "",
+    };
     if (language) {
       setEditorLanguage(
-        avilableLanguages.find(element => element.language === language)
+        availableLanguages.find(element => element.language === language) ||
+          noLanguage
       );
     }
   }, [language]);

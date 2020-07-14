@@ -7,7 +7,12 @@ import { store } from "react-notifications-component";
 
 import api from "../../../../services/api";
 import NotificationBody from "../../../../components/Notification";
-import { Container, StyledInput, StyledTextArea } from "./styles";
+import {
+  Container,
+  StyledInput,
+  StyledTextArea,
+  StyledCheckBox,
+} from "./styles";
 import CodeEditor from "../../../../components/UI/CodeEditor";
 
 function Task({ data, openTasks, setOpenTasks }) {
@@ -21,6 +26,9 @@ function Task({ data, openTasks, setOpenTasks }) {
   const [newDescription, setNewDescription] = useState(data.description);
   const [descriptionError, setDescriptionError] = useState(false);
   const [code, setCode] = useState("" + data.code);
+  const [language, setLanguage] = useState("" + data.language);
+  const [allowAnyLanguage, setAllowAnyLanguage] = useState(false);
+  const [error, setError] = useState("");
 
   const [isOpen, setIsOpen] = useState(!data.closed_at);
 
@@ -77,8 +85,8 @@ function Task({ data, openTasks, setOpenTasks }) {
       let content = (
         <NotificationBody
           type="error"
-          message="Ocorreu um errro"
-          description={`Não foi possivel ${
+          message="Ocorreu um erro"
+          description={`Não foi possível ${
             isOpen ? "fechar" : "reabrir"
           } esta tarefa`}
         />
@@ -110,6 +118,11 @@ function Task({ data, openTasks, setOpenTasks }) {
       return;
     }
 
+    if (!allowAnyLanguage && !language) {
+      setError("Selecione uma linguagem ou marque a caixa acima");
+      return;
+    }
+
     const token = localStorage.getItem("token");
 
     let response;
@@ -120,6 +133,7 @@ function Task({ data, openTasks, setOpenTasks }) {
           title: newTitle,
           description: newDescription,
           code,
+          language: allowAnyLanguage ? null : language,
         },
         {
           headers: {
@@ -154,8 +168,8 @@ function Task({ data, openTasks, setOpenTasks }) {
       let content = (
         <NotificationBody
           type="error"
-          message="Ocorreu um errro"
-          description={"Não foi possivel editar esta tarefa"}
+          message="Ocorreu um erro"
+          description={"Não foi possível editar esta tarefa"}
         />
       );
 
@@ -330,20 +344,42 @@ function Task({ data, openTasks, setOpenTasks }) {
                 />
               </div>
               <div className="row">
-                <span className="label">Código</span>
+                <span className="label">Linguagem e Código</span>
                 <CodeEditor
                   initialValue={data.code}
                   value={code}
                   onChange={setCode}
+                  language={language}
+                  setLanguage={setLanguage}
+                  allowLanguageSelection
                   height="200px"
                   width={
                     window.screen.availWidth < 1300
-                      ? `${window.screen.availWidth - 90}px`
-                      : "1148px"
+                      ? `${window.screen.availWidth - 94}px`
+                      : "1146px"
                   }
                 />
               </div>
-
+              <div className="row">
+                <StyledCheckBox
+                  value={allowAnyLanguage}
+                  onClick={() =>
+                    allowAnyLanguage
+                      ? setAllowAnyLanguage(false)
+                      : setAllowAnyLanguage(true)
+                  }
+                >
+                  {allowAnyLanguage ? (
+                    <div className="box">
+                      <FaCheck />
+                    </div>
+                  ) : (
+                    <div className="box"></div>
+                  )}
+                  <span>Aceitar respostas em qualquer linguagem</span>
+                </StyledCheckBox>
+                <div className="error">{error}</div>
+              </div>
               <div className="buttons">
                 <button className="blue-background" onClick={editTask}>
                   Confirmar
