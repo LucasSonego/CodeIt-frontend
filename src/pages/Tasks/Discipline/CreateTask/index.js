@@ -95,7 +95,7 @@ function CreateTask({ disciplineId, onNewTask }) {
         <NotificationBody
           type="error"
           message="Ocorreu um erro"
-          description="Não foi possivel criar a tarefa"
+          description="Não foi possível criar a tarefa"
         />
       );
 
@@ -153,7 +153,7 @@ function CreateTask({ disciplineId, onNewTask }) {
               height="300px"
               width={
                 window.screen.availWidth < 1300
-                  ? `${window.screen.availWidth - 90}px`
+                  ? `${window.screen.availWidth - 92}px`
                   : "1148px"
               }
               language={language}
