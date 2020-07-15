@@ -3,9 +3,11 @@ import styled from "styled-components";
 export const Container = styled.div`
   max-width: 1200px;
   width: min-content;
-  .monacoeditor {
-    padding: 10px 0;
-    background: #202124;
-    border-radius: 6px;
+
+  .language-selector {
+    @media (max-width: 600px) {
+      padding: 0 15px 15px 15px;
+    }
+    padding: 0 0 15px 0;
   }
 `;

@@ -19,8 +19,8 @@ function Task() {
   const [error, setError] = useState("");
 
   const [taskData, setTaskData] = useState({});
-  const [taskCode, setTaskCode] = useState("");
-  const [answerCode, setAnswerCode] = useState("");
+  const [code, setCode] = useState("");
+  const [language, setLanguage] = useState("");
 
   useEffect(() => {
     dispatch({
@@ -44,15 +44,12 @@ function Task() {
         });
 
         setTaskData(response.data);
-        if (response.data.answer) {
-          setTaskCode(response.data.answer.code);
-          setAnswerCode(response.data.answer.code);
-        } else {
-          setTaskCode(response.data.code);
-          setAnswerCode(response.data.code);
-        }
+        const data = response.data.answer || response.data;
+
+        setCode(data.code);
+        setLanguage(data.language);
       } catch (error) {
-        if (error.response.status === 404) {
+        if (error.response && error.response.status === 404) {
           pushToPage({ page: "tarefas", dispatch, history });
           const content = (
             <NofiticationBody
@@ -82,16 +79,22 @@ function Task() {
   }
 
   async function handleSubmit() {
-    if (!answerCode || answerCode === taskData.code) {
+    if (!code || code === taskData.code) {
       setError("Não há nada à ser enviado na resposta");
       return;
     }
-    if (taskData.answer && answerCode === taskData.answer.code) {
+    if (taskData.answer && code === taskData.answer.code) {
       setError("Não há nenhuma alteração à ser enviada na resposta");
+      return;
+    }
+    if (!taskData.language && !language) {
+      setError("Selecione uma linguagem");
       return;
     }
 
     setError("");
+
+    const answerLanguage = taskData.language || language;
 
     const token = localStorage.getItem("token");
 
@@ -102,7 +105,8 @@ function Task() {
         response = await api.post(
           `/answers/${taskData.id}`,
           {
-            code: answerCode,
+            code,
+            language: answerLanguage,
           },
           {
             headers: {
@@ -114,7 +118,8 @@ function Task() {
         response = await api.put(
           `/answers/${taskData.id}`,
           {
-            code: answerCode,
+            code,
+            language: answerLanguage,
           },
           {
             headers: {
@@ -159,7 +164,7 @@ function Task() {
           });
 
           setTaskData(response.data);
-          setTaskCode(response.data.answer.code);
+          setCode(response.data.answer.code);
         } catch (error) {}
       }
     } catch (error) {
@@ -248,9 +253,12 @@ function Task() {
           </div>
         )}
         <CodeEditor
-          initialValue={taskCode}
-          value={answerCode}
-          onChange={setAnswerCode}
+          initialValue={code}
+          value={code}
+          onChange={setCode}
+          language={language}
+          setLanguage={setLanguage}
+          allowLanguageSelection={!taskData.language}
         />
         <div className="submit">
           <p className="error">{error}</p>
