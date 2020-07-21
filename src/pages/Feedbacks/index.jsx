@@ -32,6 +32,7 @@ function Feedbacks() {
 
   return (
     <Container>
+      <h2>Feedbacks</h2>
       {answers && answers.length > 0 && (
         <ul>
           {answers.map(answer => (

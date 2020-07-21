@@ -21,6 +21,11 @@ export const Container = styled.div`
     }
   }
 
+  h2 {
+    margin: 20px auto 15px auto;
+    max-width: 1200px;
+  }
+
   ul {
     max-width: 1200px;
     margin: 0 auto;
@@ -76,6 +81,11 @@ export const Container = styled.div`
       .grey {
         color: #888;
       }
+    }
+
+    transition: 0.2s;
+    &:hover {
+      background-color: #f9f9f9;
     }
   }
 `;
