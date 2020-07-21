@@ -7,11 +7,14 @@ import { RiCodeSSlashLine } from "react-icons/ri";
 
 import { Container } from "./styles";
 import api from "../../services/api";
+import pushToPage from "../../util/pushToPage";
+import { useHistory } from "react-router-dom";
 
 function Feedbacks() {
   const [answers, setAnswers] = useState([]);
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     dispatch({
@@ -36,7 +39,16 @@ function Feedbacks() {
       {answers && answers.length > 0 && (
         <ul>
           {answers.map(answer => (
-            <li key={answer.id}>
+            <li
+              key={answer.id}
+              onClick={() =>
+                pushToPage({
+                  page: `feedback/${answer.task.id}`,
+                  dispatch,
+                  history,
+                })
+              }
+            >
               <div>
                 <h3>{answer.task.title}</h3>
                 <h4>{answer.task.discipline.name}</h4>
