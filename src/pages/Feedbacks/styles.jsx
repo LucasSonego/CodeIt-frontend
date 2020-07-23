@@ -3,32 +3,30 @@ import styled from "styled-components";
 export const Container = styled.div`
   @media (max-width: 600px) {
     margin-bottom: 60px;
-    ul {
-      padding: 10px 20px;
-    }
   }
 
   @media (min-width: 601px) {
     margin-left: 80px;
-    ul {
-      padding: 10px;
+    .wrapper {
+      align-self: center;
+      max-width: 1200px;
+      margin: 0 auto;
     }
   }
 
-  @media (min-width: 1320px) {
-    ul {
-      padding: 10px 0;
+  @media (max-width: 1320px) {
+    .wrapper {
+      padding: 0 10px;
     }
   }
 
   h2 {
-    margin: 20px auto 15px auto;
-    max-width: 1200px;
+    margin: 20px 0 15px 0;
   }
 
   ul {
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 0;
+    margin: 0;
     list-style: none;
     display: grid;
     grid-gap: 10px;
@@ -58,7 +56,6 @@ export const Container = styled.div`
     .icons {
       display: flex;
       align-items: center;
-      /* justify-content: center; */
 
       svg {
         height: 24px;

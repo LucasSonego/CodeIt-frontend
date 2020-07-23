@@ -35,50 +35,55 @@ function Feedbacks() {
 
   return (
     <Container>
-      <h2>Feedbacks</h2>
-      {answers && answers.length > 0 && (
-        <ul>
-          {answers.map(answer => (
-            <li
-              key={answer.id}
-              onClick={() =>
-                pushToPage({
-                  page: `feedback/${answer.task.id}`,
-                  dispatch,
-                  history,
-                })
-              }
-            >
-              <div>
-                <h3>{answer.task.title}</h3>
-                <h4>{answer.task.discipline.name}</h4>
-              </div>
-              <div className="icons">
-                {answer.accepted_at !== null ? (
-                  <FaCheck className="green" title="Sua resposta foi aceita" />
-                ) : (
-                  <AiOutlineCloseCircle
-                    className="red"
-                    title="Sua resposta não foi aceita"
-                  />
-                )}
-                {answer.feedback !== null && (
-                  <MdFeedback
-                    className={answer.accepted_at ? "grey" : "yellow"}
-                    title="Feedback em texto disponível"
-                  />
-                )}
-                {answer.feedback_code !== null && (
-                  <RiCodeSSlashLine
-                    className={answer.accepted_at ? "grey" : "yellow"}
-                    title="Feedback em código disponível"
-                  />
-                )}
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
+      <div className="wrapper">
+        <h2>Feedbacks</h2>
+        {answers && answers.length > 0 && (
+          <ul>
+            {answers.map(answer => (
+              <li
+                key={answer.id}
+                onClick={() =>
+                  pushToPage({
+                    page: `feedback/${answer.task.id}`,
+                    dispatch,
+                    history,
+                  })
+                }
+              >
+                <div>
+                  <h3>{answer.task.title}</h3>
+                  <h4>{answer.task.discipline.name}</h4>
+                </div>
+                <div className="icons">
+                  {answer.accepted_at !== null ? (
+                    <FaCheck
+                      className="green"
+                      title="Sua resposta foi aceita"
+                    />
+                  ) : (
+                    <AiOutlineCloseCircle
+                      className="red"
+                      title="Sua resposta não foi aceita"
+                    />
+                  )}
+                  {answer.feedback !== null && (
+                    <MdFeedback
+                      className={answer.accepted_at ? "grey" : "yellow"}
+                      title="Feedback em texto disponível"
+                    />
+                  )}
+                  {answer.feedback_code !== null && (
+                    <RiCodeSSlashLine
+                      className={answer.accepted_at ? "grey" : "yellow"}
+                      title="Feedback em código disponível"
+                    />
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </Container>
   );
 }
