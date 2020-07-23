@@ -84,6 +84,7 @@ function CodeEditor({
             fontSize: 16,
             tabSize: 2,
           }}
+          readOnly={!onChange}
         />
       </div>
     </Container>

@@ -16,6 +16,7 @@ import ErrorPage from "./pages/404";
 import Tasks from "./pages/Tasks";
 import Task from "./pages/Task";
 import Feedbacks from "./pages/Feedbacks";
+import Feedback from "./pages/Feedback";
 
 const Routes = () => (
   <Provider store={store}>
@@ -30,6 +31,7 @@ const Routes = () => (
         <PrivateRoute exact path="/tarefas" component={Tasks} />
         <PrivateRoute path="/tarefas/:id" component={Task} />
         <PrivateRoute path="/feedbacks" component={Feedbacks} />
+        <PrivateRoute path="/feedback/:id" component={Feedback} />
         <Route component={ErrorPage} />
       </Switch>
     </BrowserRouter>
