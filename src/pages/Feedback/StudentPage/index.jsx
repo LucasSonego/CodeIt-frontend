@@ -19,11 +19,6 @@ function StudentPage() {
   const [taskData, setTaskData] = useState({});
 
   useEffect(() => {
-    dispatch({
-      type: "SET_CURRENT_PAGE",
-      page: "feedbacks",
-    });
-
     function noFeedback() {
       const content = (
         <NotificationBody

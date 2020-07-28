@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+
 import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import { MdFeedback } from "react-icons/md";
 import { FaCheck } from "react-icons/fa";
@@ -14,6 +17,7 @@ import {
   StyledCheckBox,
 } from "./styles";
 import CodeEditor from "../../../../components/UI/CodeEditor";
+import pushToPage from "../../../../util/pushToPage";
 
 function Task({ data, openTasks, setOpenTasks }) {
   const [expanded, setExpanded] = useState(false);
@@ -31,6 +35,9 @@ function Task({ data, openTasks, setOpenTasks }) {
   const [error, setError] = useState("");
 
   const [isOpen, setIsOpen] = useState(!data.closed_at);
+
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   async function closeOrOpenTask() {
     const token = localStorage.getItem("token");
@@ -218,7 +225,17 @@ function Task({ data, openTasks, setOpenTasks }) {
                   answer =>
                     !answer.feedback_at &&
                     !answer.accepted_at && (
-                      <button className="answer" key={answer.id}>
+                      <button
+                        className="answer"
+                        key={answer.id}
+                        onClick={() =>
+                          pushToPage({
+                            page: `feedback/${answer.id}`,
+                            dispatch,
+                            history,
+                          })
+                        }
+                      >
                         <div className="data">
                           <span className="label">{answer.student.name}</span>
                           <p>{`${new Date(
@@ -241,7 +258,17 @@ function Task({ data, openTasks, setOpenTasks }) {
                     answer.feedback_at &&
                     new Date(answer.updated_at).getTime() >
                       new Date(answer.feedback_at).getTime() && (
-                      <button className="answer" key={answer.id}>
+                      <button
+                        className="answer"
+                        key={answer.id}
+                        onClick={() =>
+                          pushToPage({
+                            page: `feedback/${answer.id}`,
+                            dispatch,
+                            history,
+                          })
+                        }
+                      >
                         <div className="data">
                           <span className="label">{answer.student.name}</span>
                           <p>{`${new Date(
@@ -262,7 +289,17 @@ function Task({ data, openTasks, setOpenTasks }) {
                 {data.answers.map(
                   answer =>
                     answer.accepted_at && (
-                      <button className="answer" key={answer.id}>
+                      <button
+                        className="answer"
+                        key={answer.id}
+                        onClick={() =>
+                          pushToPage({
+                            page: `feedback/${answer.id}`,
+                            dispatch,
+                            history,
+                          })
+                        }
+                      >
                         <div className="data">
                           <span className="label">{answer.student.name}</span>
                           <p>{`${new Date(
@@ -284,7 +321,17 @@ function Task({ data, openTasks, setOpenTasks }) {
                     !answer.accepted_at &&
                     new Date(answer.feedback_at).getTime() >
                       new Date(answer.updated_at).getTime() && (
-                      <button className="answer" key={answer.id}>
+                      <button
+                        className="answer"
+                        key={answer.id}
+                        onClick={() =>
+                          pushToPage({
+                            page: `feedback/${answer.id}`,
+                            dispatch,
+                            history,
+                          })
+                        }
+                      >
                         <div className="data">
                           <span className="label">{answer.student.name}</span>
                           <p>{`${new Date(
