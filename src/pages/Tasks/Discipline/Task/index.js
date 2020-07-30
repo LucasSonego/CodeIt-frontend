@@ -242,7 +242,9 @@ function Task({ data, openTasks, setOpenTasks }) {
                             answer.updated_at
                           ).toLocaleDateString()}  ${new Date(
                             answer.updated_at
-                          ).toLocaleTimeString()}`}</p>
+                          ).toLocaleTimeString([], {
+                            timeStyle: "short",
+                          })}`}</p>
                         </div>
                         <div className="icons">
                           <AiOutlineFile className="grey" />
@@ -275,7 +277,9 @@ function Task({ data, openTasks, setOpenTasks }) {
                             answer.updated_at
                           ).toLocaleDateString()}  ${new Date(
                             answer.updated_at
-                          ).toLocaleTimeString()}`}</p>
+                          ).toLocaleTimeString([], {
+                            timeStyle: "short",
+                          })}`}</p>
                         </div>
                         <div className="icons">
                           <AiOutlineFile className="grey" />
@@ -306,7 +310,9 @@ function Task({ data, openTasks, setOpenTasks }) {
                             answer.updated_at
                           ).toLocaleDateString()}  ${new Date(
                             answer.updated_at
-                          ).toLocaleTimeString()}`}</p>
+                          ).toLocaleTimeString([], {
+                            timeStyle: "short",
+                          })}`}</p>
                         </div>
                         <div className="icons">
                           <FaCheck className="green" />
@@ -338,7 +344,9 @@ function Task({ data, openTasks, setOpenTasks }) {
                             answer.updated_at
                           ).toLocaleDateString()}  ${new Date(
                             answer.updated_at
-                          ).toLocaleTimeString()}`}</p>
+                          ).toLocaleTimeString([], {
+                            timeStyle: "short",
+                          })}`}</p>
                         </div>
                         <div className="icons">
                           {data.closed_at ? (
