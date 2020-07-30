@@ -64,13 +64,36 @@ export const Container = styled.div`
       background: #2ecc7122;
       border: 2px solid #2ecc71;
       color: #2ecc71;
+
+      transition: 0.2s;
+      &:hover {
+        background: #2ecc7115;
+      }
     }
 
     .deny {
       background: #f39c1222;
       border: 2px solid #f39c12;
       color: #f39c12;
+
+      transition: 0.2s;
+      &:hover {
+        background: #f39c1215;
+      }
     }
+  }
+  .accepted {
+    display: flex;
+    background: #2ecc7122;
+    border: 2px solid #2ecc71;
+    color: #2ecc71;
+    height: 41px;
+    border-radius: 3px;
+    font-size: 16px;
+    font-family: inherit;
+    font-weight: bold;
+    align-items: center;
+    justify-content: center;
   }
 `;
 

@@ -16,8 +16,7 @@ function TeacherPage() {
   const dispatch = useDispatch();
 
   const [feedback, setFeedback] = useState("");
-  const [feedbackCode, setFeedbackCode] = useState("");
-  const [accepted, setAccepted] = useState(false);
+  const [code, setCode] = useState("");
 
   useEffect(() => {
     async function awaitAsyncCalls() {
@@ -34,7 +33,17 @@ function TeacherPage() {
 
         if (response && response.status === 200) {
           setAnswerData(response.data);
-          setFeedbackCode(response.data.code);
+          let _code;
+          if (!response.data.feedback_code) {
+            _code = response.data.code;
+          } else {
+            new Date(response.data.updated_at).getTime() >
+            new Date(response.data.feedback_at).getTime()
+              ? (_code = response.data.code)
+              : (_code = response.data.feedback_code);
+          }
+          setCode(_code);
+          setFeedback(response.data.feedback);
         }
       } catch (error) {
         if (error.response) {
@@ -77,6 +86,91 @@ function TeacherPage() {
     awaitAsyncCalls();
   }, [dispatch, history, id]);
 
+  async function sendFeedback(accepted) {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await api.put(
+        `/feedback/${answerData.id}`,
+        {
+          feedback: feedback || null,
+          code: code !== answerData.code ? code : null,
+          accepted,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        const content = (
+          <NotificationBody type="success" message="Feedback enviado" />
+        );
+
+        store.addNotification({
+          content,
+          insert: "top",
+          container: "top-right",
+          animationIn: ["animated", "fadeIn"],
+          animationOut: ["animated", "fadeOut"],
+          dismiss: {
+            duration: 4000,
+            onScreen: false,
+          },
+        });
+
+        try {
+          const token = localStorage.getItem("token");
+          const response = await api.get(`/answers`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            params: {
+              id,
+            },
+          });
+
+          if (response && response.status === 200) {
+            setAnswerData(response.data);
+            let _code;
+            if (!response.data.feedback_code) {
+              _code = response.data.code;
+            } else {
+              new Date(response.data.updated_at).getTime() >
+              new Date(response.data.feedback_at).getTime()
+                ? (_code = response.data.code)
+                : (_code = response.data.feedback_code);
+            }
+            setCode(_code);
+            setFeedback(response.data.feedback);
+          }
+        } catch (error) {}
+      }
+    } catch (error) {
+      console.log(error.response);
+      const content = (
+        <NotificationBody
+          type="error"
+          message="Erro"
+          description="Não foi possível enviar o feedback"
+        />
+      );
+
+      store.addNotification({
+        content,
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animated", "fadeIn"],
+        animationOut: ["animated", "fadeOut"],
+        dismiss: {
+          duration: 4000,
+          onScreen: false,
+        },
+      });
+    }
+  }
+
   return (
     <Container>
       {answerData.id && (
@@ -87,10 +181,29 @@ function TeacherPage() {
             <span>{answerData.task.discipline.name}</span>
           </div>
           <div className="editor">
-            <span className="label">Código</span>
+            <span className="label">
+              Código{" "}
+              {answerData.feedback_at &&
+                (new Date(answerData.updated_at).getTime() >
+                new Date(answerData.feedback_at).getTime()
+                  ? `(Alterado pelo aluno ${new Date(
+                      answerData.updated_at
+                    ).toLocaleTimeString([], {
+                      timeStyle: "short",
+                    })} ${new Date(
+                      answerData.updated_at
+                    ).toLocaleDateString()})`
+                  : `(Feedback ${new Date(
+                      answerData.feedback_at
+                    ).toLocaleTimeString([], {
+                      timeStyle: "short",
+                    })} ${new Date(
+                      answerData.feedback_at
+                    ).toLocaleDateString()})`)}
+            </span>
             <CodeEditor
-              value={feedbackCode}
-              onChange={setFeedbackCode}
+              value={code}
+              onChange={setCode}
               language={answerData.language}
               allowLanguageSelection={false}
             />
@@ -100,22 +213,29 @@ function TeacherPage() {
             <StyledTextArea
               className="description-input"
               rows="4"
-              value={feedback}
+              value={feedback || ""}
               onChange={event => setFeedback(event.target.value)}
+              disabled={answerData.accepted_at}
             />
           </div>
-          <div className="buttons">
-            <button className="accept">
-              {feedback || feedbackCode !== answerData.code
-                ? "Aceitar resposta e enviar feedback"
-                : "Aceitar resposta"}
-            </button>
-            <button className="deny">
-              {feedback || feedbackCode !== answerData.code
-                ? "Enviar feedback e não aceitar resposta"
-                : "Não aceitar resposta"}
-            </button>
-          </div>
+          {answerData.accepted_at ? (
+            <div className="accepted">
+              <span>Resposta aceita</span>
+            </div>
+          ) : (
+            <div className="buttons">
+              <button className="accept" onClick={() => sendFeedback(true)}>
+                {feedback || code !== answerData.code
+                  ? "Aceitar resposta e enviar feedback"
+                  : "Aceitar resposta"}
+              </button>
+              <button className="deny" onClick={() => sendFeedback(false)}>
+                {feedback || code !== answerData.code
+                  ? "Enviar feedback e não aceitar resposta"
+                  : "Não aceitar resposta"}
+              </button>
+            </div>
+          )}
         </>
       )}
     </Container>
