@@ -53,9 +53,15 @@ export const Container = styled.div`
       font-weight: normal;
     }
 
-    .icons {
+    .info {
       display: flex;
       align-items: center;
+
+      span {
+        font-size: 12px;
+        color: #888;
+        margin-right: 10px;
+      }
 
       svg {
         height: 24px;
