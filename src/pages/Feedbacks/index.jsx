@@ -45,7 +45,7 @@ function Feedbacks() {
                   key={answer.id}
                   onClick={() =>
                     pushToPage({
-                      page: `feedback/${answer.task.id}`,
+                      page: `feedback/${answer.id}`,
                       dispatch,
                       history,
                     })
