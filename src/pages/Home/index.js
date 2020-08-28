@@ -1,39 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-
-import api from "../../services/api";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Container } from "./styles";
+import { useHistory } from "react-router-dom";
+import useFetch from "../../hooks/useFetch";
 
 export default function Home() {
-  const [user, setUser] = useState({});
   const dispatch = useDispatch();
+  const history = useHistory();
+  const user = useSelector(state => state.userData);
+  useFetch({
+    path: "/sessions",
+    params: { newtoken: true },
+    dispatch,
+    history,
+  });
 
   useEffect(() => {
     dispatch({
       type: "SET_CURRENT_PAGE",
       page: "",
     });
-    const token = localStorage.getItem("token");
-    if (token) {
-      const storageUser = localStorage.getItem("user");
-      if (storageUser) {
-        const parsedUser = JSON.parse(storageUser);
-        setUser(parsedUser);
-      } else {
-        async function getUserData() {
-          const response = await api.get("/user", {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          localStorage.setItem("user", JSON.stringify(response.data));
-          setUser(response.data);
-        }
-
-        getUserData();
-      }
-    }
   }, [dispatch]);
 
   return (
