@@ -1,38 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FiPlusCircle } from "react-icons/fi";
 
 import { Container } from "./styles";
 import api from "../../../services/api";
 import Discipline from "./Discipline";
 import CreateDiscipline from "./CreateDiscipline";
+import useFetch from "../../../hooks/useFetch";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 function TeacherPage() {
-  const [disciplines, setDisciplines] = useState([]);
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [showCreateDiscipline, setShowCreateDiscipline] = useState(false);
+  const userData = useSelector(state => state.userData);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user"));
-    async function awaitDisciplines() {
-      const response = await api.get(`/disciplines?teacher=${user.id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setDisciplines(response.data);
-    }
-    awaitDisciplines();
-  }, []);
+  const { data: disciplines, mutate: mutateDisciplines } = useFetch({
+    path: "/disciplines",
+    params: { teacher: userData.id },
+    dispatch,
+    history,
+  });
 
   async function reloadDisciplines() {
     const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user"));
-    const response = await api.get(`/disciplines?teacher=${user.id}`, {
+    const response = await api.get(`/disciplines?teacher=${userData.id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    setDisciplines(response.data);
+    mutateDisciplines(response.data);
   }
 
   return (
@@ -46,14 +43,12 @@ function TeacherPage() {
       {showCreateDiscipline && (
         <CreateDiscipline
           hideComponent={() => setShowCreateDiscipline(false)}
-          disciplineList={{
-            disciplines: disciplines,
-            setDisciplines: setDisciplines,
-          }}
+          disciplines={disciplines}
+          mutateDisciplines={mutateDisciplines}
         />
       )}
       <ul>
-        {disciplines.map(discipline => (
+        {disciplines?.map(discipline => (
           <Discipline
             data={discipline}
             key={discipline.id}
