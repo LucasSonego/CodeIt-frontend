@@ -72,8 +72,6 @@ function CreateDiscipline({ hideComponent, disciplines, mutateDisciplines }) {
           sendSuccessNotification();
           hideComponent();
           let newDisciplineList = [...disciplines, response.data];
-          console.log(newDisciplineList);
-          console.log(disciplines);
           mutateDisciplines(newDisciplineList, false);
         }
       } catch (error) {

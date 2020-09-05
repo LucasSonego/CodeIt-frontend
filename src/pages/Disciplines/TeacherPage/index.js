@@ -16,8 +16,7 @@ function TeacherPage() {
   const userData = useSelector(state => state.userData);
 
   const { data: disciplines, mutate: mutateDisciplines } = useFetch({
-    path: "/disciplines",
-    params: { teacher: userData.id },
+    path: `/disciplines?teacher=${userData.id}`,
     dispatch,
     history,
   });
