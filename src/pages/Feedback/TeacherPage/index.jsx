@@ -77,8 +77,6 @@ function TeacherPage() {
           });
 
           pushToPage({ page: "tarefas", dispatch, history });
-        } else {
-          console.log(error);
         }
       }
     }
@@ -148,7 +146,6 @@ function TeacherPage() {
         } catch (error) {}
       }
     } catch (error) {
-      console.log(error.response);
       const content = (
         <NotificationBody
           type="error"
