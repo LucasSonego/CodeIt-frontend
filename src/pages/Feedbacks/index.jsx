@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { MdFeedback } from "react-icons/md";
 import { FaCheck } from "react-icons/fa";
@@ -6,31 +6,25 @@ import { AiOutlineCloseCircle } from "react-icons/ai";
 import { RiCodeSSlashLine } from "react-icons/ri";
 
 import { Container } from "./styles";
-import api from "../../services/api";
 import pushToPage from "../../util/pushToPage";
+import useFetch from "../../hooks/useFetch";
 import { useHistory } from "react-router-dom";
 
 function Feedbacks() {
-  const [answers, setAnswers] = useState([]);
-
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const { data: answers } = useFetch({
+    path: `/feedback`,
+    dispatch,
+    history,
+  });
 
   useEffect(() => {
     dispatch({
       type: "SET_CURRENT_PAGE",
       page: "feedbacks",
     });
-    async function awaitAsyncCalls() {
-      const token = localStorage.getItem("token");
-      const response = await api.get("/feedback", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setAnswers(response.data);
-    }
-    awaitAsyncCalls();
   }, [dispatch]);
 
   return (
@@ -39,7 +33,7 @@ function Feedbacks() {
         <h2>Feedbacks</h2>
         {answers && answers.length > 0 && (
           <ul>
-            {answers.map(answer =>
+            {answers?.map(answer =>
               answer.student ? (
                 <li
                   key={answer.id}

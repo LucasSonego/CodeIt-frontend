@@ -48,7 +48,10 @@ export default function Login() {
       if (response.data.token) {
         localStorage.clear();
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("user", JSON.stringify(response.data.user));
+        dispatch({
+          type: "SET_USER_DATA",
+          userData: response.data.user,
+        });
 
         pushToPage({ page: "", dispatch, history });
       }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { store } from "react-notifications-component";
@@ -6,29 +6,20 @@ import NotificationBody from "../../../components/Notification";
 import { FiPlusCircle } from "react-icons/fi";
 
 import api from "../../../services/api";
+import useFetch from "../../../hooks/useFetch";
 
 import { Container } from "./styles";
 import Discipline from "./Discipline";
 
 function StudentPage() {
-  const [disciplines, setDisciplines] = useState([]);
-  const [enrolledDisciplines, setEnrolledDisciplines] = useState([]);
   const dispatch = useDispatch();
   const history = useHistory();
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    async function getDisciplines() {
-      const response = await api.get("/disciplines", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setDisciplines(response.data.disciplines);
-      setEnrolledDisciplines(response.data.enrolled_disciplines);
-    }
-    getDisciplines();
-  }, [dispatch, history]);
+  const { data: disciplineList, mutate: mutateDisciplineList } = useFetch({
+    path: "/disciplines",
+    dispatch,
+    history,
+  });
 
   function sendNotification(content) {
     store.addNotification({
@@ -66,6 +57,8 @@ function StudentPage() {
           Authorization: `Bearer ${token}`,
         },
       });
+    } else {
+      return;
     }
 
     if (response.status === 200) {
@@ -82,7 +75,7 @@ function StudentPage() {
       const content = (
         <NotificationBody
           type="error"
-          description={`Não foi possivel ${
+          description={`Não foi possível ${
             action === "create" ? "efetuada" : "removida"
           } sua matrícula`}
         />
@@ -96,18 +89,17 @@ function StudentPage() {
       },
     });
     setLoadingState(false);
-    setDisciplines(response.data.disciplines);
-    setEnrolledDisciplines(response.data.enrolled_disciplines);
+    mutateDisciplineList(response.data, false);
   }
 
   return (
     <Container>
       <div className="disciplines">
-        <div className="enrolleddisciplines">
+        <div className="enrolled-disciplines">
           <h3>Disciplinas que você está matriculado</h3>
           <ul>
-            {enrolledDisciplines &&
-              enrolledDisciplines.map(discipline => (
+            {disciplineList?.enrolled_disciplines &&
+              disciplineList?.enrolled_disciplines?.map(discipline => (
                 <Discipline
                   key={discipline.id}
                   data={discipline}
@@ -115,8 +107,8 @@ function StudentPage() {
                   buttonAction={manageEnrollment}
                 />
               ))}
-            {enrolledDisciplines.length === 0 && (
-              <div className="noenrolleddisciplines">
+            {disciplineList?.enrolled_disciplines?.length === 0 && (
+              <div className="no-enrolled-disciplines">
                 <span>
                   Você ainda não está matriculado em nenhuma disciplina
                   <br />
@@ -127,11 +119,11 @@ function StudentPage() {
             )}
           </ul>
         </div>
-        <div className="otherdisciplines">
+        <div className="other-disciplines">
           <h3>Outras disciplinas</h3>
           <ul>
-            {disciplines &&
-              disciplines.map(discipline => (
+            {disciplineList?.disciplines &&
+              disciplineList.disciplines.map(discipline => (
                 <Discipline
                   key={discipline.id}
                   data={discipline}

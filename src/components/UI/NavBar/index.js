@@ -10,23 +10,20 @@ import logo from "../../../assets/logo.svg";
 import { Container, NavItem } from "./styles";
 import pushToPage from "../../../util/pushToPage";
 
-function getUserName() {
-  const userLocalStorage = localStorage.getItem("user");
-  if (userLocalStorage) {
-    const user = JSON.parse(userLocalStorage);
-    const [username] = user.name.split(" ");
-    return username;
-  } else {
-    return "?";
-  }
-}
-
 export default function NavBar() {
   const currentPage = useSelector(state => state.currentPage);
+  const userData = useSelector(state => state.userData);
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const username = getUserName();
+  function getFirstName(name) {
+    if (name) {
+      const [firstName] = name.split(" ");
+      return firstName;
+    } else {
+      return "?";
+    }
+  }
 
   return (
     <Container
@@ -59,7 +56,7 @@ export default function NavBar() {
             }}
           >
             <FiUser />
-            <span>{username}</span>
+            <span>{getFirstName(userData?.name)}</span>
           </button>
         </NavItem>
         <NavItem key="disciplinas" currentPage={currentPage === "disciplinas"}>

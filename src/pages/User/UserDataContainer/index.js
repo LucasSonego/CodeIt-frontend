@@ -7,13 +7,13 @@ import EditableContentBox from "../../../components/UI/EditableContentBox";
 
 import { Container } from "./styles";
 
-export default function UserDataContainer({ userData, setUserData }) {
+export default function UserDataContainer({ data, mutateData }) {
   const [newUserData, setNewUserData] = useState({});
   const [emailError, setEmailError] = useState("");
 
   useEffect(() => {
-    setNewUserData({ ...userData });
-  }, [userData]);
+    setNewUserData({ ...data.user });
+  }, [data]);
 
   async function updateUserData(e) {
     e.preventDefault();
@@ -21,8 +21,8 @@ export default function UserDataContainer({ userData, setUserData }) {
     if (
       newUserData.name &&
       newUserData.email &&
-      (newUserData.name !== userData.name ||
-        newUserData.email !== userData.email)
+      (newUserData.name !== data.user.name ||
+        newUserData.email !== data.user.email)
     ) {
       try {
         const token = localStorage.getItem("token");
@@ -42,9 +42,8 @@ export default function UserDataContainer({ userData, setUserData }) {
             authentication
           )
           .then(response => {
-            localStorage.setItem("user", JSON.stringify(response.data));
             setNewUserData(response.data);
-            setUserData(response.data);
+            mutateData({ ...data, user: response.data }, true);
             const content = (
               <NotificationBody
                 type="success"
@@ -78,8 +77,8 @@ export default function UserDataContainer({ userData, setUserData }) {
 
         <div className="userData">
           <div className="grr">
-            <span>{userData.is_teacher ? "Matrícula" : "GRR"}</span>
-            <p>{userData.id}</p>
+            <span>{data.user.is_teacher ? "Matrícula" : "GRR"}</span>
+            <p>{data.user.id}</p>
           </div>
 
           <EditableContentBox

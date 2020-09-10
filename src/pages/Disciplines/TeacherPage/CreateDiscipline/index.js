@@ -6,7 +6,7 @@ import api from "../../../../services/api";
 import { store } from "react-notifications-component";
 import NotificationBody from "../../../../components/Notification";
 
-function CreateDiscipline(props) {
+function CreateDiscipline({ hideComponent, disciplines, mutateDisciplines }) {
   const [disciplineName, setDisciplineName] = useState("");
   const [disciplineNameError, setDisciplineNameError] = useState(false);
   const [disciplineID, setDisciplineID] = useState("");
@@ -69,16 +69,13 @@ function CreateDiscipline(props) {
         );
 
         if (response.status === 200) {
-          props.disciplineList.setDisciplines([
-            ...props.disciplineList.disciplines,
-            response.data,
-          ]);
-
           sendSuccessNotification();
-          props.hideComponent();
+          hideComponent();
+          let newDisciplineList = [...disciplines, response.data];
+          mutateDisciplines(newDisciplineList, false);
         }
       } catch (error) {
-        if (error.response.status === 409) {
+        if (error?.response?.status === 409) {
           setDisciplineIDError(true);
           setYearError(true);
           setFormError(
@@ -155,7 +152,7 @@ function CreateDiscipline(props) {
         <button
           className="cancellbutton"
           type="button"
-          onClick={() => props.hideComponent()}
+          onClick={() => hideComponent()}
         >
           Cancelar
         </button>

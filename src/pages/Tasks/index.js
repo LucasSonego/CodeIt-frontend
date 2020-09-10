@@ -1,48 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
-import api from "../../services/api";
-import getUserData from "../../util/getUserData";
 
 import { Container, TeacherPage } from "./styles";
 import StudentPage from "./StudentPage";
 import Discipline from "./Discipline";
+import useFetch from "../../hooks/useFetch";
 
-function Tasks() {
+function Tasks({ userData }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const [userData, setUserData] = useState({});
-  const [disciplinesAndTasks, setDisciplinesAndTasks] = useState([]);
+  const {
+    data: disciplinesAndTasks,
+    mutate: mutateDisciplinesAndTasks,
+  } = useFetch({ path: "/tasks", dispatch, history });
 
   useEffect(() => {
     dispatch({
       type: "SET_CURRENT_PAGE",
       page: "tarefas",
     });
-
-    async function awaitAsyncCalls() {
-      const data = await getUserData({ dispatch, history, newtoken: true });
-
-      setUserData(data.user);
-
-      const token = localStorage.getItem("token");
-      try {
-        const response = await api.get("/tasks", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        setDisciplinesAndTasks(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-
-    awaitAsyncCalls();
-  }, [dispatch, history]);
+  }, [dispatch]);
 
   function updateTasks(disciplineId, taskData) {
     const updatedDisciplinesAndTasks = disciplinesAndTasks.map(discipline => {
@@ -55,17 +34,17 @@ function Tasks() {
       }
     });
 
-    setDisciplinesAndTasks(Array.from(updatedDisciplinesAndTasks));
+    mutateDisciplinesAndTasks(Array.from(updatedDisciplinesAndTasks));
   }
 
-  return !userData.name ? (
+  return !userData?.name ? (
     <></>
   ) : (
     <Container>
       {userData.is_teacher ? (
         <TeacherPage>
           <h3>Suas disciplinas</h3>
-          {disciplinesAndTasks.map(discipline => (
+          {disciplinesAndTasks?.map(discipline => (
             <Discipline
               key={discipline.id}
               data={discipline}

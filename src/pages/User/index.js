@@ -1,34 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
-
-import getUserData from "../../util/getUserData";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Container, UserData } from "./styles";
 import UserDataContainer from "./UserDataContainer";
 import ChangePassword from "./ChangePassword";
+import useFetch from "../../hooks/useFetch";
 
 export default function User() {
-  const [userData, setUserData] = useState({});
-
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const cacheData = useSelector(state => state.userData);
+
+  const { data, mutate: mutateUserData } = useFetch({
+    path: "/sessions",
+    params: { newtoken: true },
+    dispatch,
+    history,
+  });
+
   useEffect(() => {
-    async function awaitUserData() {
-      const data = await getUserData({
-        dispatch,
-        history,
-        newtoken: true,
-      });
-
-      if (data) {
-        setUserData(data.user);
-      }
-    }
-
-    awaitUserData();
-
     dispatch({
       type: "SET_CURRENT_PAGE",
       page: "dados",
@@ -38,7 +30,10 @@ export default function User() {
   return (
     <Container>
       <UserData>
-        <UserDataContainer userData={userData} setUserData={setUserData} />
+        <UserDataContainer
+          data={data ? data : { user: cacheData }}
+          mutateData={mutateUserData}
+        />
         <ChangePassword />
       </UserData>
     </Container>

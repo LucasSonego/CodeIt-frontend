@@ -27,7 +27,7 @@ export const Container = styled.div`
     grid-gap: 15px;
   }
 
-  .noenrolleddisciplines {
+  .no-enrolled-disciplines {
     color: #999;
     display: flex;
     flex-direction: row;

@@ -17,7 +17,7 @@ function Discipline(props) {
   const [showOptions, setShowOptions] = useState(false);
   const [newName, setNewName] = useState(disciplineData.name);
   const [newNameError, setNewNameError] = useState(false);
-  const [deleteCilcked, setDeleteCilcked] = useState(false);
+  const [deleteClicked, setDeleteClicked] = useState(false);
 
   async function getDetails() {
     const token = localStorage.getItem("token");
@@ -42,7 +42,7 @@ function Discipline(props) {
   }
 
   function handleDeleteClick() {
-    deleteCilcked ? deleteDiscipline() : setDeleteCilcked(true);
+    deleteClicked ? deleteDiscipline() : setDeleteClicked(true);
   }
 
   function sendSuccessNotification(message) {
@@ -190,9 +190,9 @@ function Discipline(props) {
 
                 <DeleteButton
                   onClick={() => handleDeleteClick()}
-                  confirmation={deleteCilcked}
+                  confirmation={deleteClicked}
                 >
-                  {deleteCilcked ? (
+                  {deleteClicked ? (
                     <span>
                       <AiOutlineWarning />
                       Clique para confirmar
