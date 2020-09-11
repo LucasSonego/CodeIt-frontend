@@ -29,9 +29,11 @@ export default function NavBar() {
     <Container
       className="navBar"
       visible={
-        currentPage !== "cadastro" &&
-        currentPage !== "login" &&
-        currentPage !== "404"
+        !(
+          currentPage === "cadastro" ||
+          currentPage === "login" ||
+          currentPage === "404"
+        ) && !(currentPage === "" && !userData?.id)
       }
     >
       <ul>
