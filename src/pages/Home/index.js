@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import useSWR from "swr";
 
 import { Container } from "./styles";
 import api from "../../services/api";
+import logo from "../../assets/logocodeit.svg";
 
 export default function Home() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = useSelector(state => state.userData);
 
   useSWR("/sessions", async () => {
@@ -36,20 +39,29 @@ export default function Home() {
   }, [dispatch]);
 
   return (
-    <Container>
-      <div>
-        <h2>HOME</h2>
+    <Container navBarMargin={!!user?.id}>
+      <section className="welcome">
+        <div className="image">
+          <img src={logo} alt="Code It!" />
+        </div>
+        <h1>Bem vindo ao CodeIt!</h1>
         {user?.id ? (
-          <div>
-            <p>{user.id}</p>
-            <p>{user.name}</p>
-            <p>{user.email}</p>
-            <p>{user.is_teacher}</p>
+          <div className="user-data">
+            <span>{user.name}</span>
+            <span>{user.email}</span>
           </div>
         ) : (
-          <h3>OFFLINE</h3>
+          <>
+            <h2>Faça login ou crie sua conta para utilizar esta plataforma</h2>
+            <div>
+              <button onClick={() => history.push("/login")}>Login</button>
+              <button onClick={() => history.push("/cadastro")}>
+                Cadastro
+              </button>
+            </div>
+          </>
         )}
-      </div>
+      </section>
     </Container>
   );
 }
