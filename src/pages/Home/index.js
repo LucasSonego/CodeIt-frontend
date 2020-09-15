@@ -6,6 +6,7 @@ import useSWR from "swr";
 import { Container } from "./styles";
 import api from "../../services/api";
 import logo from "../../assets/logocodeit.svg";
+import DisciplinesDemo from "./DisciplinesDemo";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -61,6 +62,9 @@ export default function Home() {
             </div>
           </>
         )}
+      </section>
+      <section className="disciplines">
+        <DisciplinesDemo teacher={user?.is_teacher} />
       </section>
     </Container>
   );

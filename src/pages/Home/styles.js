@@ -15,12 +15,44 @@ export const Container = styled.div`
 
   section {
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+    .title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 100px;
+
+      svg {
+        height: 50px;
+        width: 50px;
+
+        margin-right: 20px;
+      }
+    }
+
+    .teacher,
+    .student {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .tip {
+        margin: 5px 0;
+        .icon {
+          height: 20px;
+          width: 20px;
+
+          position: relative;
+          top: 4px;
+        }
+      }
+    }
   }
 
   .welcome {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
 
     img {
@@ -79,5 +111,9 @@ export const Container = styled.div`
         margin-left: 10px;
       }
     }
+  }
+
+  .disciplines {
+    background: #eee;
   }
 `;
