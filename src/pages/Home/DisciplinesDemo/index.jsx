@@ -3,8 +3,8 @@ import { FiPlusCircle, FiMinusCircle, FiBook } from "react-icons/fi";
 import { MdExpandMore } from "react-icons/md";
 
 import { Container } from "./styles";
-import teacherPage from "../../../assets/disciplines-teacher.svg";
-import studentPage from "../../../assets/disciplines-student.svg";
+import teacherPage from "../../../assets/demos/disciplines-teacher.svg";
+import studentPage from "../../../assets/demos/disciplines-student.svg";
 
 function DisciplinesDemo({ teacher }) {
   return (

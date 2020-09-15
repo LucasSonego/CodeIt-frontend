@@ -19,7 +19,7 @@ export const Container = styled.div`
     .title {
       display: flex;
       align-items: center;
-      margin-bottom: 100px;
+      margin-bottom: 50px;
 
       svg {
         height: 50px;
