@@ -1,11 +1,12 @@
 import React from "react";
 import { FiCode } from "react-icons/fi";
 import { FaCheck, FaRegCalendarTimes } from "react-icons/fa";
-import { MdFeedback } from "react-icons/md";
+import { MdFeedback, MdExpandMore } from "react-icons/md";
 import { AiOutlineFileExclamation, AiOutlineFileDone } from "react-icons/ai";
 
 import { Container } from "./styles";
 import studentPage from "../../../assets/demos/tasks-student.svg";
+import teacherPage from "../../../assets/demos/tasks-teacher.svg";
 
 function TasksDemo({ teacher }) {
   return (
@@ -14,7 +15,24 @@ function TasksDemo({ teacher }) {
         <FiCode /> <h2>Tarefas</h2>
       </div>
       {teacher ? (
-        <></>
+        <div className="teacher">
+          <img src={teacherPage} alt="" srcset="" />
+          <span className="tip">As tarefas são separadas por disciplinas;</span>
+          <span className="tip">
+            Para ver as tarefas de uma disciplina basta clicar em "
+            <MdExpandMore className="icon" />" para expandir o painel;
+          </span>
+          <span className="tip">
+            A tarefa também pode ser expandida, onde serão listados os
+            estudantes que enviaram uma resposta para esta tarefa e algumas
+            opções;
+          </span>
+          <span className="tip">
+            Para criar uma tarefa clique em "Criar nova tarefa" dentro da
+            disciplina que deseja, o painel de criação de tarefa irá se
+            expandir;
+          </span>
+        </div>
       ) : (
         <div className="student">
           <img src={studentPage} alt="" />
