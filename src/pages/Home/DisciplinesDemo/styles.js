@@ -7,11 +7,10 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 50px 20px;
 
   .teacher,
   .student {
-    margin: 20px;
-
     img {
       @media (max-width: 1000px) {
         width: 85vw;
