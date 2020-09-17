@@ -27,11 +27,6 @@ function TasksDemo({ teacher }) {
             estudantes que enviaram uma resposta para esta tarefa e algumas
             opções;
           </span>
-          <span className="tip">
-            Para criar uma tarefa clique em "Criar nova tarefa" dentro da
-            disciplina que deseja, o painel de criação de tarefa irá se
-            expandir;
-          </span>
         </div>
       ) : (
         <div className="student">
