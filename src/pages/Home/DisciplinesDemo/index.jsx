@@ -15,7 +15,7 @@ function DisciplinesDemo({ teacher }) {
             <FiBook /> <h2>Disciplinas</h2>
           </div>
 
-          <img src={teacherPage} alt="" srcset="" />
+          <img src={teacherPage} alt="" srcSet="" />
           <span className="tip">
             Para criar uma disciplina basta clicar no "
             <FiPlusCircle className="icon" />" que o painel de criação de
@@ -33,7 +33,7 @@ function DisciplinesDemo({ teacher }) {
           <div className="title">
             <FiBook /> <h2>Disciplinas</h2>
           </div>
-          <img src={studentPage} alt="" srcset="" />
+          <img src={studentPage} alt="" srcSet="" />
           <span className="tip">
             Para se matricular em uma disciplina basta clicar em "
             <FiPlusCircle className="icon" />

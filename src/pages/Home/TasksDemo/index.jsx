@@ -16,7 +16,7 @@ function TasksDemo({ teacher }) {
       </div>
       {teacher ? (
         <div className="teacher">
-          <img src={teacherPage} alt="" srcset="" />
+          <img src={teacherPage} alt="" srcSet="" />
           <span className="tip">As tarefas são separadas por disciplinas;</span>
           <span className="tip">
             Para ver as tarefas de uma disciplina basta clicar em "

@@ -13,7 +13,7 @@ function TaskDemo({ teacher }) {
       </div>
       {teacher ? (
         <div className="teacher">
-          <img src={teacherPage} alt="" srcset="" />
+          <img src={teacherPage} alt="" srcSet="" />
           <span className="tip">
             Ao clicar em "Criar nova tarefa" o painel de criação de tarefa irá
             se expandir;
@@ -32,7 +32,7 @@ function TaskDemo({ teacher }) {
         </div>
       ) : (
         <div className="student">
-          <img src={studentPage} alt="" srcset="" />
+          <img src={studentPage} alt="" srcSet="" />
           <span className="tip">
             A caixa acima do editor de código exibe a linguagem a qual você deve
             utilizar para realizar a tarefa, caso definida pelo professor;
