@@ -3,6 +3,7 @@ import { MdFeedback } from "react-icons/md";
 
 import { Container } from "./styles";
 import studentPage from "../../../assets/demos/feedback-student.svg";
+import teacherPage from "../../../assets/demos/feedback-teacher.svg";
 
 function FeedbackDemo({ teacher }) {
   return (
@@ -11,7 +12,27 @@ function FeedbackDemo({ teacher }) {
         <MdFeedback /> <h2>Feedback</h2>
       </div>
       {teacher ? (
-        <div className="teacher"></div>
+        <div className="teacher">
+          <img src={teacherPage} alt="" srcSet="" />
+          <span className="tip">
+            Esta é a página de avaliação de respostas;
+          </span>
+          <span className="tip">
+            É possível fazer alterações no código, e o aluno poderá ver as
+            alterações feitas;
+          </span>
+          <span className="tip">
+            Alem disso você pode enviar um feedback em texto;
+          </span>
+          <span className="tip">
+            Caso a resposta não seja aceita o aluno pode alterá-la se a tarefa
+            ainda estiver aberta;
+          </span>
+          <span className="tip">
+            Caso o aluno altere a resposta, será exibida a data da ultima
+            alteração acima do editor de código;
+          </span>
+        </div>
       ) : (
         <div className="student">
           <img src={studentPage} alt="" srcSet="" />
