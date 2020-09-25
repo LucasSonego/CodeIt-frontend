@@ -11,6 +11,7 @@ import TasksDemo from "./TasksDemo";
 import TaskDemo from "./TaskDemo";
 import FeedbacksDemo from "./FeedbacksDemo";
 import FeedbackDemo from "./FeedbackDemo";
+import Footer from "./Footer";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -82,6 +83,7 @@ export default function Home() {
       <section className="feedbacks">
         <FeedbackDemo teacher={user?.is_teacher} />
       </section>
+      <Footer />
     </Container>
   );
 }
