@@ -25,6 +25,17 @@ function CreateTask({ disciplineId, onNewTask }) {
   const [allowAnyLanguage, setAllowAnyLanguage] = useState(false);
   const [error, setError] = useState("");
 
+  function clearFields() {
+    setCode("");
+    setLanguage("");
+    setAllowAnyLanguage(false);
+    setError("");
+    setTitle("");
+    setTitleError("");
+    setDescription("");
+    setDescriptionError("");
+  }
+
   async function createTask() {
     if (!title) {
       setTitleError(true);
@@ -88,6 +99,7 @@ function CreateTask({ disciplineId, onNewTask }) {
           },
         });
         setExpanded(false);
+        clearFields();
         onNewTask(disciplineId, response.data);
       }
     } catch (error) {
