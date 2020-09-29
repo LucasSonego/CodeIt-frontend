@@ -4,6 +4,7 @@ export const Container = styled.button`
   display: flex;
   width: 100%;
   padding: 20px;
+  min-height: 68px;
   border: 1px solid #999;
   border-radius: 5px;
   font-family: inherit;
