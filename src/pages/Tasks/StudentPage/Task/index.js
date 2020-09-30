@@ -21,29 +21,42 @@ function Task({ data }) {
           data.answer.accepted_at ? (
             data.answer.feedback || data.answer.feedback_code ? (
               <>
-                <FaCheck className="green" /> <MdFeedback className="green" />
+                <FaCheck className="green" title="Resposta aceita" />
+                <MdFeedback className="green" title="Feedback disponível" />
               </>
             ) : (
-              <FaCheck className="green" />
+              <FaCheck className="green" title="Resposta aceita" />
             )
-          ) : data.answer.feedback || data.answer.feedback_code ? (
+          ) : data.answer.feedback_at ? (
             new Date(data.answer.updated_at).getTime() >
             new Date(data.answer.feedback_at).getTime() ? (
               <>
-                <AiOutlineFileDone className="grey" />
-                <MdFeedback className="yellow" />
+                <AiOutlineFileDone className="grey" title="Resposta alterada" />
+                <MdFeedback className="yellow" title="Feedback disponível" />
               </>
             ) : (
               <>
-                <AiOutlineFileExclamation className="yellow" />
-                <MdFeedback className="yellow" />
+                <AiOutlineFileExclamation
+                  className="yellow"
+                  title="Sua resposta não foi aceita"
+                />
+                {(!!data.answer.feedback || !!data.answer.feedback_code) && (
+                  <MdFeedback className="yellow" title="Feedback disponível" />
+                )}
               </>
             )
           ) : (
-            !data.answer.accepted_at && <AiOutlineFileDone className="grey" />
+            !data.answer.accepted_at && (
+              <AiOutlineFileDone className="grey" title="Resposta enviada" />
+            )
           )
         ) : (
-          data.closed_at && <FaRegCalendarTimes className="red" />
+          data.closed_at && (
+            <FaRegCalendarTimes
+              className="red"
+              title="A tarefa ja foi fechada e você não enviou uma resposta"
+            />
+          )
         )}
       </div>
     </Container>
