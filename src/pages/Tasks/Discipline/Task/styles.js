@@ -157,6 +157,13 @@ export const Container = styled.li`
         flex-direction: column;
         margin-top: 10px;
       }
+
+      .error {
+        min-height: 20px;
+        font-size: 14px;
+        margin: 0;
+        color: #e74c3c;
+      }
     }
   }
 `;

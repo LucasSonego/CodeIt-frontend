@@ -31,7 +31,7 @@ function Task({ data, openTasks, setOpenTasks }) {
   const [descriptionError, setDescriptionError] = useState(false);
   const [code, setCode] = useState("" + data.code);
   const [language, setLanguage] = useState("" + data.language);
-  const [allowAnyLanguage, setAllowAnyLanguage] = useState(false);
+  const [allowAnyLanguage, setAllowAnyLanguage] = useState(!data.language);
   const [error, setError] = useState("");
 
   const [isOpen, setIsOpen] = useState(!data.closed_at);
@@ -125,7 +125,7 @@ function Task({ data, openTasks, setOpenTasks }) {
       return;
     }
 
-    if (!allowAnyLanguage && !language) {
+    if (!allowAnyLanguage && language === "null") {
       setError("Selecione uma linguagem ou marque a caixa acima");
       return;
     }
