@@ -78,7 +78,7 @@ function StudentPage() {
 
   return (
     <Container>
-      <div className="padding-on-mobile">
+      <div className="use-padding">
         <button
           className="back"
           onClick={() => pushToPage({ page: "feedbacks", dispatch, history })}
@@ -89,7 +89,7 @@ function StudentPage() {
 
       {taskData.id && (
         <>
-          <div className="padding-on-mobile">
+          <div className="use-padding">
             {!taskData.answer.accepted_at &&
               new Date(taskData.answer.updated_at).getTime() >
                 new Date(taskData.answer.feedback_at).getTime() && (
@@ -117,7 +117,7 @@ function StudentPage() {
               height="400px"
             />
           )}
-          <div className="padding-on-mobile">
+          <div className="use-padding">
             {taskData.answer.feedback && (
               <>
                 <h4>Comentário:</h4>
