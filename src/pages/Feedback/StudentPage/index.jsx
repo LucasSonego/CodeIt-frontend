@@ -58,11 +58,7 @@ function StudentPage() {
           {}
         );
 
-        if (
-          !response.data.answer.feedback &&
-          !response.data.answer.feedback_code &&
-          !response.data.answer.accepted_at
-        ) {
+        if (!response.data.answer.feedback_at) {
           noFeedback();
         }
         setTaskData(response.data);
