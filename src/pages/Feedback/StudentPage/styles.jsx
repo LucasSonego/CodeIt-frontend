@@ -23,6 +23,21 @@ export const Container = styled.div`
     margin: 5px 0 10px 0;
   }
 
+  .language-label {
+    padding-bottom: 15px;
+  }
+
+  .language {
+    padding: 10px;
+    box-sizing: border-box;
+
+    border: 1px solid #999;
+    border-radius: 3px;
+    width: 200px;
+    font-size: 16px;
+    font-family: inherit;
+  }
+
   .warning {
     background: linear-gradient(120deg, #f1c40f99, #f39c1299);
     padding: 15px;

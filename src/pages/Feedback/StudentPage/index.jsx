@@ -9,6 +9,7 @@ import api from "../../../services/api";
 import NotificationBody from "../../../components/Notification";
 import DiffEditor from "../../../components/UI/DiffEditor";
 import CodeEditor from "../../../components/UI/CodeEditor";
+import languages from "../../../components/UI/CodeEditor/availableLanguages";
 import pushToPage from "../../../util/pushToPage";
 
 function StudentPage() {
@@ -101,11 +102,22 @@ function StudentPage() {
           </div>
 
           {taskData.answer.feedback_code ? (
-            <DiffEditor
-              code={taskData.answer.code}
-              diffCode={taskData.answer.feedback_code}
-              language={taskData.answer.language}
-            />
+            <>
+              <div className="language-label use-padding">
+                <div className="language">
+                  {languages.map(
+                    lang =>
+                      lang.language === taskData.answer.language && lang.label
+                  )}
+                </div>
+              </div>
+
+              <DiffEditor
+                code={taskData.answer.code}
+                diffCode={taskData.answer.feedback_code}
+                language={taskData.answer.language}
+              />
+            </>
           ) : (
             <CodeEditor
               language={taskData.answer.language}
