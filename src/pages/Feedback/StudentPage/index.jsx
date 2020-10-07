@@ -9,6 +9,7 @@ import api from "../../../services/api";
 import NotificationBody from "../../../components/Notification";
 import DiffEditor from "../../../components/UI/DiffEditor";
 import CodeEditor from "../../../components/UI/CodeEditor";
+import languages from "../../../components/UI/CodeEditor/availableLanguages";
 import pushToPage from "../../../util/pushToPage";
 
 function StudentPage() {
@@ -58,11 +59,7 @@ function StudentPage() {
           {}
         );
 
-        if (
-          !response.data.answer.feedback &&
-          !response.data.answer.feedback_code &&
-          !response.data.answer.accepted_at
-        ) {
+        if (!response.data.answer.feedback_at) {
           noFeedback();
         }
         setTaskData(response.data);
@@ -78,7 +75,7 @@ function StudentPage() {
 
   return (
     <Container>
-      <div className="padding-on-mobile">
+      <div className="use-padding">
         <button
           className="back"
           onClick={() => pushToPage({ page: "feedbacks", dispatch, history })}
@@ -89,7 +86,7 @@ function StudentPage() {
 
       {taskData.id && (
         <>
-          <div className="padding-on-mobile">
+          <div className="use-padding">
             {!taskData.answer.accepted_at &&
               new Date(taskData.answer.updated_at).getTime() >
                 new Date(taskData.answer.feedback_at).getTime() && (
@@ -105,11 +102,22 @@ function StudentPage() {
           </div>
 
           {taskData.answer.feedback_code ? (
-            <DiffEditor
-              code={taskData.answer.code}
-              diffCode={taskData.answer.feedback_code}
-              language={taskData.answer.language}
-            />
+            <>
+              <div className="language-label use-padding">
+                <div className="language">
+                  {languages.map(
+                    lang =>
+                      lang.language === taskData.answer.language && lang.label
+                  )}
+                </div>
+              </div>
+
+              <DiffEditor
+                code={taskData.answer.code}
+                diffCode={taskData.answer.feedback_code}
+                language={taskData.answer.language}
+              />
+            </>
           ) : (
             <CodeEditor
               language={taskData.answer.language}
@@ -117,7 +125,7 @@ function StudentPage() {
               height="400px"
             />
           )}
-          <div className="padding-on-mobile">
+          <div className="use-padding">
             {taskData.answer.feedback && (
               <>
                 <h4>Comentário:</h4>

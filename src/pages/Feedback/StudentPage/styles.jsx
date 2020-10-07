@@ -1,13 +1,16 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  padding-top: 10px;
+  padding: 20px 0;
   max-width: 1200px;
   margin: 0 auto;
 
-  @media (max-width: 600px) {
-    .padding-on-mobile {
+  @media (max-width: 1330px) {
+    .use-padding {
       padding: 0 15px;
+    }
+    .dropdown {
+      margin-left: 15px;
     }
   }
 
@@ -18,6 +21,21 @@ export const Container = styled.div`
 
   p {
     margin: 5px 0 10px 0;
+  }
+
+  .language-label {
+    padding-bottom: 15px;
+  }
+
+  .language {
+    padding: 10px;
+    box-sizing: border-box;
+
+    border: 1px solid #999;
+    border-radius: 3px;
+    width: 200px;
+    font-size: 16px;
+    font-family: inherit;
   }
 
   .warning {
