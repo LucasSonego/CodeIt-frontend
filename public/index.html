@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="icon" href="./favicon.ico" />
     <link
       href="https://fonts.googleapis.com/css?family=Fira+Code&display=swap"
       rel="stylesheet"
@@ -10,10 +10,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Chega de programar em papel!" />
+    <link rel="apple-touch-icon" href="./images/logo.png" />
+    <link rel="manifest" href="./manifest.json" />
     <title>CodeIt!</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("./serviceworker.js");
+        });
+      }
+    </script>
   </body>
 </html>
