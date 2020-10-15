@@ -7,12 +7,18 @@ export const Container = styled.div`
   display: grid;
   grid-gap: 15px;
 
-  @media (max-width: 1230px) {
-    .task-details,
-    .editor span,
-    .comment,
-    .buttons {
+  @media (max-width: 1310px) {
+    .use-padding {
       padding: 0 10px;
+    }
+
+    .language-selector {
+      padding-left: 10px;
+    }
+
+    .accepted {
+      margin-left: 10px;
+      margin-right: 10px;
     }
   }
 

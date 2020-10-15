@@ -172,13 +172,13 @@ function TeacherPage() {
     <Container>
       {answerData.id && (
         <>
-          <div className="task-details">
+          <div className="task-details use-padding">
             <h3>{answerData.task.title}</h3>
             <p>{answerData.task.description}</p>
             <span>{answerData.task.discipline.name}</span>
           </div>
           <div className="editor">
-            <span className="label">
+            <span className="label use-padding">
               Código{" "}
               {answerData.feedback_at &&
                 (new Date(answerData.updated_at).getTime() >
@@ -205,7 +205,7 @@ function TeacherPage() {
               allowLanguageSelection={false}
             />
           </div>
-          <div className="comment">
+          <div className="comment use-padding">
             <span className="label">Feedback</span>
             <StyledTextArea
               className="description-input"
@@ -220,7 +220,7 @@ function TeacherPage() {
               <span>Resposta aceita</span>
             </div>
           ) : (
-            <div className="buttons">
+            <div className="buttons use-padding">
               <button className="accept" onClick={() => sendFeedback(true)}>
                 {feedback || code !== answerData.code
                   ? "Aceitar resposta e enviar feedback"
