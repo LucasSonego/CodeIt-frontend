@@ -80,7 +80,7 @@ function CodeEditor({
             enableBasicAutocompletion: true,
             enableLiveAutocompletion: true,
             enableSnippets: true,
-            fontFamily: "Fira code",
+            fontFamily: "Fira code, monospace",
             fontSize: 16,
             tabSize: 2,
           }}

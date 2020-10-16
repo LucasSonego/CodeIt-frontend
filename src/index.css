@@ -3,7 +3,7 @@ body {
   padding: 0;
   min-height: 100vh;
   background: #fff;
-  font-family: Fira Code, sans-serif;
+  font-family: Fira Code, monospace, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
