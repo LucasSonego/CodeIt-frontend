@@ -13,7 +13,9 @@ export const Container = styled.div`
     }
 
     .language-selector {
-      padding-left: 10px;
+      @media (max-width: 600px) {
+        padding: 0 15px 15px 15px;
+      }
     }
 
     .accepted {
