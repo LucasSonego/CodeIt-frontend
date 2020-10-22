@@ -175,7 +175,13 @@ function TeacherPage() {
           <div className="task-details use-padding">
             <h3>{answerData.task.title}</h3>
             <p>{answerData.task.description}</p>
-            <span>{answerData.task.discipline.name}</span>
+            <span className="discipline">
+              Disciplina: {answerData.task.discipline.name}
+            </span>
+            <div className="student">
+              <span>Estudante: {answerData.student.name}</span>
+              <span>({answerData.student.id})</span>
+            </div>
           </div>
           <div className="editor">
             <span className="label use-padding">
