@@ -7,9 +7,9 @@ import { TiArrowBackOutline, TiArrowForwardOutline } from "react-icons/ti";
 import { Container } from "./styles";
 import api from "../../../services/api";
 import NotificationBody from "../../../components/Notification";
-import DiffEditor from "../../../components/UI/DiffEditor";
-import CodeEditor from "../../../components/UI/CodeEditor";
-import languages from "../../../components/UI/CodeEditor/availableLanguages";
+import DiffEditor from "../../../components/DiffEditor";
+import CodeEditor from "../../../components/CodeEditor";
+import languages from "../../../components/CodeEditor/availableLanguages";
 import pushToPage from "../../../util/pushToPage";
 
 function StudentPage() {

@@ -12,7 +12,7 @@ import "ace-builds/src-noconflict/mode-html";
 import "ace-builds/src-noconflict/mode-css";
 import "ace-builds/src-noconflict/mode-sql";
 
-import isMobile from "../../../util/isMobile";
+import isMobile from "../../util/isMobile";
 import { Container } from "./styles";
 import availableLanguages from "./availableLanguages";
 import Dropdown from "../Dropdown";

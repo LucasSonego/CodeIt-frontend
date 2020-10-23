@@ -7,7 +7,7 @@ import logo from "../../assets/logocodeit.svg";
 import pushToPage from "../../util/pushToPage";
 
 import { Container } from "./styles";
-import TextField from "../../components/UI/TextField";
+import TextField from "../../components/TextField";
 
 export default function Login() {
   const history = useHistory();

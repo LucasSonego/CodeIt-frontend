@@ -7,7 +7,7 @@ import { TiArrowBack } from "react-icons/ti";
 import api from "../../services/api";
 import getUserData from "../../util/getUserData";
 import pushToPage from "../../util/pushToPage";
-import CodeEditor from "../../components/UI/CodeEditor";
+import CodeEditor from "../../components/CodeEditor";
 
 import { Container } from "./styles";
 import NotificationBody from "../../components/Notification";

@@ -7,7 +7,7 @@ import { Container, StyledTextArea } from "./styles";
 import api from "../../../services/api";
 import pushToPage from "../../../util/pushToPage";
 import NotificationBody from "../../../components/Notification";
-import CodeEditor from "../../../components/UI/CodeEditor";
+import CodeEditor from "../../../components/CodeEditor";
 
 function TeacherPage() {
   const [answerData, setAnswerData] = useState({});

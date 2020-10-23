@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { store } from "react-notifications-component";
 
 import NotificationBody from "../../components/Notification";
-import TextField from "../../components/UI/TextField";
+import TextField from "../../components/TextField";
 
 import api from "../../services/api";
 import logo from "../../assets/logocodeit.svg";

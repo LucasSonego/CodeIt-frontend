@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { Container, HalfSelection } from "./styles";
-import TextField from "../../../../components/UI/TextField";
+import TextField from "../../../../components/TextField";
 import api from "../../../../services/api";
 import { store } from "react-notifications-component";
 import NotificationBody from "../../../../components/Notification";

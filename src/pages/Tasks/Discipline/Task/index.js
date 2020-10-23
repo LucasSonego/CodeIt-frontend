@@ -16,7 +16,7 @@ import {
   StyledTextArea,
   StyledCheckBox,
 } from "./styles";
-import CodeEditor from "../../../../components/UI/CodeEditor";
+import CodeEditor from "../../../../components/CodeEditor";
 import pushToPage from "../../../../util/pushToPage";
 
 function Task({ data, openTasks, setOpenTasks }) {

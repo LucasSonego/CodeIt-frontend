@@ -9,7 +9,7 @@ import store from "./store";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Register from "./pages/Register";
-import NavBar from "./components/UI/NavBar";
+import NavBar from "./components/NavBar";
 import User from "./pages/User";
 import Disciplines from "./pages/Disciplines";
 import ErrorPage from "./pages/404";
