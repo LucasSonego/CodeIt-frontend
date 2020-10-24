@@ -3,7 +3,7 @@ import { DiffEditor as Diff } from "@monaco-editor/react";
 import { BsLayoutSplit } from "react-icons/bs";
 
 import { Container, SplitButton } from "./styles";
-import isMobile from "../../../util/isMobile";
+import isMobile from "../../util/isMobile";
 
 function DiffEditor({ code, diffCode, language, height, width }) {
   const [renderSideBySide, setSideBySide] = useState(false);

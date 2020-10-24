@@ -7,7 +7,7 @@ import { store } from "react-notifications-component";
 import { Container, DeleteButton } from "./styles";
 import api from "../../../../services/api";
 import NotificationBody from "../../../../components/Notification";
-import TextField from "../../../../components/UI/TextField";
+import TextField from "../../../../components/TextField";
 
 function Discipline(props) {
   const [disciplineData, setDisciplineData] = useState(props.data);

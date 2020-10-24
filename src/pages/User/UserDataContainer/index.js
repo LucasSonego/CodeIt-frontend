@@ -3,7 +3,7 @@ import { store } from "react-notifications-component";
 
 import NotificationBody from "../../../components/Notification";
 import api from "../../../services/api";
-import EditableContentBox from "../../../components/UI/EditableContentBox";
+import EditableContentBox from "../../../components/EditableContentBox";
 
 import { Container } from "./styles";
 

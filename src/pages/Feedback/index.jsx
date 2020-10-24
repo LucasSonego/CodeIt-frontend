@@ -17,7 +17,15 @@ function Feedback({ userData }) {
 
   return (
     <Container>
-      {userData?.is_teacher ? <TeacherPage /> : <StudentPage />}
+      {userData?.id ? (
+        userData?.is_teacher ? (
+          <TeacherPage />
+        ) : (
+          <StudentPage />
+        )
+      ) : (
+        <></>
+      )}
     </Container>
   );
 }

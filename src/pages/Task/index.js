@@ -7,10 +7,10 @@ import { TiArrowBack } from "react-icons/ti";
 import api from "../../services/api";
 import getUserData from "../../util/getUserData";
 import pushToPage from "../../util/pushToPage";
-import CodeEditor from "../../components/UI/CodeEditor";
+import CodeEditor from "../../components/CodeEditor";
 
 import { Container } from "./styles";
-import NofiticationBody from "../../components/Notification";
+import NotificationBody from "../../components/Notification";
 
 function Task() {
   const dispatch = useDispatch();
@@ -52,7 +52,7 @@ function Task() {
         if (error.response && error.response.status === 404) {
           pushToPage({ page: "tarefas", dispatch, history });
           const content = (
-            <NofiticationBody
+            <NotificationBody
               type="error"
               message="Esta tarefa não foi encontrada"
             />
@@ -131,7 +131,7 @@ function Task() {
 
       if (response.status === 200) {
         const content = (
-          <NofiticationBody
+          <NotificationBody
             type="success"
             message={
               taskData.answer
@@ -169,13 +169,13 @@ function Task() {
       }
     } catch (error) {
       const content = (
-        <NofiticationBody
+        <NotificationBody
           type="error"
           message="Ocorreu um erro"
           description={
             taskData.answer
-              ? "Não foi possivel enviar suas alterações"
-              : "Não foi possivel enviar sua resposta"
+              ? "Não foi possível enviar suas alterações"
+              : "Não foi possível enviar sua resposta"
           }
         />
       );

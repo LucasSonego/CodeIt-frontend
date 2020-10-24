@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { MdFeedback } from "react-icons/md";
 import { FaCheck } from "react-icons/fa";
-import { AiOutlineCloseCircle } from "react-icons/ai";
+import { AiOutlineCloseCircle, AiOutlineFileExclamation } from "react-icons/ai";
 import { RiCodeSSlashLine } from "react-icons/ri";
 
 import { Container } from "./styles";
@@ -63,10 +63,20 @@ function Feedbacks() {
                         title="A resposta foi aceita"
                       />
                     ) : (
-                      <AiOutlineCloseCircle
-                        className="red"
-                        title="A resposta não foi aceita"
-                      />
+                      <>
+                        {new Date(answer.updated_at).getTime() >
+                        new Date(answer.feedback_at).getTime() ? (
+                          <AiOutlineFileExclamation
+                            className="grey"
+                            title="As ultimas alterações ainda não foram avaliadas"
+                          />
+                        ) : (
+                          <AiOutlineCloseCircle
+                            className="red"
+                            title="Sua resposta não foi aceita"
+                          />
+                        )}
+                      </>
                     )}
                     {answer.feedback !== null && (
                       <MdFeedback
@@ -74,12 +84,14 @@ function Feedbacks() {
                         title="Feedback em texto disponível"
                       />
                     )}
-                    {answer.feedback_code !== null && (
-                      <RiCodeSSlashLine
-                        className={answer.accepted_at ? "grey" : "yellow"}
-                        title="Feedback em código disponível"
-                      />
-                    )}
+                    {answer.feedback_code !== null &&
+                      new Date(answer.feedback_at) >
+                        new Date(answer.updated_at) && (
+                        <RiCodeSSlashLine
+                          className={answer.accepted_at ? "grey" : "yellow"}
+                          title="Feedback em código disponível"
+                        />
+                      )}
                   </div>
                 </li>
               ) : (
@@ -104,10 +116,20 @@ function Feedbacks() {
                         title="Sua resposta foi aceita"
                       />
                     ) : (
-                      <AiOutlineCloseCircle
-                        className="red"
-                        title="Sua resposta não foi aceita"
-                      />
+                      <>
+                        {new Date(answer.updated_at).getTime() >
+                        new Date(answer.feedback_at).getTime() ? (
+                          <AiOutlineFileExclamation
+                            className="grey"
+                            title="As ultimas alterações ainda não foram avaliadas"
+                          />
+                        ) : (
+                          <AiOutlineCloseCircle
+                            className="red"
+                            title="Sua resposta não foi aceita"
+                          />
+                        )}
+                      </>
                     )}
                     {answer.feedback !== null && (
                       <MdFeedback
@@ -115,12 +137,14 @@ function Feedbacks() {
                         title="Feedback em texto disponível"
                       />
                     )}
-                    {answer.feedback_code !== null && (
-                      <RiCodeSSlashLine
-                        className={answer.accepted_at ? "grey" : "yellow"}
-                        title="Feedback em código disponível"
-                      />
-                    )}
+                    {answer.feedback_code !== null &&
+                      new Date(answer.feedback_at) >
+                        new Date(answer.updated_at) && (
+                        <RiCodeSSlashLine
+                          className={answer.accepted_at ? "grey" : "yellow"}
+                          title="Feedback em código disponível"
+                        />
+                      )}
                   </div>
                 </li>
               )

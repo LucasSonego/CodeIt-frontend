@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { FiUser, FiBook, FiCode, FiLogOut } from "react-icons/fi";
 import { MdFeedback } from "react-icons/md";
 
-import logo from "../../../assets/logo.svg";
+import logo from "../../assets/logo.svg";
 
 import { Container, NavItem } from "./styles";
-import pushToPage from "../../../util/pushToPage";
+import pushToPage from "../../util/pushToPage";
 
 export default function NavBar() {
   const currentPage = useSelector(state => state.currentPage);

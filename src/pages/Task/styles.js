@@ -113,6 +113,12 @@ export const Container = styled.div`
     }
   }
 
+  .language-selector {
+    @media (max-width: 600px) {
+      padding: 0 15px 15px 15px;
+    }
+  }
+
   .submit {
     padding: 10px 0;
     @media (max-width: 600px) {

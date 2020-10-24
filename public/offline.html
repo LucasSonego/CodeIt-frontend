@@ -1,53 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+    <title>Offline</title>
+  </head>
+  <style>
+    .flex {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
-  <title>Offline</title>
-</head>
-<style>
-  .flex {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+    body {
+      margin: 0;
+      padding: 20px;
+      flex-direction: column;
+      height: 100vh;
+      box-sizing: border-box;
+      text-align: center;
+    }
 
-  body {
-    margin: 0;
-    padding: 20px;
-    flex-direction: column;
-    font-family: Fira Code, sans-serif;
-    height: 100vh;
-    box-sizing: border-box;
-    text-align: center;
-  }
+    img {
+      height: 100px;
+      width: 100px;
+      -webkit-filter: grayscale(100%);
+      filter: grayscale(100%);
+    }
 
-  img {
-    height: 100px;
-    width: 100px;
-    -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
-  }
+    h2 {
+      color: #777;
+      margin-left: 20px;
+      font-family: Fira Code, monospace, sans-serif;
+    }
 
+    h3 {
+      color: #555;
+      font-family: Fira Code, monospace, sans-serif;
+    }
+  </style>
 
-  h2 {
-    color: #777;
-    margin-left: 20px;
-  }
-
-  h3 {
-    color: #555;
-  }
-</style>
-
-<body class="flex">
-  <div class="flex">
-    <img src="./images/logo.png" alt="offline" srcset="" />
-    <h2>Offline</h2>
-  </div>
-  <h3>Verifique se você está conectado à internet...</h3>
-</body>
-
+  <body class="flex">
+    <div class="flex">
+      <img src="./images/logo.png" alt="offline" srcset="" />
+      <h2>Offline</h2>
+    </div>
+    <h3>Verifique se você está conectado à internet...</h3>
+  </body>
 </html>

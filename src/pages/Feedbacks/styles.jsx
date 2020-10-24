@@ -14,10 +14,25 @@ export const Container = styled.div`
     }
   }
 
-  @media (max-width: 1320px) {
-    .wrapper {
-      padding: 0 10px;
+  @media (max-width: 1340px) {
+    @media (max-width: 600px) {
+      .wrapper {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
     }
+    @media (min-width: 601px) {
+      .wrapper {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+    }
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 20px;
   }
 
   h2 {
@@ -36,9 +51,11 @@ export const Container = styled.div`
     border: 1px solid #999;
     border-radius: 5px;
     padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @media (min-width: 601px) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
     cursor: pointer;
 
     h3 {
@@ -56,6 +73,10 @@ export const Container = styled.div`
     .info {
       display: flex;
       align-items: center;
+
+      @media (max-width: 600px) {
+        margin-top: 5px;
+      }
 
       span {
         font-size: 12px;

@@ -4,7 +4,6 @@ export const Container = styled.button`
   display: flex;
   width: 100%;
   padding: 20px;
-  min-height: 68px;
   border: 1px solid #999;
   border-radius: 5px;
   font-family: inherit;
@@ -20,6 +19,7 @@ export const Container = styled.button`
   }
 
   @media (min-width: 601px) {
+    min-height: 68px;
     align-items: center;
     justify-content: space-between;
     svg {

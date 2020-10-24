@@ -3,7 +3,7 @@ import { store } from "react-notifications-component";
 
 import NotificationBody from "../../../components/Notification";
 import api from "../../../services/api";
-import TextField from "../../../components/UI/TextField";
+import TextField from "../../../components/TextField";
 import { Container } from "./styles";
 
 export default function ChangePassword() {

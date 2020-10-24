@@ -7,12 +7,20 @@ export const Container = styled.div`
   display: grid;
   grid-gap: 15px;
 
-  @media (max-width: 1230px) {
-    .task-details,
-    .editor span,
-    .comment,
-    .buttons {
+  @media (max-width: 1310px) {
+    .use-padding {
       padding: 0 10px;
+    }
+
+    .language-selector {
+      @media (max-width: 600px) {
+        padding: 0 15px 15px 15px;
+      }
+    }
+
+    .accepted {
+      margin-left: 10px;
+      margin-right: 10px;
     }
   }
 
@@ -27,8 +35,19 @@ export const Container = styled.div`
       color: #555;
     }
 
-    span {
-      color: #999;
+    .discipline {
+      color: #777;
+    }
+
+    .student {
+      span {
+        color: #777;
+      }
+
+      span:last-child {
+        margin-left: 10px;
+        color: #999;
+      }
     }
   }
 

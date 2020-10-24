@@ -5,9 +5,6 @@ export const Container = styled.div`
   width: min-content;
 
   .language-selector {
-    @media (max-width: 600px) {
-      padding: 0 15px 15px 15px;
-    }
-    padding: 0 0 15px 0;
+    padding-bottom: 15px;
   }
 `;

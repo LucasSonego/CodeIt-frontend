@@ -12,7 +12,7 @@ import "ace-builds/src-noconflict/mode-html";
 import "ace-builds/src-noconflict/mode-css";
 import "ace-builds/src-noconflict/mode-sql";
 
-import isMobile from "../../../util/isMobile";
+import isMobile from "../../util/isMobile";
 import { Container } from "./styles";
 import availableLanguages from "./availableLanguages";
 import Dropdown from "../Dropdown";
@@ -80,7 +80,7 @@ function CodeEditor({
             enableBasicAutocompletion: true,
             enableLiveAutocompletion: true,
             enableSnippets: true,
-            fontFamily: "Fira code",
+            fontFamily: "Fira code, monospace",
             fontSize: 16,
             tabSize: 2,
           }}

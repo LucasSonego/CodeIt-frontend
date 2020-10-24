@@ -11,7 +11,7 @@ import {
   StyledTextArea,
   StyledCheckBox,
 } from "./styles";
-import CodeEditor from "../../../../components/UI/CodeEditor";
+import CodeEditor from "../../../../components/CodeEditor";
 import NotificationBody from "../../../../components/Notification";
 
 function CreateTask({ disciplineId, onNewTask }) {

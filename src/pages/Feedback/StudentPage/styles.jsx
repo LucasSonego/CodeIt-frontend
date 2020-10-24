@@ -9,9 +9,6 @@ export const Container = styled.div`
     .use-padding {
       padding: 0 15px;
     }
-    .dropdown {
-      margin-left: 15px;
-    }
   }
 
   h3,
@@ -21,6 +18,12 @@ export const Container = styled.div`
 
   p {
     margin: 5px 0 10px 0;
+  }
+
+  .language-selector {
+    @media (max-width: 600px) {
+      padding: 0 15px 15px 15px;
+    }
   }
 
   .language-label {
