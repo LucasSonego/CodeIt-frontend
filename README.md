@@ -16,3 +16,11 @@ Por meio desta aplicação os professores podem criar disciplinas, as quais os e
 <p align="center">
   <img src="https://i.imgur.com/tIgdngx.gif">
 </p>
+------
+
+### Página de dados do usuário
+
+<p align="center">
+  <img src="https://i.imgur.com/fZYRma0.gif">
+</p>
+
