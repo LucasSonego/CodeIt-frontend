@@ -40,3 +40,22 @@ Por meio desta aplicação os professores podem criar disciplinas, as quais os e
 <p align="center">
   <img src="https://i.imgur.com/e1YjpNe.gif">
 </p>
+
+-----
+
+### Tarefas
+
+##### Professor: 
+
+<p align="center">
+  <img src="https://i.imgur.com/1oa759f.gif">
+</p>
+
+
+
+##### Estudante:
+
+<p align="center">
+  <img src="https://i.imgur.com/hCdPGg1.gif">
+</p>
+
