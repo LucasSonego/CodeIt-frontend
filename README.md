@@ -16,6 +16,7 @@ Por meio desta aplicação os professores podem criar disciplinas, as quais os e
 <p align="center">
   <img src="https://i.imgur.com/tIgdngx.gif">
 </p>
+
 ------
 
 ### Página de dados do usuário
@@ -23,6 +24,7 @@ Por meio desta aplicação os professores podem criar disciplinas, as quais os e
 <p align="center">
   <img src="https://i.imgur.com/fZYRma0.gif">
 </p>
+
 ------
 
 ### Página de Disciplinas
@@ -59,3 +61,20 @@ Por meio desta aplicação os professores podem criar disciplinas, as quais os e
   <img src="https://i.imgur.com/hCdPGg1.gif">
 </p>
 
+------
+
+### Feedback
+
+##### Professor
+
+<p align="center">
+  <img src="https://i.imgur.com/AyyAEJ9.gif">
+</p>
+
+
+
+##### Estudante
+
+<p align="center">
+  <img src="https://i.imgur.com/ar7ZGht.gif">
+</p>
