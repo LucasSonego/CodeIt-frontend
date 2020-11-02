@@ -20,6 +20,7 @@ Por meio desta aplicação os professores podem criar disciplinas, as quais os e
 ------
 
 ### Página de dados do usuário
+Nesta página são exibidos os dados do usuário, e se necessário é possível atualizar o nome, o email e a senha
 
 <p align="center">
   <img src="https://i.imgur.com/fZYRma0.gif">
