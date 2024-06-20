@@ -12,6 +12,10 @@ export default [
     language: "java",
   },
   {
+    label: "Dart",
+    language: "dart",
+  },
+  {
     label: "Javascript",
     language: "javascript",
   },

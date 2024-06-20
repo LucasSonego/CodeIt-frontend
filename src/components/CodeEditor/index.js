@@ -11,6 +11,7 @@ import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/mode-html";
 import "ace-builds/src-noconflict/mode-css";
 import "ace-builds/src-noconflict/mode-sql";
+import "ace-builds/src-noconflict/mode-dart";
 
 import isMobile from "../../util/isMobile";
 import { Container } from "./styles";
